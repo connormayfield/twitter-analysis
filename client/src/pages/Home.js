@@ -1,10 +1,10 @@
 import React, {Component} from "react"
-import {Container, Row, Col} from "../components/Grid/index"
+import {Container} from "../components/Grid/index"
 
 class Home extends Component{
     state = {
         username: "",
-        loggedIn: false
+        isAuthenicated: false
     }
 
     render(){

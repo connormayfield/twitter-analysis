@@ -1,20 +1,23 @@
 var express = require("express");
-var db = require("../../models");
-var passport = require("../../config/passport");
+var db = require("../../../models");
+var passport = require("../../../config/passport");
 
 var router = express.Router();
-// passport.authenticate
-console.log(db.User)
+
 //LOGIN ROUTES======================================================================================================
 
 //logging in route
-router.post("/api/login", passport.authenticate("local"), function(req, res) {
+router.post("/login", passport.authenticate("local"), function(req, res) {
+    console.log("deserialize")
+
     res.send("logged in")
-    res.json("/members");
-});
+
+    // res.json("/members");
+})
+
 
 //signing up account route
-router.post("/api/signup", function(req, res) {
+router.post("/signup", function(req, res) {
     console.log(req.body)
 
     db.User.create({

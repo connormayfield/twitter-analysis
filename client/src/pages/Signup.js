@@ -2,12 +2,13 @@ import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import loginApi from "../utils/loginAPI"
-import loginAPI from "../utils/loginAPI";
-class Login extends Component{
+
+class SignUp extends Component{
 
     state = {
         username: "",
-        password: ""
+        password: "",
+        twitter_username: "",
     }
 
     userHasAuthenticated = (authenticated) => {
@@ -20,31 +21,17 @@ class Login extends Component{
         this.setState({[name]: value})
     }
 
-    componentDidMount = () => {
-
-
-        let obj = {
-            username: "delta38",
-            password: "root1234"
-        }
-
-        console.log(obj)
-
-        loginAPI.login(obj)
-        .then((res)=> console.log(res))
-        .catch((err) => console.log(err))
-    }
-
-    loginHandler = (event) => {
+    signUpHandler = (event) => {
         event.preventDefault()
-        loginApi.login(this.state)
+        loginApi.signup(this.state)
+        console.log("work")
     }
 
     render(){
         return(
             <Container >
 
-                <h1>Login page</h1>  
+                <h1>Sign Up page</h1>  
                 <form>
                     <div className ="form-group">
                         <label for="username"> Username</label>
@@ -54,7 +41,11 @@ class Login extends Component{
                         <label for="password"> Password </label>
                         <Input type="password" className = "form-control" name = "password" value = {this.state.password} onChange = {this.onChangeHandler}></Input>
                     </div>
-                    <FormBtn onClick = {this.loginHandler}>Submit</FormBtn>
+                    <div className ="form-group">
+                        <label for="twitter_username"> Twitter Account </label>
+                        <Input type="text" className = "form-control" name = "twitter_username" value = {this.state.twitter_username} onChange = {this.onChangeHandler}></Input>
+                    </div>
+                    <FormBtn onClick = {this.signUpHandler}>Submit</FormBtn>
                     
                 </form>
 
@@ -66,4 +57,4 @@ class Login extends Component{
 }
 
 
-export default Login
+export default SignUp

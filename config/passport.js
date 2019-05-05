@@ -4,7 +4,6 @@ var User = require("../models/user");
 const local = new LocalStrategy(
     function(username, password, done) {
     // When a user tries to sign in this code runs
-        console.log("accesing database to check if user signed up");
         User.findOne({
                 username: username
             }
@@ -31,13 +30,16 @@ passport.use("local", local);
 // Mongoose needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work
 passport.serializeUser(function(user, done) {
-    console.log(user)
+    console.log("serialize")
+
     done(null, user._id);
 });
 
 passport.deserializeUser(function(userId, done) {
-    console(userId)
-    User.findById(userId, (err, user) => done(err,user))
+    console.log("deserialize")
+    User.findById(userId, (err, user) => done(err,user));
+    // console.log(userId)
+    // done(null,userId)
 });
 
 // Exporting our configured passport

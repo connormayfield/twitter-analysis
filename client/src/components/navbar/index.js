@@ -13,7 +13,7 @@ export function Navbar({props}){
           <Link className="nav-link" to="/login">Login <span className="sr-only">(current)</span></Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/#">Link</a>
+          <a className="nav-link" href="/signup">Sign Up</a>
         </li>
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

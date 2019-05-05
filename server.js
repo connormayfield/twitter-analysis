@@ -1,10 +1,9 @@
 const express = require("express");
 const session = require("express-session");
 const passport = require("./config/passport");
-const loginRoutes = require("./routes/login/loginRoutes")
-
 const path = require("path");
-const PORT = process.env.PORT || 3001;
+const apiRoutes = require("./routes/api/index")
+const PORT = process.env.PORT || 3300;
 const app = express();
 
 const mongoose = require("mongoose")
@@ -14,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Creating Sessions
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(session({ secret: "execute-order-66", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -24,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-app.use(loginRoutes)
+app.use("/api", apiRoutes)
 
 
 
