@@ -8,13 +8,13 @@ console.log(db.User)
 //LOGIN ROUTES======================================================================================================
 
 //logging in route
-router.post("/login", passport.authenticate("local"), function(req, res) {
+router.post("/api/login", passport.authenticate("local"), function(req, res) {
     res.send("logged in")
-    // res.json("/members");
+    res.json("/members");
 });
 
 //signing up account route
-router.post("/signup", function(req, res) {
+router.post("/api/signup", function(req, res) {
     console.log(req.body)
 
     db.User.create({
@@ -28,7 +28,6 @@ router.post("/signup", function(req, res) {
         res.send("signed up")
 
     }).catch(function(err) {
-        // res.send(err)
         res.send(err);
         
     });

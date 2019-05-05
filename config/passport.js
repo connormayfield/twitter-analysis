@@ -12,7 +12,6 @@ const local = new LocalStrategy(
             console.log(dbUser);
             // If there's no user with the given username or incoorect password
             if (!dbUser || !dbUser.validPassword(password)) {
-                console.log("username taken");
                 return done(null, false, {
                     message: "Incorrect username/password"
                 });
