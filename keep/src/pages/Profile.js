@@ -10,12 +10,8 @@ class Profile extends Component{
 
     render(){
         return(
-            <Container>
-                    <h1>Hello, abcd</h1>
-            </Container>
-            
+            <h1>Hello, abcd</h1>
         )
     }
 }
 
-export default Profile

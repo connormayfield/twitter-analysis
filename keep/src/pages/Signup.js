@@ -34,15 +34,15 @@ class SignUp extends Component{
                 <h1>Sign Up page</h1>  
                 <form>
                     <div className ="form-group">
-                        <label htmlfor="username"> Username</label>
+                        <label for="username"> Username</label>
                         <Input type="text" className = "form-control" name = "username" value = {this.state.username} onChange = {this.onChangeHandler} ></Input>
                     </div>
                     <div className ="form-group">
-                        <label htmlfor="password"> Password </label>
+                        <label for="password"> Password </label>
                         <Input type="password" className = "form-control" name = "password" value = {this.state.password} onChange = {this.onChangeHandler}></Input>
                     </div>
                     <div className ="form-group">
-                        <label htmlfor="twitter_username"> Twitter Account </label>
+                        <label for="twitter_username"> Twitter Account </label>
                         <Input type="text" className = "form-control" name = "twitter_username" value = {this.state.twitter_username} onChange = {this.onChangeHandler}></Input>
                     </div>
                     <FormBtn onClick = {this.signUpHandler}>Submit</FormBtn>

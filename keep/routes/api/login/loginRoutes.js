@@ -8,10 +8,11 @@ var router = express.Router();
 
 //logging in route
 router.post("/login", passport.authenticate("local"), function(req, res) {
+    console.log("deserialize")
 
-    // res.send("logged in")
+    res.send("logged in")
 
-    res.json("/profile");
+    // res.json("/members");
 })
 
 
@@ -30,7 +31,6 @@ router.post("/signup", function(req, res) {
         res.send("signed up")
 
     }).catch(function(err) {
-        console.log(err)
         res.send(err);
         
     });
