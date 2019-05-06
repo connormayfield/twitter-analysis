@@ -10,7 +10,7 @@ router.post("/login", passport.authenticate("local"), function(req, res) {
 
     // res.send("logged in")
 
-    res.json("/profile");
+    res.json(req.session);
 })
 
 
@@ -19,20 +19,32 @@ router.post("/signup", function(req, res) {
     console.log(req.body)
 
     db.User.create({
-
         username: req.body.username,
         password: req.body.password,
+        email: req.body.email,
         twitter_username: req.body.twitter_username
 
     }).then(function(data) {
+
         console.log(data)
-        res.send("signed up")
+        res.status(307).redirect("/login")
 
     }).catch(function(err) {
         console.log(err)
-        res.send(err);
+        res.json(err);
         
     });
+});
+
+// Route for checking if the user has an existing session
+router.get("/session", function(req, res) {
+    // console.log("req.user", req.user)
+    if(req.user){
+        res.send(true)
+    }
+    else{
+        res.send(false)
+    }
 });
 
 

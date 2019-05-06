@@ -16,6 +16,11 @@ const userSchema = new Schema({
         required: true,
         minlength: 6
     },
+
+    email:{
+      type: String,
+      required: true
+    },
     
     twitter_username: {
         type: String,
