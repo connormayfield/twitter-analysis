@@ -1,4 +1,4 @@
 module.exports = {
     User: require("./user"),
-    Tweet: require("./tweet")
+    // Tweet: require("./tweet")
 }

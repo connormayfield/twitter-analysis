@@ -27,10 +27,10 @@ class App extends Component {
       userHasAuthenticated: this.userHasAuthenticated
     };
   
-  return (
-    <div className="App">
+  return (<div className="App">
       <Router>
-          <Navbar/>
+      <div>
+              <Navbar/>
               <Switch>
               <Route exact path="/" component ={Home}/>
               <Route exact path="/login" component ={Login}/>
@@ -39,6 +39,7 @@ class App extends Component {
               <Route  component ={Error}/>
 
           </Switch>
+          </div>
       </Router>
     </div>
   );
