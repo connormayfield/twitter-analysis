@@ -30,14 +30,13 @@ class App extends Component {
   return (
     <div className="App">
       <Router>
-          <Navbar/>
+        <Navbar/>
               <Switch>
               <Route exact path="/" component ={Home}/>
               <Route exact path="/login" component ={Login}/>
               <Route exact path = "/profile" component = {Profile}/>
               <Route exact path ="/signup" component = {SignUp}/>
               <Route  component ={Error}/>
-
           </Switch>
       </Router>
     </div>
