@@ -27,10 +27,14 @@ class App extends Component {
       userHasAuthenticated: this.userHasAuthenticated
     };
   
-  return (
-    <div className="App">
+  return (<div className="App">
       <Router>
+<<<<<<< HEAD
         <Navbar/>
+=======
+      <div>
+              <Navbar/>
+>>>>>>> 6ed372433275fce94a93f2a8c9bd889ad3d6bc2b
               <Switch>
               <Route exact path="/" component ={Home}/>
               <Route exact path="/login" component ={Login}/>
@@ -38,6 +42,7 @@ class App extends Component {
               <Route exact path ="/signup" component = {SignUp}/>
               <Route  component ={Error}/>
           </Switch>
+          </div>
       </Router>
     </div>
   );
