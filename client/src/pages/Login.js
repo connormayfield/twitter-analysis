@@ -42,10 +42,6 @@ class Login extends Component{
         }
         loginApi.login(loginObj)
         .then((res)=> {
-
-            console.log(res.status)
-            console.log(res.data)
-            
             this.userHasAuthenticated(true);
         })
         .catch((err) => console.log("Wrong username/password"))
@@ -53,7 +49,7 @@ class Login extends Component{
 
     render(){
 
-        console.log(this.state)
+        // console.log(this.state)
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 

@@ -13,5 +13,9 @@ export default {
 
     checkSession: function(){
         return axios.get("api/user/session")
+    },
+
+    logout: function(){
+        return axios.get("api/user/logout")
     }
 }

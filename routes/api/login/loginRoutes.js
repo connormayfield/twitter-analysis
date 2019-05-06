@@ -38,9 +38,8 @@ router.post("/signup", function(req, res) {
 
 // Route for checking if the user has an existing session
 router.get("/session", function(req, res) {
-    console.log("req.user", req.user)
+    // console.log("req.user", req.user)
     if(req.user){
-        console.log("req.user", req.user)
         res.send(true)
     }
     else{
