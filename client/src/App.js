@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import Navbar from "./components/navbar/index.js"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Profile from "./pages/Profile"
+import Error from "./pages/Error"
+import SignUp from './pages/Signup';
 
-function App() {
+class App extends Component {
+
+  state = {
+
+      isAuthenticated: false
+    
+  }
+
+  userHasAuthenticated = authenticated => {
+    this.setState({ isAuthenticated: authenticated });
+  }
+
+  render(){
+
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+          <Navbar/>
+              <Switch>
+              <Route exact path="/" component ={Home}/>
+              <Route exact path="/login" component ={Login}/>
+              <Route exact path = "/profile" component = {Profile}/>
+              <Route exact path ="/signup" component = {SignUp}/>
+              <Route  component ={Error}/>
+
+          </Switch>
+      </Router>
     </div>
   );
-}
 
+
+
+
+}
+}
 export default App;
