@@ -10,31 +10,13 @@ import SignUp from './pages/Signup';
 
 class App extends Component {
 
-  state = {
-
-      isAuthenticated: false
-    
-  }
-
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
 
   render(){
-
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
   
   return (<div className="App">
       <Router>
-<<<<<<< HEAD
-        <Navbar/>
-=======
       <div>
               <Navbar/>
->>>>>>> 6ed372433275fce94a93f2a8c9bd889ad3d6bc2b
               <Switch>
               <Route exact path="/" component ={Home}/>
               <Route exact path="/login" component ={Login}/>
