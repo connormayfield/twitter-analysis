@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const uniqueValidator = require("mongoose-unique-validator");
 var bcrypt = require("bcrypt-nodejs");
 
-
+// User model
 const userSchema = new Schema({
     username: {
         type: String,
@@ -16,12 +16,21 @@ const userSchema = new Schema({
         required: true,
         minlength: 6
     },
-    
+	
+	// This will be changed to the Oauth token that twitter gives us
     twitter_username: {
         type: String,
         require: true
-    }
-})
+    },
+
+	// A list of tweets that the user has pulled and wants information on
+    tweets: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tweet"
+      }
+    ]
+});
 
 userSchema.plugin(uniqueValidator)
 
@@ -51,10 +60,6 @@ userSchema.pre("save", function(next){
         });
       });
 });
-
-
-
-
 
 const User = mongoose.model("User", userSchema);
 
