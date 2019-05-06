@@ -10,22 +10,8 @@ import SignUp from './pages/Signup';
 
 class App extends Component {
 
-  state = {
-
-      isAuthenticated: false
-    
-  }
-
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
 
   render(){
-
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
   
   return (<div className="App">
       <Router>
@@ -37,7 +23,6 @@ class App extends Component {
               <Route exact path = "/profile" component = {Profile}/>
               <Route exact path ="/signup" component = {SignUp}/>
               <Route  component ={Error}/>
-
           </Switch>
           </div>
       </Router>

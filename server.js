@@ -22,6 +22,13 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+
+//Checking sessions 
+app.use((req, res, next) => {
+  console.log(req.session)
+  return next()
+})
+
 // Define API routes here
 app.use("/api", apiRoutes)
 

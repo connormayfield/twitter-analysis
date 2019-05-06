@@ -17,7 +17,12 @@ const userSchema = new Schema({
         minlength: 6
     },
 	
-	// This will be changed to the Oauth token that twitter gives us
+    email:{
+      type: String,
+      required: true
+    },
+    
+    // This will be changed to the Oauth token that twitter gives us    
     twitter_username: {
         type: String,
         require: true
