@@ -1,5 +1,6 @@
 module.exports = {
     User: require("./user"),
     Tweet: require("./tweet"),
-    Sentiments: require("./sentiment")
+    Comment: require("./comment"),
+    Sentiment: require("./sentiment")
 }
