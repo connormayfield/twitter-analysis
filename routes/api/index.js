@@ -3,4 +3,5 @@ const loginRoutes = require("./login/loginRoutes");
 
 router.use("/user", loginRoutes)
 
+
 module.exports = router
