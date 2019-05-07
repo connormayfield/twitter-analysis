@@ -4,6 +4,7 @@ import React, {Component} from "react"
 import {Redirect} from "react-router-dom"
 import loginApi from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
+import {Link} from "react-router-dom"
 class Login extends Component{
 
     state = {
@@ -73,7 +74,8 @@ class Login extends Component{
             
                         </form>
                         {/* <a className="passbtn" href="#">FORGOT PASSWORD?</a> */}
-                        <a className="createbtn" href="#">CREATE AN ACCOUNT</a>
+                        <Link className="createbtn" to="/signup">CREATE AN ACCOUNT</Link>
+                        {/* <a className="createbtn" href="#">CREATE AN ACCOUNT</a> */}
                     </LoginForm>
                 </Container>
             </Wrapper>

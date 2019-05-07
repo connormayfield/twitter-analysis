@@ -19,17 +19,20 @@ class Sidebar extends Component {
   render(){
     return (
       <div id="sidebar" className={this.state.toggle==="false"?"":"active"}>
-      <div className="toggle-btn" onClick={this.toggleSidebar}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <div className="toggle-btn" onClick={this.toggleSidebar}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <ul>
-          <Link to="/"><li>About</li></Link>
+          <Link to="/"><li>Home</li></Link>
           <Link to="/login"><li>Login</li></Link>
+          <Link to="/signup"><li>Signup</li></Link>
+          <Link to="/profile"><li>Profile</li></Link>
           <li>Tweet</li>
           <li>Sentiment</li>
         </ul>
+        <div className="side-image"></div>
       </div>
     );
   }

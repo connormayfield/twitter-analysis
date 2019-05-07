@@ -2,7 +2,7 @@
     position:fixed;
     width:200px;
     height:100%;
-    background:#151719;
+    background:rgb(51,51,51);
     left:-200px;
     z-index:1000;
 }
@@ -30,4 +30,18 @@
     height:5px;
     background:#151719;
     margin:5px 0px;
+}
+
+#sidebar .side-image {
+    position: fixed;
+    background: url("giphy.gif") no-repeat; 
+    background-size:cover;
+    background-position:left bottom;
+    width:200px;
+    height:200px;
+    bottom:0;
+    /* top:70%;
+    bottom:0;
+    left:0;
+    right:0; */
 }
