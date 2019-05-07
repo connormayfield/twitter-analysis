@@ -22,17 +22,17 @@ class Login extends Component{
         this.setState({[name]: value})
     }
 
+
     componentDidMount = () => {
 
+        loginApi.checkSession()
+        .then((res)=> {
+            if(res.data){
+                return this.setState({isAuthenticated: true})
+            }
+        })
+        .catch((err) => console.log(err))
 
-        // let obj = {
-        //     username: "delta38",
-        //     password: "root1234"
-        // }
-
-        // loginAPI.login(obj)
-        // .then((res)=> console.log(res))
-        // .catch((err) => console.log("err"))
     }
 
     loginHandler = (event) => {
@@ -50,12 +50,9 @@ class Login extends Component{
 
     render(){
 
-        console.log(this.state)
+        // console.log(this.state)
 
-        let authenticated = this.state.isAuthenticated;
-
-        if(authenticated) {return <Redirect to="/profile"/>}
-
+        if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
             <Wrapper>

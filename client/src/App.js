@@ -12,20 +12,8 @@ import Sidebar from "./components/Sidebar";
 
 class App extends Component {
 
-  state = {
-      isAuthenticated: false
-  }
-
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
 
   render(){
-
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
   
     return (
       <Router>
