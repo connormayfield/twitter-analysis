@@ -9,7 +9,6 @@ const local = new LocalStrategy(
                 username: username
             }
         ).then(function(dbUser) {
-            console.log(dbUser);
             // If there's no user with the given username or incoorect password
             if (!dbUser || !dbUser.validPassword(password)) {
                 return done(null, false, {

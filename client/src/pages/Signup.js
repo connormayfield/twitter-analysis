@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
-import loginApi from "../utils/loginAPI"
+import loginAPI from "../utils/loginAPI"
 
 class SignUp extends Component{
 
@@ -15,8 +15,10 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
+        document.querySelector("#sidebar").className = "";
+        document.querySelector(".wrapper").style.marginLeft = "0px";
 
-        loginApi.checkSession()
+        loginAPI.checkSession()
         .then((res)=> {
             if(res.data){
                 return this.setState({isAuthenticated: true})
@@ -40,7 +42,7 @@ class SignUp extends Component{
 
     signUpHandler = (event) => {
         event.preventDefault()
-        loginApi.signup(this.state)
+        loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){

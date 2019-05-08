@@ -2,7 +2,7 @@ import React, {Component} from "react"
 //import {Container} from "../components/Grid/index"
 //import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
-import loginApi from "../utils/loginAPI"
+import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
 class Login extends Component{
@@ -25,8 +25,10 @@ class Login extends Component{
 
 
     componentDidMount = () => {
+        document.querySelector("#sidebar").className = "";
+        document.querySelector(".wrapper").style.marginLeft = "0px"
 
-        loginApi.checkSession()
+        loginAPI.checkSession()
         .then((res)=> {
             if(res.data){
                 return this.setState({isAuthenticated: true})
@@ -42,7 +44,7 @@ class Login extends Component{
             username: this.state.username,
             password: this.state.password
         }
-        loginApi.login(loginObj)
+        loginAPI.login(loginObj)
         .then((res)=> {
             this.userHasAuthenticated(true);
         })
@@ -53,7 +55,6 @@ class Login extends Component{
 
     render(){
 
-        // console.log(this.state)
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
