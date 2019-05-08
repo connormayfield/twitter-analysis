@@ -1,10 +1,10 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-function SentimentGraph({ graphData }) {
+function DoughnutGraph({ graphData, labels }) {
 
     const data = {
-        labels: ["Anger", "Disgust", "Fear", "Joy", "Sadness"],
+        labels: labels,
         datasets: [
             {
                 backgroundColor: [
@@ -21,14 +21,18 @@ function SentimentGraph({ graphData }) {
                     graphData.secondaryJoy || '#00CC00',
                     graphData.secondarySadness|| '#004C99'
                 ],
-                data: graphData.data
+                data: graphData
             }
         ]
     }
 
+    const legend = {
+        position: 'bottom'
+    }
+
     return (
-        <Doughnut data={data} />
+        <Doughnut data={data} legend={legend} />
     )
 }
 
-export default SentimentGraph;
+export default DoughnutGraph;
