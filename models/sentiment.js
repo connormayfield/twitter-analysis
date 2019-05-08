@@ -10,7 +10,7 @@ const sentimentSchema = new Schema({
         required: true
     },
 
-    disgues: {
+    disgust: {
         type: Number,
         required: true
     },

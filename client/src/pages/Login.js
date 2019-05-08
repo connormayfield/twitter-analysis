@@ -46,7 +46,9 @@ class Login extends Component{
         .then((res)=> {
             this.userHasAuthenticated(true);
         })
-        .catch((err) => console.log("Wrong username/password"))
+        .catch((err) => {
+            alert("Wrong username/password")
+            console.log("Wrong username/password")})
     }
 
     render(){

@@ -32,7 +32,6 @@ class Profile extends Component{
         console.log(this.state.isAuthenicated)
         
 
-
         if(!this.state.isAuthenicated){
             return <Redirect to="/"/>
         }
