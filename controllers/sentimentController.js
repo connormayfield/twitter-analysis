@@ -16,8 +16,8 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
       fear: es.fear,
       joy: es.joy,
       sadness: es.sadness
-  }).then(dbSentiment => {
-           return cb(es)}
+  }).then( ({ _id }) => {
+           return cb(es, _id)}
     )
    .catch(err => console.log(err));  
 
@@ -46,8 +46,11 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
 }
 
 module.exports = {
+//Function will create a sentiment document for a particular tweet. First, it will pull the comments associated with that tweet. IBM Tone analyzer will add all the emotion scores for each comment. The sentiment will be added to the sentiment model and then to Tweet model.
+    
+  //parameters need to be passed: 1. username, 2. Tweet _id
 
-    create(req, res){
+  create(req, res){
       let i = 0
       let username = "delta1234"
 
@@ -58,12 +61,12 @@ module.exports = {
         joy: 0, 
         fear: 0
       }
-      
+
       db.User.find({
         username : username})
         .populate("tweets")
         .then((dbUser) => {
-          let tweetID = dbUser[0].tweets[0]._id
+          let tweetID = dbUser[0].tweets[1]._id
           db.Tweet.find({
             _id: tweetID
           })
@@ -74,13 +77,15 @@ module.exports = {
             commentObj.forEach(element => {
               comments.push(element.comment_body)
             });
-
-
-            calculatingEmotions(comments, emotionScore, 0, function(emotionScore){
+            calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID){
               db.Tweet.update({_id: tweetID}, {
-               sentiments: emotionScore
-              }
-              ).then((data) => res.json(emotionScore))
+               $push: {
+                 sentiment: sentimentID
+               }
+              }).then((data) => {
+                console.log(data)
+                res.json(emotionScore)
+              })
               .catch(err => console.log(err));
               
             })
@@ -90,10 +95,32 @@ module.exports = {
         .catch((err)=>{
           console.log(err)
         })     
+    },
+
+    //parameters need to be passed: 1. username, 2. Tweet _id
+
+    getSentimentScore(req, res){
+      let username = "delta1234"
+
+      db.User.find({
+        username : username})
+        .populate("tweets")
+        .then((dbUser) => {
+          let tweetID = dbUser[0].tweets[1]._id
+          db.Tweet.find({
+            _id: tweetID
+          })
+          .populate("comments")
+          .populate("sentiment")
+          .then((dbTweet) => {
+               console.log(dbTweet)
+               res.json(dbTweet)
+
+          })
+        })
+        .catch((err)=>{
+          console.log(err)
+        })     
 
     }
 }
-
-
-
-
