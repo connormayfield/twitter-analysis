@@ -9,7 +9,7 @@ function DoughnutGraph({ graphData, labels }) {
             {
                 backgroundColor: [
                     graphData.primaryAnger || '#FF0000',
-                    graphData.primaryDisgust || '#36A2EB',
+                    graphData.primaryDisgust || '#FF8000',
                     graphData.primaryFear || '#7F00FF',
                     graphData.primaryJoy || '#00CC00',
                     graphData.primarySadness|| '#004C99'
