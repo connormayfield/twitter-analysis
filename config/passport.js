@@ -1,6 +1,7 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var User = require("../models/user");
+
 const local = new LocalStrategy(
     function(username, password, done) {
     // When a user tries to sign in this code runs
@@ -38,8 +39,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(userId, done) {
     console.log("deserialize")
     User.findById(userId, (err, user) => done(err,user));
-    // console.log(userId)
-    // done(null,userId)
+
 });
 
 // Exporting our configured passport

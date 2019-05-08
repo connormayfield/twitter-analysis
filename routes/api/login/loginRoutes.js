@@ -7,7 +7,8 @@ const router = express.Router();
 
 //logging in route
 router.post("/login", passport.authenticate("local"), function(req, res) {
-    res.json(req.session);
+    console.log("session")
+    res.send(req.session);
 })
 //signing up account route
 router.route("/signup")

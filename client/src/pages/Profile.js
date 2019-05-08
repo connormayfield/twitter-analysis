@@ -1,13 +1,15 @@
 import React, {Component} from "react"
 import {Container, Row, Col} from "../components/Grid/index"
 import loginAPI from "../utils/loginAPI"
+import sentimentAPI from "../utils/sentimentAPI"
 import {Redirect} from "react-router-dom"
 
 class Profile extends Component{
 
     state = {
         username: "",
-        isAuthenicated: true
+        isAuthenicated: true,
+        emotionScore: {}
 
     }
 
@@ -33,12 +35,15 @@ class Profile extends Component{
         
 
         if(!this.state.isAuthenicated){
-            return <Redirect to="/"/>
+            return <Redirect to="/login"/>
         }
 
         return(
             <Container>
                     <h1>Hello, {this.state.username}</h1>
+                    <h5>Data goes here</h5>
+                    <button>emotionScore</button>
+                    
             </Container>
             
         )

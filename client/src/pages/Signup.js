@@ -44,11 +44,11 @@ class SignUp extends Component{
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
+                console.log("authenticatgin")
                 this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
-            console.log("Wrong username/password")
             console.log(err)
         })
 
