@@ -37,10 +37,12 @@ const tweetSchema = new Schema({
     ],
 
     // This will contain the emotional values for this tweet's comments
-    sentiment: {
-        type: Schema.Types.ObjectId,
-        ref: "Sentiment"
-    }
+    sentiment: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Sentiment"
+        }
+    ]
 });
 
 const Tweet = mongoose.model("Tweet", tweetSchema);
