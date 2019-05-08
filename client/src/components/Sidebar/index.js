@@ -29,6 +29,7 @@ class Sidebar extends Component {
           <Link to="/login"><li>Login</li></Link>
           <Link to="/signup"><li>Signup</li></Link>
           <Link to="/profile"><li>Profile</li></Link>
+          <Link to="/weekly"><li>Weekly</li></Link>
           <li>Tweet</li>
           <li>Sentiment</li>
         </ul>
