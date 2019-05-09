@@ -1,6 +1,9 @@
 import React, {Component} from "react"
 import { Container, Row, Col } from "../Grid";
 import twitterAPI from "../../utils/twitterAPI"
+import commentImg from "./img/comment.png"
+import retweetImg from "./img/retweet.png"
+import likeImg from "./img/heart.png"
 
 class Tweet extends Component{
     state = {
@@ -45,11 +48,11 @@ class Tweet extends Component{
                                 return (
                                     <div className="card" style={{"width": "18rem"}}>
                                         <div className="card-body">
-                                            <h5 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h5>
+                                            <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
                                             <p className="card-text">{tweet.text}</p>
-                                            <a href="#" className="card-link">Comments:</a>
-                                            <a href="#" className="card-link">Retweets: {tweet.retweets}</a>
-                                            <a href="#" className="card-link">Likes: {tweet.favorites}</a>
+                                            <a href="#" className="card-link"><img src={commentImg}></img></a>
+                                            <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
+                                            <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
                                         </div>
                                     </div>
                                 );
