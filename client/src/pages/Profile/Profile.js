@@ -31,6 +31,9 @@ class Profile extends Component{
     }
 
     componentDidMount = () => {
+        console.log(document.querySelector(".wrapper").offsetHeight)
+        document.querySelector("body").style.height = document.querySelector(".wrapper").offsetHeight;
+    
        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
@@ -39,7 +42,6 @@ class Profile extends Component{
                 this.setState({isAuthenicated: false})
             }
             else{
-                console.log(res.data)
                 this.setState({username: res.data.username})
             }
         })
@@ -49,9 +51,6 @@ class Profile extends Component{
 
 
     render(){  
-
-       
-
         if(!this.state.isAuthenicated){
             return <Redirect to="/login"/>
         }
@@ -62,13 +61,23 @@ class Profile extends Component{
             <Container>
                 <div className = "profileContainer">
                     <Row >
-                            <Col size = "xs-5" >
+                            <Col size = "xs-3" >
                                 <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
                             </Col>
-                            <Col size = "xs-4">
-                                <h5>Welcome back, {this.state.username}</h5>
-                            </Col>
-                    
+                            <div className = "userInfo">
+                                <Col size="xs-9">
+                                    <Row>               
+                                        <Col size = "xs-12">
+                                            <h5>Welcome back, {this.state.username}</h5>
+                                        </Col>
+                                    </Row>
+                                    <Row>               
+                                        <Col size = "xs-12">
+                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </div>
                     </Row>
                 </div>
                 <div className="widgetContainer">
@@ -77,7 +86,7 @@ class Profile extends Component{
                     <Row>
                         <div className="widget tweets">
                             <Col size="xs-4" >
-                                <span>XX</span> Tweets
+                                <span>XX</span> Retweets
                             </Col>
                         </div>
                         <div className="widget followers">
@@ -87,25 +96,18 @@ class Profile extends Component{
                         </div>         
                         <div className="widget likes">
                             <Col size="xs-4">
-                                <span>XX</span> Likes
+                                <span>XX</span> Favorites
                             </Col>
                         </div>          
                     </Row>
                 </div>
                 <div className="graphContainer">
-                    <Row>
-                        <Col size="xs-12">
                         <h4>Weekly Tweet Data Example</h4>
                             <LineGraph id="linegraph"
                             labels={this.state.weekLabels}
                             graphData={this.state.weekData} 
                             />
-                        </Col>
-                    </Row>
                 </div>
-                
-                    
-                    
             </Container>
 
 

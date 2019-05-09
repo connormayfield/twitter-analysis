@@ -10,15 +10,7 @@ class Sidebar extends Component {
     toggle:"false"
   }
 
-  componentDidMount(){
-    loginAPI.checkSession()
-    .then((res)=> {
-        if(res.data){
-            return this.setState({isAuthenticated: true})
-        }
-    })
-    .catch((err) => console.log(err))
-  }
+
 
 
   toggleSidebar=()=> {
@@ -47,12 +39,9 @@ class Sidebar extends Component {
         </div>
         <ul>
           <Link to="/"><li>Home</li></Link>
-          {this.state.isAuthenticated ?  null :(<Link to="/login"><li>Login</li></Link>)}
-          {this.state.isAuthenticated ?  null : (<Link to="/signup"><li>Signup</li></Link>)}
-          {this.state.isAuthenticated ?  <Link to="/profile"><li>Profile</li></Link> : null}
-          {this.state.isAuthenticated ?  <li>Tweet</li> : null}
-          {this.state.isAuthenticated ?  <li>Sentiment</li> : null}
-          {this.state.isAuthenticated ?  <Link to="/logout" onClick = {this.logOut}><li>Logout</li></Link> : null}
+          <Link to="#"><li>About</li></Link>
+          <Link to="/login"><li>Login</li></Link>
+          <Link to="/signup"><li>Signup</li></Link>
         </ul>
         <div className="side-image"></div>
       </div>
