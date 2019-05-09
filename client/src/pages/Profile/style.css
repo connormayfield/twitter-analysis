@@ -1,0 +1,48 @@
+ .profileContainer{
+
+    padding: 50px;
+ }
+
+  .profileContainer img{
+     margin: 0 25vw ;
+     border:  3px solid black;
+     display: inline-block;
+     
+ }
+
+ .profileContainer h5, .profileContainer p{
+    margin: 5px ;
+   
+}
+
+.widgetContainer{
+    padding: 20px;
+    width: 100%;
+    border: 1px black solid;
+    display: inline-block;
+}
+
+.widget{
+    margin: 5px;
+    padding: 30px;
+    height: 100px;
+    flex-grow: 3;
+    border: 2px solid black;
+    text-align: center;
+}
+
+  .graphContainer {
+    margin: 20px 0;
+    border:  1px solid black;
+    justify-content:  center 
+ }
+
+canvas{
+     height: 100%;
+     width: 100%;
+ }
+
+ .graphContainer,.widgetContainer {
+
+    box-shadow: 6px 6px gray;
+ }

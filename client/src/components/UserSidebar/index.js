@@ -6,11 +6,8 @@ import "./style.css";
 
 class Sidebar extends Component {
   state={
-    isAuthenticated: false,
     toggle:"false"
   }
-
-
 
 
   toggleSidebar=()=> {
@@ -25,6 +22,10 @@ class Sidebar extends Component {
 
   logOut = () => {
     loginAPI.logout()
+    .then((res)=>{
+      console.log(res)
+    })
+
 
   }
 
@@ -39,9 +40,10 @@ class Sidebar extends Component {
         </div>
         <ul>
           <Link to="/"><li>Home</li></Link>
-          <Link to="#"><li>About</li></Link>
-          <Link to="/login"><li>Login</li></Link>
-          <Link to="/signup"><li>Signup</li></Link>
+          <Link to="/profile"><li>Profile</li></Link>
+          <li>Tweet</li>
+          <li>Sentiment</li>
+          <Link to="/" onClick = {()=>{this.logOut()}}><li>Logout</li></Link> 
         </ul>
         <div className="side-image"></div>
       </div>

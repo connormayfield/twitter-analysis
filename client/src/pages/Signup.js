@@ -3,7 +3,10 @@ import {Wrapper, Container, SignupForm} from "../components/SignupComponent"
 // import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
-import loginApi from "../utils/loginAPI"
+import loginAPI from "../utils/loginAPI"
+import Sidebar from "../components/Sidebar";
+import sideBarScript from "../components/Sidebar/logic"
+
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -45,8 +48,9 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
+        sideBarScript.sideBarController()
 
-        loginApi.checkSession()
+        loginAPI.checkSession()
         .then((res)=> {
             if(res.data){
                 return this.setState({isAuthenticated: true})
@@ -109,15 +113,15 @@ class SignUp extends Component{
 // end form validation
         console.log("connor");
         console.log(this.state);
-        loginApi.signup(this.state)
+        loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
+                console.log("authenticatgin")
                 this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
-            console.log("Wrong username/password")
             console.log(err)
         })
 
@@ -130,7 +134,9 @@ class SignUp extends Component{
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
-          <Wrapper >
+
+          <Wrapper >       
+             <Sidebar/>
             <Container >
               <SignupForm >
                 <h1>Sign Up</h1>
@@ -159,8 +165,6 @@ class SignUp extends Component{
                 </SignupForm>
               </Container>
             </Wrapper>
-
-
         )
     }
 
