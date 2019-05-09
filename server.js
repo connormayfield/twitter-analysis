@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 })
 
 // Define API routes here
-app.use("/api", apiRoutes)
+app.use("/api", apiRoutes);
 
 
 
