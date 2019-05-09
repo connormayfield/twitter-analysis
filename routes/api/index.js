@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const loginRoutes = require("./login/loginRoutes");
+const twitterRoutes = require("./twitter/twitterRoutes");
 const sentimentRoutes = require("./sentiment/sentimentRoutes")
-// const tweetRoutes = require("./tweet/tweetRoutes")
 
 router.use("/user", loginRoutes)
+router.use("/tweets", twitterRoutes)
 router.use("/sentiment", sentimentRoutes)
-// router.use("/tweet", tweetRoutes)
-
 
 module.exports = router
