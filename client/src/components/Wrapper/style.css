@@ -3,4 +3,5 @@
   height:100%;
   padding:0;
   position:fixed;
+  transition: 0.25s
 }

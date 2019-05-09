@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-function LineGraph({ graphData, labels }) {
+function LineGraph({ graphData, labels, id }) {
 
     const getDatasets = () => {
 
@@ -48,7 +48,7 @@ function LineGraph({ graphData, labels }) {
             )
     
         default:
-            return <Line data={data} />            
+            return <Line data={data} id= {id} />            
     }
 
 }

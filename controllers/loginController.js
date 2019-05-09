@@ -9,9 +9,9 @@ module.exports = {
             twitter_username: req.body.twitter_username
     
         }).then(function(data) {
-    
             console.log(data)
-            res.status(307).redirect("/login")
+            console.log("redirecting to login")
+            res.redirect(307, "/api/user/login")
     
         }).catch(function(err) {
             res.json(err);

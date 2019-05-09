@@ -2,7 +2,10 @@ import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
-import loginApi from "../utils/loginAPI"
+import loginAPI from "../utils/loginAPI"
+import Sidebar from "../components/Sidebar";
+import sideBarScript from "../components/Sidebar/logic"
+
 
 class SignUp extends Component{
 
@@ -15,8 +18,9 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
+        sideBarScript.sideBarController()
 
-        loginApi.checkSession()
+        loginAPI.checkSession()
         .then((res)=> {
             if(res.data){
                 return this.setState({isAuthenticated: true})
@@ -40,15 +44,15 @@ class SignUp extends Component{
 
     signUpHandler = (event) => {
         event.preventDefault()
-        loginApi.signup(this.state)
+        loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
+                console.log("authenticatgin")
                 this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
-            console.log("Wrong username/password")
             console.log(err)
         })
 
@@ -59,6 +63,8 @@ class SignUp extends Component{
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
+            <div>           
+             <Sidebar/>
             <Container >
 
                 <h1>Sign Up page</h1>  
@@ -84,6 +90,10 @@ class SignUp extends Component{
                 </form>
 
             </Container>
+
+
+            </div>
+
             
         )
     }
