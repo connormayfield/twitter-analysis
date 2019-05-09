@@ -2,16 +2,37 @@ import React, {Component} from "react"
 //import {Container} from "../components/Grid/index"
 //import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
-import loginApi from "../utils/loginAPI"
+import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
+import Sidebar from "../components/Sidebar";
+import sideBarScript from "../components/Sidebar/logic"
+
+
 class Login extends Component{
 
     state = {
         username: "",
         password: "",
         isAuthenticated: false
+        
     }
+
+
+
+    componentDidMount = () => {
+        sideBarScript.sideBarController();
+
+        loginAPI.checkSession()
+        .then((res)=> {
+            if(res.data){
+                return this.setState({isAuthenticated: true})
+            }
+        })
+        .catch((err) => console.log(err))
+
+    }
+
 
     userHasAuthenticated = (authenticated) => {
         this.setState({ isAuthenticated: authenticated });
@@ -24,25 +45,13 @@ class Login extends Component{
     }
 
 
-    componentDidMount = () => {
-
-        loginApi.checkSession()
-        .then((res)=> {
-            if(res.data){
-                return this.setState({isAuthenticated: true})
-            }
-        })
-        .catch((err) => console.log(err))
-
-    }
-
     loginHandler = (event) => {
         event.preventDefault()
         let loginObj = {
             username: this.state.username,
             password: this.state.password
         }
-        loginApi.login(loginObj)
+        loginAPI.login(loginObj)
         .then((res)=> {
             this.userHasAuthenticated(true);
         })
@@ -53,12 +62,12 @@ class Login extends Component{
 
     render(){
 
-        // console.log(this.state)
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
             <Wrapper>
+                <Sidebar/>
                 <Container>
                     <LoginForm>
                         <h1>LOG IN</h1>
