@@ -47,12 +47,21 @@ class Sidebar extends Component {
         </div>
         <ul>
           <Link to="/"><li>Home</li></Link>
+<<<<<<< HEAD
           {this.state.isAuthenticated ?  null :(<Link to="/login"><li>Login</li></Link>)}
           {this.state.isAuthenticated ?  null : (<Link to="/signup"><li>Signup</li></Link>)}
           {this.state.isAuthenticated ?  <Link to="/profile"><li>Profile</li></Link> : null}
           {this.state.isAuthenticated ?  <li>Tweet</li> : null}
           {this.state.isAuthenticated ?  <li>Sentiment</li> : null}
           {this.state.isAuthenticated ?  <Link to="/logout" onClick = {this.logOut}><li>Logout</li></Link> : null}
+=======
+          <Link to="/login"><li>Login</li></Link>
+          <Link to="/signup"><li>Signup</li></Link>
+          <Link to="/profile"><li>Profile</li></Link>
+          <Link to="/weekly"><li>Weekly</li></Link>
+          <li>Tweet</li>
+          <li>Sentiment</li>
+>>>>>>> 16f1e62aeef1ae31c2c6ec1856a3e5662aec320f
         </ul>
         <div className="side-image"></div>
       </div>

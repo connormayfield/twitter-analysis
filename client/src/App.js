@@ -7,6 +7,7 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile/Profile"
 import Error from "./pages/Error"
 import SignUp from './pages/Signup';
+import Weekly from "./pages/Weekly";
 import Wrapper from "./components/Wrapper";
 import Sidebar from "./components/Sidebar";
 
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path="/login" component ={Login}/>
               <Route  path = "/profile" component = {Profile}/>
               <Route exact path ="/signup" component = {SignUp}/>
+              <Route exact path="/weekly" component = {Weekly} />
               <Route  component ={Error}/>
             </Switch>
           </Wrapper>
