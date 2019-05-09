@@ -9,16 +9,6 @@ class Sidebar extends Component {
     isAuthenticated: false
   }
 
-  componentDidMount(){
-    loginAPI.checkSession()
-    .then((res)=> {
-        if(res.data){
-            return this.setState({isAuthenticated: true})
-        }
-    })
-    .catch((err) => console.log(err))
-  }
-
   logOut = () => {
     loginAPI.logout()
 

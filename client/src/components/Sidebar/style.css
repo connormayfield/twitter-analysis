@@ -1,3 +1,4 @@
+
 #sidebar {
     position:fixed;
     width:200px;
@@ -25,9 +26,9 @@
 }
 
 #sidebar .toggle-btn {
-    position:absolute;
+    position: absolute;;
     left:230px;
-    top:20px;
+    top:100px;
 }
 
 #sidebar .toggle-btn span {

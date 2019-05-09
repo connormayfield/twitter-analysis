@@ -42,6 +42,15 @@ class Profile extends Component{
             }
         })
         .catch((err) => console.log(err))
+
+        // var screen_name = res.tweets[0].user.screen_name;
+        // var location = res.tweets[0].user.location;
+        // var description = res.tweets[0].user.description;
+        // var url = res.tweets[0].user.url;
+        // var followers_count = res.tweets[0].user.followers_count;
+        // var friends_count = res.tweets[0].user.friends_count;
+        // var favourites_count = res.tweets[0].user.favourites_count;
+        // var profile_img = res.tweets[0].user.profile_img;
     }
 
     connect = () => {
@@ -60,7 +69,7 @@ class Profile extends Component{
             <Container> 
                 <div className = "profileContainer">
                     <Row >
-                            <Col size = "xs-5" >
+                            <Col size = "xs-3" >
                                 <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
@@ -71,7 +80,6 @@ class Profile extends Component{
                                     </Link>
                                 } */}
                             </Col>
-                    
                     </Row>
                 </div>
                 <div className="graphContainer">
@@ -87,7 +95,7 @@ class Profile extends Component{
                     <Row>
                         <div className="widget tweets">
                             <Col size="xs-4" >
-                                <span>XX</span> Tweets
+                                <span>XX</span> Retweets
                             </Col>
                         </div>
                         <div className="widget followers">
@@ -97,21 +105,13 @@ class Profile extends Component{
                         </div>         
                         <div className="widget likes">
                             <Col size="xs-4">
-                                <span>XX</span> Likes
+                                <span>XX</span> Favorites
                             </Col>
                         </div>          
                     </Row>
                 </div>
-
-                
-                    
-                    
             </Container>
-
-
             </div>
-
-            
         )
     }
 }

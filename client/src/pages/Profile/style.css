@@ -1,22 +1,21 @@
-
-
  .profileContainer{
-     margin-top:  20px;
-     border:  red 1px solid 
+
+    padding: 50px;
  }
 
   .profileContainer img{
-     margin: 20px ;
-     border:  3px solid black 
+     margin: 0 25vw ;
+     border:  3px solid black;
+     display: inline-block;
+     
  }
 
- .profileContainer h5{
-    margin: 20px ;
+ .profileContainer h5, .profileContainer p{
+    margin: 5px ;
    
 }
 
 .widgetContainer{
-    margin-top: 20px;
     padding: 20px;
     width: 100%;
     border: 1px black solid;
@@ -33,11 +32,17 @@
 }
 
   .graphContainer {
-    margin-top: 20px;
+    margin: 20px 0;
     border:  1px solid black;
     justify-content:  center 
  }
 
- #linegraph{
-     border: 2px red solid;
+canvas{
+     height: 100%;
+     width: 100%;
+ }
+
+ .graphContainer,.widgetContainer {
+
+    box-shadow: 6px 6px gray;
  }
