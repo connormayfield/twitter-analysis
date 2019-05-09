@@ -19,11 +19,7 @@ router.get("/session", function(req, res) {
     // console.log("req.user", req.user)
     if(req.user){
         console.log("req.user", req.user)
-        let userInfo = {
-            username: req.user.username,
-            twitter_username: req.user.twitter_username
-        }
-        res.send(userInfo)
+        res.send(req.user);
     }
     else{
         res.send(false)
@@ -35,5 +31,16 @@ router.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
 });
+
+//twitter
+router.get('/connect/twitter',
+  passport.authorize('twitter', { failureRedirect: '/' })
+);
+router.get('/connect/twitter/callback',
+  passport.authorize('twitter', {
+      successRedirect : '/profile',
+      failureRedirect : '/'
+  })
+);
 
 module.exports = router;

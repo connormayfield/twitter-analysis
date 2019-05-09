@@ -34,13 +34,10 @@
 
   .graphContainer {
     margin-top: 20px;
-    padding-left: 30%;
     border:  1px solid black;
     justify-content:  center 
  }
 
  #linegraph{
-     height: 10000px;
-     width: 1000px;
      border: 2px red solid;
  }

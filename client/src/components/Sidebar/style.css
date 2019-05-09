@@ -5,11 +5,16 @@
     background:rgb(51,51,51);
     left:-200px;
     z-index:1000;
-    transition: 0.25s
+    transition: 0.25s;
+    margin-top: -56px;
 }
 
 #sidebar.active {
     left:0px;
+}
+
+#sidebar ul {
+    margin-top: 56px;
 }
 
 #sidebar ul li {

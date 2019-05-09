@@ -9,6 +9,7 @@ import Error from "./pages/Error"
 import SignUp from './pages/Signup';
 import Weekly from "./pages/Weekly";
 import Wrapper from "./components/Wrapper";
+import Sidebar from "./components/Sidebar";
 // import Sidebar from "./components/Sidebar";
 
 class App extends Component {
@@ -19,13 +20,13 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navbar/>
-          {/* <Sidebar /> */}
           <Wrapper>
+            <Navbar />
+            <Sidebar />
             <Switch>
               <Route exact path="/" component ={Home}/>
               <Route exact path="/login" component ={Login}/>
-              <Route  path = "/profile" component = {Profile}/>
+              <Route exact path = "/profile" component = {Profile}/>
               <Route exact path ="/signup" component = {SignUp}/>
               <Route exact path="/weekly" component = {Weekly} />
               <Route  component ={Error}/>

@@ -17,5 +17,13 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     
+    <script>
+      $(document).on("click", "#toggle-sidebar", function() {
+        console.log("toggle");
+        $("#sidebar").toggleClass("active");
+        $(".wrapper").toggleClass("active");
+        $(".navbar-brand").toggleClass("active");
+      })
+    </script>
   </body>
 </html>

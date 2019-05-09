@@ -1,17 +1,15 @@
 import React, {Component} from "react";
+import { Link, Redirect } from "react-router-dom";
 import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
-import {Redirect} from "react-router-dom";
 import "../Profile/style.css";
-import UserSideBar from "../../components/UserSidebar/index"
-import sideBarScript from "../../components/Sidebar/logic"
+import Sidebar from "../../components/Sidebar"
 import LineGraph from "../../components/Graphs/LineGraph"
 
 class Profile extends Component{
 
     state = {
-        username: "",
-        isAuthenicated: true,
+        user: {},
         weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekData: [
             {
@@ -26,12 +24,12 @@ class Profile extends Component{
                 primaryColor: "#00FF00",
                 data: [400, 6, 200, 4, 3, 2, 1]
             }
+
         ]
 
     }
 
     componentDidMount = () => {
-       sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {
@@ -39,37 +37,49 @@ class Profile extends Component{
                 this.setState({isAuthenicated: false})
             }
             else{
-                console.log(res.data)
-                this.setState({username: res.data.username})
+                this.setState({user: res.data})
+                console.log(this.state.user);
             }
         })
         .catch((err) => console.log(err))
     }
 
-
+    connect = () => {
+        loginAPI.twitterConnect()
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err));
+    }
 
     render(){  
 
-       
-
-        if(!this.state.isAuthenicated){
-            return <Redirect to="/login"/>
-        }
-
         return(
             <div>
-            <UserSideBar/>
-            <Container>
+            <Sidebar/>
+            <Container> 
                 <div className = "profileContainer">
                     <Row >
                             <Col size = "xs-5" >
                                 <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
-                                <h5>Welcome back, {this.state.username}</h5>
+                                <h5>Welcome back, {this.state.user.username}</h5>
+                                {/* {this.state.user.twitter === undefined &&
+                                    <Link to="/api/user/connect/twitter">
+                                        <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
+                                    </Link>
+                                } */}
                             </Col>
                     
                     </Row>
+                </div>
+                <div className="graphContainer">
+                    <h4>Weekly Tweet Data Example</h4>
+                        <LineGraph id="linegraph"
+                        labels={this.state.weekLabels}
+                        graphData={this.state.weekData} 
+                    />
                 </div>
                 <div className="widgetContainer">
                         <h5>Here is your weekly analysis of your likes and followers:</h5>
@@ -92,17 +102,7 @@ class Profile extends Component{
                         </div>          
                     </Row>
                 </div>
-                <div className="graphContainer">
-                    <Row>
-                        <Col size="xs-12">
-                        <h4>Weekly Tweet Data Example</h4>
-                            <LineGraph id="linegraph"
-                            labels={this.state.weekLabels}
-                            graphData={this.state.weekData} 
-                            />
-                        </Col>
-                    </Row>
-                </div>
+
                 
                     
                     

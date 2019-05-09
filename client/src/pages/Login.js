@@ -6,7 +6,6 @@ import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
 import Sidebar from "../components/Sidebar";
-import sideBarScript from "../components/Sidebar/logic"
 
 
 class Login extends Component{
@@ -18,10 +17,7 @@ class Login extends Component{
         
     }
 
-
-
     componentDidMount = () => {
-        sideBarScript.sideBarController();
 
         loginAPI.checkSession()
         .then((res)=> {

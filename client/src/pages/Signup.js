@@ -4,7 +4,6 @@ import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import Sidebar from "../components/Sidebar";
-import sideBarScript from "../components/Sidebar/logic"
 
 
 class SignUp extends Component{
@@ -18,7 +17,6 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
-        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {
@@ -80,10 +78,6 @@ class SignUp extends Component{
                     <div className ="form-group">
                         <label htmlfor="email"> Email </label>
                         <Input type="email" className = "form-control" name = "email" value = {this.state.email} onChange = {this.onChangeHandler}></Input>
-                    </div>
-                    <div className ="form-group">
-                        <label htmlfor="twitter_username"> Twitter Account </label>
-                        <Input type="text" className = "form-control" name = "twitter_username" value = {this.state.twitter_username} onChange = {this.onChangeHandler}></Input>
                     </div>
                     <FormBtn onClick = {this.signUpHandler}>Submit</FormBtn>
                     
