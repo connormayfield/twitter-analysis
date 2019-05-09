@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  getTweets: function(name) {
-    return axios.get("/api/tweets", { params: { name: name } });
+  getTweets: function(screen_name) {
+    return axios.get("/api/tweets", { params: { screen_name: screen_name } });
   }
 };

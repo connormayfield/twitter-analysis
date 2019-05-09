@@ -1,6 +1,13 @@
-
+const express = require("express");
 const router = require("express").Router();
 var Twitter = require('twitter');
+
+// From the other twitter route D made... 
+// const tweetController = require("../../../controllers/tweetController")
+
+// router.route("/:username/:tweetID")
+//       .post(tweetController.create)
+//       .get(tweetController.getTweets)
  
 var client = new Twitter({
   consumer_key: 'P1W0cgiiR0inKGh9JYlty1FFO',
@@ -21,23 +28,25 @@ var client = new Twitter({
 // }
 
 router.get("/", (req, res) => {
-    var params = {screen_name: 'bootcamptweeter', count: "10", excludes_replies: "false"};
+    var params = {screen_name: req.query.screen_name, count: "10", excludes_replies: "false"};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
         }
         else {
+            console.log(tweets);
             res.json({ tweets });
+            
         }
     });
-    client.get('statuses/mentions_timeline', params, function(error, tweets, response) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json({ tweets });
-        }
-    });
+    // client.get('statuses/mentions_timeline', params, function(error, tweets, response) {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     else {
+    //         res.json({ tweets });
+    //     }
+    // });
 });
 
 module.exports = router;
