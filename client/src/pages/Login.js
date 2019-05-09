@@ -5,13 +5,33 @@ import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
+import sideBarScript from "../components/Sidebar/logic"
+
+
 class Login extends Component{
 
     state = {
         username: "",
         password: "",
         isAuthenticated: false
+        
     }
+
+
+
+    componentDidMount = () => {
+        sideBarScript.sideBarController();
+
+        loginAPI.checkSession()
+        .then((res)=> {
+            if(res.data){
+                return this.setState({isAuthenticated: true})
+            }
+        })
+        .catch((err) => console.log(err))
+
+    }
+
 
     userHasAuthenticated = (authenticated) => {
         this.setState({ isAuthenticated: authenticated });
@@ -23,20 +43,6 @@ class Login extends Component{
         this.setState({[name]: value})
     }
 
-
-    componentDidMount = () => {
-        document.querySelector("#sidebar").className = "";
-        document.querySelector(".wrapper").style.marginLeft = "0px"
-
-        loginAPI.checkSession()
-        .then((res)=> {
-            if(res.data){
-                return this.setState({isAuthenticated: true})
-            }
-        })
-        .catch((err) => console.log(err))
-
-    }
 
     loginHandler = (event) => {
         event.preventDefault()

@@ -3,6 +3,8 @@ import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
+import sideBarScript from "../components/Sidebar/logic"
+
 
 class SignUp extends Component{
 
@@ -15,8 +17,7 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
-        document.querySelector("#sidebar").className = "";
-        document.querySelector(".wrapper").style.marginLeft = "0px";
+        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {

@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
+import sideBarScript from "../components/Sidebar/logic"
 
 class Home extends Component{
     state = {
@@ -7,8 +8,8 @@ class Home extends Component{
     }
 
     componentDidMount(){
-        document.querySelector("#sidebar").className = "";
-        document.querySelector(".wrapper").style.marginLeft = "0px"
+        sideBarScript.sideBarController()
+
           }
 
     render(){

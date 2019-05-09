@@ -3,6 +3,7 @@ import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
 import {Redirect} from "react-router-dom";
 import "../Profile/style.css";
+import sideBarScript from "../../components/Sidebar/logic"
 
 class Profile extends Component{
 
@@ -13,8 +14,7 @@ class Profile extends Component{
     }
 
     componentDidMount = () => {
-        document.querySelector("#sidebar").className = "";
-        document.querySelector(".wrapper").style.marginLeft = "0px"
+       sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {
