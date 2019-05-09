@@ -3,6 +3,7 @@ import {Container} from "../components/Grid/index"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
+import Sidebar from "../components/Sidebar";
 import sideBarScript from "../components/Sidebar/logic"
 
 
@@ -62,6 +63,8 @@ class SignUp extends Component{
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
+            <div>           
+             <Sidebar/>
             <Container >
 
                 <h1>Sign Up page</h1>  
@@ -87,6 +90,10 @@ class SignUp extends Component{
                 </form>
 
             </Container>
+
+
+            </div>
+
             
         )
     }

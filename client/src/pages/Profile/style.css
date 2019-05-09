@@ -2,7 +2,6 @@
 
  .profileContainer{
      margin-top:  20px;
-     padding: 0 20vw;
      border:  red 1px solid 
  }
 
@@ -16,17 +15,32 @@
    
 }
 
-.categories{
+.widgetContainer{
+    margin-top: 20px;
     padding: 20px;
-    width: 30vw;
-    height: 100px;
-    margin: 5px;
+    width: 100%;
     border: 1px black solid;
+    display: inline-block;
+}
+
+.widget{
+    margin: 5px;
+    padding: 30px;
+    height: 100px;
+    flex-grow: 3;
+    border: 2px solid black;
+    text-align: center;
 }
 
   .graphContainer {
-    height: 500px;
-    margin:  10px;
-    border:  2px solid black;
+    margin-top: 20px;
+    padding-left: 30%;
+    border:  1px solid black;
     justify-content:  center 
+ }
+
+ #linegraph{
+     height: 10000px;
+     width: 1000px;
+     border: 2px red solid;
  }

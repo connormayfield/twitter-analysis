@@ -48,7 +48,7 @@ class Weekly extends Component {
     };
 
     sentimentRandom = () => {
-        const newData = [this.getRandomInt(0, 200), this.getRandomInt(0, 200), this.getRandomInt(0, 200), this.getRandomInt(0, 200), this.getRandomInt(0, 200)];
+        const newData = [0.5, 0.6, 0.1, 1.3, 2];
 
         this.setState({ sentimentData: newData })
     }

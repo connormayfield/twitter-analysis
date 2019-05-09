@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
+import Sidebar from "../components/Sidebar";
 import sideBarScript from "../components/Sidebar/logic"
 
 class Home extends Component{
@@ -15,10 +16,13 @@ class Home extends Component{
     render(){
 
         return(
-    
+            <div>
+            <Sidebar/>
             <Container>
                     <h1>Home Page</h1>
             </Container>
+            </div>
+
        
         )
     }

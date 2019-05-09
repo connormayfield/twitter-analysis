@@ -23,6 +23,7 @@ class Sidebar extends Component {
   logOut = () => {
     loginAPI.logout()
 
+
   }
 
   render(){

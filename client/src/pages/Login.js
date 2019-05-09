@@ -5,6 +5,7 @@ import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
+import Sidebar from "../components/Sidebar";
 import sideBarScript from "../components/Sidebar/logic"
 
 
@@ -66,6 +67,7 @@ class Login extends Component{
 
         return(
             <Wrapper>
+                <Sidebar/>
                 <Container>
                     <LoginForm>
                         <h1>LOG IN</h1>
