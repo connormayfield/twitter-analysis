@@ -9,6 +9,7 @@ import Error from "./pages/Error"
 import SignUp from './pages/Signup';
 import Weekly from "./pages/Weekly";
 import Wrapper from "./components/Wrapper";
+import Feed from "./pages/Feed";
 // import Sidebar from "./components/Sidebar";
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
               <Route  path = "/profile" component = {Profile}/>
               <Route exact path ="/signup" component = {SignUp}/>
               <Route exact path="/weekly" component = {Weekly} />
+              <Route exact path="/tweets" component = {Feed} />
               <Route  component ={Error}/>
             </Switch>
           </Wrapper>
