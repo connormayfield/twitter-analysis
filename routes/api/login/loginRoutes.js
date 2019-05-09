@@ -33,6 +33,7 @@ router.get("/session", function(req, res) {
 // Route for logging user out
 router.get("/logout", function(req, res) {
     req.logout();
+    console.log(req.user)
     res.redirect("/");
 });
 

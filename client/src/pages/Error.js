@@ -1,5 +1,6 @@
 import React from "react";
 import {Container} from "../components/Grid/index"
+import SideBar from "../components/Sidebar/index"
 
 const Error = ()=>{
 
@@ -12,6 +13,8 @@ const Error = ()=>{
 
     }
     return(
+        <div>
+        <SideBar/>
         <Container>
             
             <div className = "jumbotron" style = {style}>
@@ -20,6 +23,8 @@ const Error = ()=>{
             </div>
             
         </Container>
+        </div>
+
     )
 }
 

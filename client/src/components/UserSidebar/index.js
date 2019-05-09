@@ -22,6 +22,9 @@ class Sidebar extends Component {
 
   logOut = () => {
     loginAPI.logout()
+    .then((res)=>{
+      console.log(res)
+    })
 
 
   }
@@ -40,7 +43,7 @@ class Sidebar extends Component {
           <Link to="/profile"><li>Profile</li></Link>
           <li>Tweet</li>
           <li>Sentiment</li>
-          <Link to="/logout" onClick = {this.logOut}><li>Logout</li></Link> 
+          <Link to="/" onClick = {()=>{this.logOut()}}><li>Logout</li></Link> 
         </ul>
         <div className="side-image"></div>
       </div>
