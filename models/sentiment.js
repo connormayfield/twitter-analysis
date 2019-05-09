@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 const sentimentSchema = new Schema({
     // A decimal representation of each emotional returned from the API
     // Number type may need to change as I don't currently know if Number supports Float
-    joy: {
+    anger: {
+        type: Number,
+        required: true
+    },
+
+    disgust: {
         type: Number,
         required: true
     },
@@ -15,17 +20,12 @@ const sentimentSchema = new Schema({
         required: true
     },
 
-    anger: {
+    joy: {
         type: Number,
         required: true
     },
 
     sadness: {
-        type: Number,
-        required: true
-    },
-
-    disgust: {
         type: Number,
         required: true
     }
