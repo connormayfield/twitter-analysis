@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import moment from 'moment';
 import { Container, Row, Col } from "../Grid";
 import twitterAPI from "../../utils/twitterAPI"
 import commentImg from "./img/comment.png"
@@ -12,12 +13,16 @@ class Tweet extends Component{
 
     componentDidMount() {
         twitterAPI.getTweets('bootcamptweeter').then(res => {
-            console.log(res.data.tweets)
+            console.log(res.data)
             var newTweet = [];
             for(var i = 0; i < res.data.tweets.length; i++){
+                const dateToFormat = res.data.tweets[i].created_at;
+                console.log(dateToFormat);
+                const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+
                 var oneTweet = {};
                 oneTweet.id = res.data.tweets[i].id;
-                oneTweet.created_at = res.data.tweets[i].created_at;
+                oneTweet.created_at = formattedDate;
                 oneTweet.text = res.data.tweets[i].text;
                 oneTweet.retweets = res.data.tweets[i].retweet_count;
                 oneTweet.favorites = res.data.tweets[i].favorite_count; 
