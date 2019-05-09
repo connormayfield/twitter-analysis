@@ -2,13 +2,8 @@
   width:100%;
   height:100%;
   padding:0;
-<<<<<<< HEAD
   position:fixed;
   overflow: scroll;
   transition: 0.25s;
   padding-bottom: 100px;
-=======
-  /* position:fixed; */
-  transition: 0.25s
->>>>>>> 24f4bd6c36627fcd6de88128b2182b4c73b34e73
 }
