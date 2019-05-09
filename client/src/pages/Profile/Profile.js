@@ -44,6 +44,15 @@ class Profile extends Component{
             }
         })
         .catch((err) => console.log(err))
+
+        // var screen_name = res.tweets[0].user.screen_name;
+        // var location = res.tweets[0].user.location;
+        // var description = res.tweets[0].user.description;
+        // var url = res.tweets[0].user.url;
+        // var followers_count = res.tweets[0].user.followers_count;
+        // var friends_count = res.tweets[0].user.friends_count;
+        // var favourites_count = res.tweets[0].user.favourites_count;
+        // var profile_img = res.tweets[0].user.profile_img;
     }
 
 
