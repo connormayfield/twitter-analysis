@@ -63,7 +63,6 @@ class Login extends Component{
 
         return(
             <Wrapper>
-                <Sidebar/>
                 <Container>
                     <LoginForm>
                         <h1>LOG IN</h1>

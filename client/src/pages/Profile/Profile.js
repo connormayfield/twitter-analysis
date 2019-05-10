@@ -64,8 +64,6 @@ class Profile extends Component{
     render(){  
 
         return(
-            <div>
-            <Sidebar/>
             <Container> 
                 <div className = "profileContainer">
                     <Row >
@@ -111,7 +109,6 @@ class Profile extends Component{
                     </Row>
                 </div>
             </Container>
-            </div>
         )
     }
 }
