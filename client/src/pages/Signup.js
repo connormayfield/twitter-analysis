@@ -93,7 +93,7 @@ class SignUp extends Component{
           break;
         }
 
-        this.setState({formErrors, [name]: value}, () => console.log(this.state));
+        this.setState({formErrors, [name]: value});
     };
 
     signUpHandler = (event) => {
@@ -101,12 +101,12 @@ class SignUp extends Component{
 // validation
         if (formValid(this.state)) {
           // this.state.isAuthenticated=true;
-          console.log(`
-          Username: ${this.state.username}
-          Password: ${this.state.password}
-          Email: ${this.state.email}
-          Twitter Username: ${this.state.twitter_username}
-        `);
+        //   console.log(`
+        //   Username: ${this.state.username}
+        //   Password: ${this.state.password}
+        //   Email: ${this.state.email}
+        //   Twitter Username: ${this.state.twitter_username}
+        // `);
       } else {
         console.log("FORM INVALID - display error message");
       }
@@ -117,7 +117,6 @@ class SignUp extends Component{
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
-                console.log("authenticatgin")
                 this.userHasAuthenticated(res.data.username, true);
             }
         })

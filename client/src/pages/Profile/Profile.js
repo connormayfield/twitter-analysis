@@ -3,6 +3,7 @@ import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
 import {Redirect} from "react-router-dom";
 import "../Profile/style.css";
+import twitterAPI from "../../utils/twitterAPI"
 import UserSideBar from "../../components/UserSidebar/index"
 import sideBarScript from "../../components/Sidebar/logic"
 import LineGraph from "../../components/Graphs/LineGraph"
@@ -31,10 +32,8 @@ class Profile extends Component{
     }
 
     componentDidMount = () => {
-        console.log(document.querySelector(".wrapper").offsetHeight)
-        document.querySelector("body").style.height = document.querySelector(".wrapper").offsetHeight;
     
-       sideBarScript.sideBarController()
+        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {
@@ -43,6 +42,11 @@ class Profile extends Component{
             }
             else{
                 this.setState({username: res.data.username})
+                console.log("positing tweets")
+                twitterAPI.postTweets(res.data.username, "bootcamptweeter")
+                    .then((res) => {
+                        console.log(res)
+                    })
             }
         })
         .catch((err) => console.log(err))

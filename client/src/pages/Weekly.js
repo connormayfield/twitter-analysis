@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LineGraph from "../components/Graphs/LineGraph";
 import DoughnutGraph from "../components/Graphs/DoughnutGraph";
+import sentimentAPI from "../utils/sentimentAPI";
 
 class Weekly extends Component {
 
@@ -27,6 +28,25 @@ class Weekly extends Component {
         ],
         sentimentData: [40, 75, 140, 160, 200]
     }
+
+
+
+    componentWillMount() {
+        
+        sentimentAPI.find(1234)
+        .then(({data})=>{
+            
+            this.setState({sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]})
+        })
+        // this.setState({ weekInterval: setInterval(this.weekRandom, 5000) });
+        // this.setState({ sentimentInterval: setInterval(this.sentimentRandom, 5000) });
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.weekInterval);
+        clearInterval(this.state.sentimentInterval);
+    }
+
 
     weekRandom = () => {
 
@@ -57,17 +77,9 @@ class Weekly extends Component {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    componentDidMount() {
-        this.setState({ weekInterval: setInterval(this.weekRandom, 5000) });
-        this.setState({ sentimentInterval: setInterval(this.sentimentRandom, 5000) });
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.weekInterval);
-        clearInterval(this.state.sentimentInterval);
-    }
 
     render() {
+        console.log(this.state)
         return (
             <div className="text-center">
                 <h4>Weekly Tweet Data Example</h4>

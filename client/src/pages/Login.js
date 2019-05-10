@@ -57,7 +57,7 @@ class Login extends Component{
         })
         .catch((err) => {
             alert("Wrong username/password")
-            console.log("Wrong username/password")})
+            console.log(err)})
     }
 
     render(){

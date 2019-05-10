@@ -1,3 +1,4 @@
+const tweetController = require("../../../controllers/tweetController")
 const express = require("express");
 const router = require("express").Router();
 var Twitter = require('twitter');
@@ -27,27 +28,29 @@ var client = new Twitter({
 //     "access_token":"AAAAAAAAAAAAAAAAAAAAAPF1%2BQAAAAAA5nnHqs8mtuTGENA1i0aJJ6ovZHE%3DWkz1XObzIRYbbJORPQlleU7lTqAQFidBcZfXVFF8o0HCil0VyH"
 // }
 
-router.get("/", (req, res) => {
-    var params = {screen_name: req.query.screen_name, count: "10", excludes_replies: "false"};
-    client.get('statuses/user_timeline', params, function(error, tweets, response) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log(tweets);
-            res.json({ tweets });
+router.route("/:username/:screen_name")
+      .post(tweetController.storeTweets)
+      .get(tweetController.getTweets)
+
+
+
+// router.get("/:username/:screen_name", (req, res) => {
+//   console.log(req.params.screen_name)
+//     var params = {screen_name: req.params.screen_name, count: "10", excludes_replies: "false"};
+//     client.get('statuses/user_timeline', params, function(error, tweets, response) {
+//         if (error) {
+//             console.log(error)
+//             res.json(error);
+//         }
+//         else {
+//             console.log(response);
+//             console.log(tweets);
+//             res.json({ tweets });
             
-        }
-    });
-    // client.get('statuses/mentions_timeline', params, function(error, tweets, response) {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    //     else {
-    //         res.json({ tweets });
-    //     }
-    // });
-});
+//         }
+//     });
+
+// });
 
 module.exports = router;
 

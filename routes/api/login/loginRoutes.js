@@ -7,8 +7,7 @@ const router = express.Router();
 
 //logging in route
 router.post("/login", passport.authenticate("local"), function(req, res) {
-    console.log("session")
-    res.send(req.session);
+    res.send("Session created.");
 })
 //signing up account route
 router.route("/signup")
@@ -18,7 +17,6 @@ router.route("/signup")
 router.get("/session", function(req, res) {
     // console.log("req.user", req.user)
     if(req.user){
-        console.log("req.user", req.user)
         let userInfo = {
             username: req.user.username,
             twitter_username: req.user.twitter_username

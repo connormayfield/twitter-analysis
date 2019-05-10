@@ -30,13 +30,11 @@ passport.use("local", local);
 // Mongoose needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work
 passport.serializeUser(function(user, done) {
-    console.log("serialize")
 
     done(null, user._id);
 });
 
 passport.deserializeUser(function(userId, done) {
-    console.log("deserialize")
     User.findById(userId, (err, user) => done(err,user));
 
 });
