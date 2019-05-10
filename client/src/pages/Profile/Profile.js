@@ -22,6 +22,7 @@ class Profile extends Component{
         user: {},
         tweets:[],
         username: "",
+        isAuthenicated: false,
         weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekData: [
             {
@@ -44,7 +45,7 @@ class Profile extends Component{
         .then((res)=> {
             console.log(res)
             if(!res.data){
-                this.setState({isAuthenicated: false})
+                return;
             }
             else{
                 twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
@@ -79,6 +80,7 @@ class Profile extends Component{
                         this.setState({username: res.data.username,
                             user:user,
                             tweets:[...newTweet],
+                            isAuthenicated: true
                      });
                     })
                 .catch(err => console.log(err))
@@ -93,6 +95,8 @@ class Profile extends Component{
 
 
     render(){  
+        if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
+
         return(
             <Container> 
                 <div className = "profileContainer">
