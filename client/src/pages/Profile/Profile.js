@@ -20,6 +20,7 @@ const cardStyle = {
 class Profile extends Component{
 
     state = {
+        tweet: [],
         user: {},
         weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekData: [
@@ -55,14 +56,14 @@ class Profile extends Component{
       
         twitterAPI.getTweets('bootcamptweeter').then(res => {
             var user = {};
+            user.name = res.data.tweets[0].user.name;
             user.screen_name = res.data.tweets[0].user.screen_name;
             user.location = res.data.tweets[0].user.location;
             user.description = res.data.tweets[0].user.description;
-            user.url = res.data.tweets[0].user.url;
             user.followers_count = res.data.tweets[0].user.followers_count;
             user.friends_count = res.data.tweets[0].user.friends_count;
             user.favourites_count = res.data.tweets[0].user.favourites_count;
-            user.profile_img = res.data.tweets[0].user.profile_img;
+            user.profile_img = res.data.tweets[0].user.profile_image_url_https;
             this.setState({user:user});
 
             var newTweet = [];
@@ -93,6 +94,10 @@ class Profile extends Component{
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
 
+    redirectTwitter = () => {
+        window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
+    } 
+
     render(){  
 
         return(
@@ -100,16 +105,41 @@ class Profile extends Component{
                 <div className = "profileContainer">
                     <Row >
                             <Col size = "xs-3" >
-                                <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
+                                <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
-                                <h5>Welcome back, {this.state.user.username}</h5>
-                                {this.state.user.twitter === undefined &&
+                                <h5>{this.state.user.name}</h5>
+                                {/* {this.state.user.twitter === undefined &&
                                     // <Link to="/api/user/connect/twitter">
                                         <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
                                     // </Link>
-                                }
+                                } */}
+                                <h6>{this.state.user.screen_name}</h6>
+                                <h6>{this.state.user.location}</h6>
+                                <h6>{this.state.user.description}</h6>
+                                <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
                             </Col>
+                    </Row>
+                </div>
+                <div className="widgetContainer">
+                        <h5>Here is your weekly analysis of your likes and followers:</h5>
+
+                    <Row>
+                        <div className="widget tweets">
+                            <Col size="xs-4" >
+                                <span>{this.state.user.friends_count}</span> Friends
+                            </Col>
+                        </div>
+                        <div className="widget followers">
+                            <Col size="xs-4">
+                                <span>{this.state.user.followers_count}</span> Followers
+                            </Col>
+                        </div>         
+                        <div className="widget likes">
+                            <Col size="xs-4">
+                                <span>{this.state.user.favourites_count}</span> Favorites
+                            </Col>
+                        </div>          
                     </Row>
                 </div>
                 <div className="graphContainer">
@@ -118,27 +148,6 @@ class Profile extends Component{
                         labels={this.state.weekLabels}
                         graphData={this.state.weekData} 
                     />
-                </div>
-                <div className="widgetContainer">
-                        <h5>Here is your weekly analysis of your likes and followers:</h5>
-
-                    <Row>
-                        <div className="widget tweets">
-                            <Col size="xs-4" >
-                                <span>XX</span> Retweets
-                            </Col>
-                        </div>
-                        <div className="widget followers">
-                            <Col size="xs-4">
-                                <span>XX</span> Followers
-                            </Col>
-                        </div>         
-                        <div className="widget likes">
-                            <Col size="xs-4">
-                                <span>XX</span> Favorites
-                            </Col>
-                        </div>          
-                    </Row>
                 </div>
                 <div className="graphContainer">
                         <h4>Weekly Tweet Data Example</h4>

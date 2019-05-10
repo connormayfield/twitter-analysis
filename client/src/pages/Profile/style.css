@@ -1,18 +1,14 @@
  .profileContainer{
-
     padding: 50px;
  }
 
   .profileContainer img{
-     margin: 0 25vw ;
-     border:  3px solid black;
-     display: inline-block;
-     
+     border:  1px solid black;
+     border-radius: 50%;
  }
 
- .profileContainer h5, .profileContainer p{
+ .profileContainer h5, .profileContainer h6, .profileContainer p{
     margin: 5px ;
-   
 }
 
 .widgetContainer{
