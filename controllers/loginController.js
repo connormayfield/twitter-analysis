@@ -8,13 +8,13 @@ module.exports = {
             email: req.body.email,
                 
         }).then(function(data) {
-            console.log(data)
-            console.log("redirecting to login")
+
+            console.log("redirecting to login route")
             res.redirect(307, "/api/user/login")
-    
+
         }).catch(function(err) {
             res.json(err);
-            
+
         });
     }
 }
