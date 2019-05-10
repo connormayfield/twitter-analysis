@@ -3,9 +3,10 @@ import { Link, Redirect } from "react-router-dom";
 import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
-import twitterAPI from "../../utils/twitterAPI"
+import Sidebar from "../../components/Sidebar"
 import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
+import twitterAPI from "../../utils/twitterAPI"
 import commentImg from "./img/comment.png"
 import retweetImg from "./img/retweet.png"
 import likeImg from "./img/heart.png"
@@ -37,13 +38,15 @@ class Profile extends Component{
                 primaryColor: "#00FF00",
                 data: [400, 6, 200, 4, 3, 2, 1]
             }
+
         ]
+
     }
 
-    componentDidMount(){
+    componentDidMount = () => {
+
         loginAPI.checkSession()
         .then((res)=> {
-            console.log(res)
             if(!res.data){
                 return;
             }
@@ -51,14 +54,14 @@ class Profile extends Component{
                 twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
                     console.log(res.data)
                     var user = {};
+                    user.name = res.data[0].user.name;
                     user.screen_name = res.data[0].user.screen_name;
                     user.location = res.data[0].user.location;
                     user.description = res.data[0].user.description;
-                    user.url = res.data[0].user.url;
                     user.followers_count = res.data[0].user.followers_count;
                     user.friends_count = res.data[0].user.friends_count;
                     user.favourites_count = res.data[0].user.favourites_count;
-                    user.profile_img = res.data[0].user.profile_img;
+                    user.profile_img = res.data[0].user.profile_image_url_https;
         
                     var newTweet = [];
                     for(var i = 0; i < res.data.length; i++){
@@ -87,54 +90,101 @@ class Profile extends Component{
             }
         })
       
+        // twitterAPI.getTweets('bootcamptweeter').then(res => {
+        //     var user = {};
+        //     user.name = res.data.tweets[0].user.name;
+        //     user.screen_name = res.data.tweets[0].user.screen_name;
+        //     user.location = res.data.tweets[0].user.location;
+        //     user.description = res.data.tweets[0].user.description;
+        //     user.followers_count = res.data.tweets[0].user.followers_count;
+        //     user.friends_count = res.data.tweets[0].user.friends_count;
+        //     user.favourites_count = res.data.tweets[0].user.favourites_count;
+        //     user.profile_img = res.data.tweets[0].user.profile_image_url_https;
+        //     this.setState({user:user});
+
+        //     var newTweet = [];
+        //     for(var i = 0; i < res.data.tweets.length; i++){
+        //         const dateToFormat = res.data.tweets[i].created_at;
+        //         const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+
+
+        //         var oneTweet = {};
+        //         oneTweet.id = res.data.tweets[i].id;
+        //         oneTweet.created_at = formattedDate;
+        //         oneTweet.text = res.data.tweets[i].text;
+        //         oneTweet.retweets = res.data.tweets[i].retweet_count;
+        //         oneTweet.favorites = res.data.tweets[i].favorite_count; 
+        //         oneTweet.name = res.data.tweets[i].user.name; 
+        //         oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
+        //         oneTweet.user_id = res.data.tweets[i].user.id; 
+
+        //         newTweet.push(oneTweet);
+        //         }
+        //     this.setState({tweet:[...newTweet]});
+        //     })
+        // .catch(err => console.log(err))
+    
     }
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
 
+    redirectTwitter = () => {
+        window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
+    } 
 
     render(){  
-        if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
+        // if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
 
         return(
             <Container> 
                 <div className = "profileContainer">
                     <Row >
                             <Col size = "xs-3" >
-                                <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
+                                <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
-                                <h5>Welcome back, {this.state.user.username}</h5>
-                                {this.state.user.twitter === undefined &&
+                                <h5>{this.state.user.name}</h5>
+                                {/* {this.state.user.twitter === undefined &&
                                     // <Link to="/api/user/connect/twitter">
                                         <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
                                     // </Link>
-                                }
+                                } */}
+                                <h6>{this.state.user.screen_name}</h6>
+                                <h6>{this.state.user.location}</h6>
+                                <h6>{this.state.user.description}</h6>
+                                <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
                             </Col>
                     </Row>
                 </div>
-
                 <div className="widgetContainer">
                         <h5>Here is your weekly analysis of your likes and followers:</h5>
 
                     <Row>
                         <div className="widget tweets">
                             <Col size="xs-4" >
-                                <span>XX</span> Retweets
+                                <span>{this.state.user.friends_count}</span> Friends
                             </Col>
                         </div>
                         <div className="widget followers">
                             <Col size="xs-4">
-                                <span>XX</span> Followers
+                                <span>{this.state.user.followers_count}</span> Followers
                             </Col>
                         </div>         
                         <div className="widget likes">
                             <Col size="xs-4">
-                                <span>XX</span> Favorites
+                                <span>{this.state.user.favourites_count}</span> Favorites
                             </Col>
                         </div>          
                     </Row>
+                </div>
+                <div className="graphContainer">
+                    <h4>Weekly Tweet Data Example</h4>
+                        <LineGraph id="linegraph"
+                        labels={this.state.weekLabels}
+                        graphData={this.state.weekData} 
+                    />
                 </div>
                 <div className="graphContainer">
                         <h4>Weekly Tweet Data Example</h4>
@@ -170,6 +220,5 @@ class Profile extends Component{
         )
     }
 }
-
 
 export default Profile
