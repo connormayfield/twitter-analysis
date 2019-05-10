@@ -8,19 +8,32 @@ const toneAnalyzer = new ToneAnalyzerV3({
 });
 
 function calculatingEmotions(dbComments, es, ind = 0, cb){
-  //Store score in Sentiment Model
+  //Store score in Sentiment Model after calculating sentiment score
   if (ind === dbComments.length){
+    let total = 0;
+    for (var score in es){
+
+       total += parseFloat(es[score])
+    }
+    es = {
+      anger: (es.anger / total * 100).toFixed(2),
+      disgust: (es.disgust / total * 100).toFixed(2),
+      fear: (es.fear / total * 100).toFixed(2),
+      joy: (es.joy / total * 100).toFixed(2),
+      sadness: (es.sadness / total * 100).toFixed(2)
+    }
+
     db.Sentiment.create({
       anger: es.anger,
       disgust: es.disgust,
       fear: es.fear,
       joy: es.joy,
       sadness: es.sadness
-  }).then( ({ _id }) => {
+    })
+    .then( ({ _id }) => {
            return cb(es, _id)}
     )
    .catch(err => console.log(err));  
-
   }
   //Calculate sentiment scores while iterating through comment Array
   else{
@@ -40,7 +53,8 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
         calculatingEmotions(dbComments, es, ind, cb)
         })
         .catch(err => {
-          console.log('error:', err);
+          console.log('error:', err)
+          res.json(err);
         })
   }
 }
@@ -51,9 +65,7 @@ module.exports = {
   //parameters need to be passed: 1. username, 2. Tweet _id
 
   create(req, res){
-      let i = 0
       let username = "delta1234"
-
       let emotionScore = {
         anger: 0,
         disgust: 0,
@@ -66,7 +78,7 @@ module.exports = {
         username : username})
         .populate("tweets")
         .then((dbUser) => {
-          let tweetID = dbUser[0].tweets[1]._id
+          let tweetID = dbUser[0].tweets[0]._id
           db.Tweet.find({
             _id: tweetID
           })
@@ -79,17 +91,18 @@ module.exports = {
             });
             calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID){
               db.Tweet.update({_id: tweetID}, {
-               $push: {
+               $set: {
                  sentiment: sentimentID
                }
               }).then((data) => {
                 console.log(data)
                 res.json(emotionScore)
               })
-              .catch(err => console.log(err));
-              
+              .catch(err => {
+                console.log(err)
+                res.json(err)
+              });
             })
-
           })
         })
         .catch((err)=>{
@@ -106,15 +119,15 @@ module.exports = {
         username : username})
         .populate("tweets")
         .then((dbUser) => {
-          let tweetID = dbUser[0].tweets[1]._id
+          let tweetID = dbUser[0].tweets[0]._id
           db.Tweet.find({
             _id: tweetID
           })
           .populate("comments")
           .populate("sentiment")
           .then((dbTweet) => {
-               console.log(dbTweet)
-               res.json(dbTweet)
+               console.log(dbTweet[0].sentiment[0])
+               res.json(dbTweet[0].sentiment[0])
 
           })
         })

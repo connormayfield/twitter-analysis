@@ -3,10 +3,9 @@ import { Link, Redirect } from "react-router-dom";
 import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
-import Sidebar from "../../components/Sidebar"
+import twitterAPI from "../../utils/twitterAPI"
 import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
-import twitterAPI from "../../utils/twitterAPI"
 import commentImg from "./img/comment.png"
 import retweetImg from "./img/retweet.png"
 import likeImg from "./img/heart.png"
@@ -21,6 +20,8 @@ class Profile extends Component{
 
     state = {
         user: {},
+        tweets:[],
+        username: "",
         weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekData: [
             {
@@ -35,66 +36,63 @@ class Profile extends Component{
                 primaryColor: "#00FF00",
                 data: [400, 6, 200, 4, 3, 2, 1]
             }
-
         ]
-
     }
 
-    componentDidMount = () => {
-
+    componentDidMount(){
         loginAPI.checkSession()
         .then((res)=> {
+            console.log(res)
             if(!res.data){
                 this.setState({isAuthenicated: false})
             }
             else{
-                this.setState({user: res.data})
-                console.log(this.state.user);
+                twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
+                    console.log(res.data)
+                    var user = {};
+                    user.screen_name = res.data[0].user.screen_name;
+                    user.location = res.data[0].user.location;
+                    user.description = res.data[0].user.description;
+                    user.url = res.data[0].user.url;
+                    user.followers_count = res.data[0].user.followers_count;
+                    user.friends_count = res.data[0].user.friends_count;
+                    user.favourites_count = res.data[0].user.favourites_count;
+                    user.profile_img = res.data[0].user.profile_img;
+        
+                    var newTweet = [];
+                    for(var i = 0; i < res.data.length; i++){
+                        const dateToFormat = res.data[i].created_at;
+                        const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+        
+                        var oneTweet = {};
+                        oneTweet.id = res.data[i].id;
+                        oneTweet.created_at = formattedDate;
+                        oneTweet.text = res.data[i].text;
+                        oneTweet.retweets = res.data[i].retweet_count;
+                        oneTweet.favorites = res.data[i].favorite_count; 
+                        oneTweet.name = res.data[i].user.name; 
+                        oneTweet.screen_name = res.data[i].user.screen_name; 
+                        oneTweet.user_id = res.data[i].user.id; 
+        
+                        newTweet.push(oneTweet);
+                        }
+                        this.setState({username: res.data.username,
+                            user:user,
+                            tweets:[...newTweet],
+                     });
+                    })
+                .catch(err => console.log(err))
             }
         })
       
-        twitterAPI.getTweets('bootcamptweeter').then(res => {
-            var user = {};
-            user.screen_name = res.data.tweets[0].user.screen_name;
-            user.location = res.data.tweets[0].user.location;
-            user.description = res.data.tweets[0].user.description;
-            user.url = res.data.tweets[0].user.url;
-            user.followers_count = res.data.tweets[0].user.followers_count;
-            user.friends_count = res.data.tweets[0].user.friends_count;
-            user.favourites_count = res.data.tweets[0].user.favourites_count;
-            user.profile_img = res.data.tweets[0].user.profile_img;
-            this.setState({user:user});
-
-            var newTweet = [];
-            for(var i = 0; i < res.data.tweets.length; i++){
-                const dateToFormat = res.data.tweets[i].created_at;
-                const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
-
-
-                var oneTweet = {};
-                oneTweet.id = res.data.tweets[i].id;
-                oneTweet.created_at = formattedDate;
-                oneTweet.text = res.data.tweets[i].text;
-                oneTweet.retweets = res.data.tweets[i].retweet_count;
-                oneTweet.favorites = res.data.tweets[i].favorite_count; 
-                oneTweet.name = res.data.tweets[i].user.name; 
-                oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
-                oneTweet.user_id = res.data.tweets[i].user.id; 
-
-                newTweet.push(oneTweet);
-                }
-            this.setState({tweet:[...newTweet]});
-            })
-        .catch(err => console.log(err))
-    
     }
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
 
-    render(){  
 
+    render(){  
         return(
             <Container> 
                 <div className = "profileContainer">
@@ -112,13 +110,7 @@ class Profile extends Component{
                             </Col>
                     </Row>
                 </div>
-                <div className="graphContainer">
-                    <h4>Weekly Tweet Data Example</h4>
-                        <LineGraph id="linegraph"
-                        labels={this.state.weekLabels}
-                        graphData={this.state.weekData} 
-                    />
-                </div>
+
                 <div className="widgetContainer">
                         <h5>Here is your weekly analysis of your likes and followers:</h5>
 
@@ -149,11 +141,11 @@ class Profile extends Component{
                 </div>
                 <Row>
                     <Col size="xs-12">
-                        {!this.state.tweet.length ? (
+                        {this.state.tweets.length === 0 ? (
                             <h1 className="text-center">No Tweets to Display</h1>
                         ) : (
                             <div>
-                                {this.state.tweet.map((tweet, ind) => {
+                                {this.state.tweets.map((tweet, ind) => {
                                     return (
                                         <div className="card" style={cardStyle} key = {ind}>
                                             <div className="card-body">
@@ -174,5 +166,6 @@ class Profile extends Component{
         )
     }
 }
+
 
 export default Profile
