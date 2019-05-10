@@ -1,9 +1,12 @@
 .wrapper {
   width:100%;
-  height:100%;
+  height: calc(100% - 56px);
+  margin-left: 0;
   padding:0;
-  position:fixed;
-  overflow: scroll;
   transition: 0.25s;
-  padding-bottom: 100px;
 }
+/* 
+.wrapper.active {
+  margin-left: 200px;
+
+} */

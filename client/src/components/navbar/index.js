@@ -1,17 +1,21 @@
 import React from "react"
 import {Link} from "react-router-dom"
+import { Container } from "../Grid";
+import "./style.css";
 
 export function Navbar({props}){
 
-    return (<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    return (
     
-    <Link className="navbar-brand" to="/"><span style={{display:"inline-block", width:"60px"}}></span><span style={{"font-size":"25px", "color":"white"}}>TweetTrace</span></Link>
-    {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button> */}
-    
-  </nav>
-  )
+      <nav className="navbar navbar-dark bg-primary">
+        <Container>
+          <button className="navbar-toggler" id="toggle-sidebar" type="button">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <Link className="navbar-brand" to="/">TweetTrace</Link>
+        </Container>
+      </nav>
+    )
 }
 
 export default Navbar

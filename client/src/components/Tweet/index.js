@@ -6,32 +6,29 @@ import commentImg from "./img/comment.png"
 import retweetImg from "./img/retweet.png"
 import likeImg from "./img/heart.png"
 
-const cardStyle = {
-    margin: 5,
-    width: "18rem"
-}
-
 class Tweet extends Component{
     state = {
         tweet: []
     }
 
     componentDidMount() {
-        twitterAPI.getTweets('bootcamptweeter').then(res => {
+        twitterAPI.getTweets("1234",'bootcamptweeter').then(res => {
+            console.log(res.data)
             var newTweet = [];
-            for(var i = 0; i < res.data.tweets.length; i++){
-                const dateToFormat = res.data.tweets[i].created_at;
-                const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+            for(var i = 0; i < res.data.length; i++){
+                // const dateToFormat = res.data.tweets[i].created_at;
+                // console.log(dateToFormat);
+                // const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
 
                 var oneTweet = {};
-                oneTweet.id = res.data.tweets[i].id;
-                oneTweet.created_at = formattedDate;
-                oneTweet.text = res.data.tweets[i].text;
-                oneTweet.retweets = res.data.tweets[i].retweet_count;
-                oneTweet.favorites = res.data.tweets[i].favorite_count; 
-                oneTweet.name = res.data.tweets[i].user.name; 
-                oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
-                oneTweet.user_id = res.data.tweets[i].user.id; 
+                oneTweet.id = res.data[i]._id;
+                oneTweet.created_at = "MM/DD/YYYY";
+                oneTweet.text = res.data[i].tweet_body;
+                oneTweet.retweets = res.data[i].retweets;
+                oneTweet.favorites = res.data[i].likes; 
+                oneTweet.name = "Nunya"; 
+                oneTweet.screen_name = res.data[i].handle; 
+                oneTweet.user_id = "00000000020000"; 
 
                 newTweet.push(oneTweet);
                 }
@@ -48,13 +45,13 @@ class Tweet extends Component{
                 
             <Row>
                 <Col size="xs-12">
-                    {!this.state.tweet.length ? (
+                    {this.state.tweet.length === 0 ? (
                         <h1 className="text-center">No Tweets to Display</h1>
                     ) : (
                         <div>
-                            {this.state.tweet.map((tweet, ind) => {
+                            {this.state.tweet.map(tweet => {
                                 return (
-                                    <div className="card" style={cardStyle} key = {ind}>
+                                    <div className="card" style={{"width": "18rem"}}>
                                         <div className="card-body">
                                             <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
                                             <p className="card-text">{tweet.text}</p>

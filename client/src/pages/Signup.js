@@ -5,7 +5,6 @@ import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import Sidebar from "../components/Sidebar";
-import sideBarScript from "../components/Sidebar/logic"
 
 
 const emailRegex = RegExp(
@@ -55,7 +54,6 @@ class SignUp extends Component{
     }
 
     componentDidMount = () => {
-        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {

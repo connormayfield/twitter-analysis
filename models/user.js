@@ -19,16 +19,24 @@ const userSchema = new Schema({
 	
     email:{
       type: String,
-      required: true
     },
     
-    // This will be changed to the Oauth token that twitter gives us    
-    twitter_username: {
-        type: String,
-        require: true
+    // This will store the connected twitter account
+    twitter: {
+
+      id: String,
+
+      token: String,
+
+      displayName: String,
+
+      handle: String,
+
+      photo: String
+
     },
 
-	// A list of tweets that the user has pulled and wants information on
+    // A list of tweets that the user has pulled and wants information on
     tweets: [
       {
         type: Schema.Types.ObjectId,

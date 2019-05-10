@@ -6,22 +6,8 @@ import "./style.css";
 
 class Sidebar extends Component {
   state={
-    isAuthenticated: false,
-    toggle:"false"
+    isAuthenticated: false
   }
-
-
-
-
-  toggleSidebar=()=> {
-    if(this.state.toggle==="false") {
-      document.querySelector(".wrapper").style.marginLeft = "200px"
-      this.setState({toggle:"true"});
-    } else {
-      document.querySelector(".wrapper").style.marginLeft = "0px"
-      this.setState({toggle:"false"});
-    }
-  };
 
   logOut = () => {
     loginAPI.logout()
@@ -31,17 +17,20 @@ class Sidebar extends Component {
   render(){
     
     return (
-      <div id="sidebar" className={this.state.toggle==="false"?"":"active"}>
-        <div className="toggle-button" onClick={this.toggleSidebar}>
+      <div id="sidebar">
+        {/* <div className="toggle-btn" id="toggle-sidebar" onClick={this.toggleSidebar}>
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </div> */}
         <ul>
           <Link to="/"><li>Home</li></Link>
-          <Link to="#"><li>About</li></Link>
-          <Link to="/login"><li>Login</li></Link>
-          <Link to="/signup"><li>Signup</li></Link>
+          {this.state.isAuthenticated ?  null : <Link to="/login"><li>Login</li></Link>}
+          {this.state.isAuthenticated ?  null : <Link to="/signup"><li>Signup</li></Link>}
+          {this.state.isAuthenticated ?  <Link to="/profile"><li>Profile</li></Link> : null}
+          {this.state.isAuthenticated ?  <li>Tweet</li> : null}
+          {this.state.isAuthenticated ?  <li>Sentiment</li> : null}
+          {this.state.isAuthenticated ?  <Link to="/logout" onClick = {this.logOut}><li>Logout</li></Link> : null}
         </ul>
         <div className="side-image"></div>
       </div>

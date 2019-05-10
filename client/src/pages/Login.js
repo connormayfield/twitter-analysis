@@ -5,8 +5,7 @@ import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
-import Sidebar from "../components/Sidebar";
-import sideBarScript from "../components/Sidebar/logic"
+// import Sidebar from "../components/Sidebar";
 
 
 class Login extends Component{
@@ -18,10 +17,7 @@ class Login extends Component{
         
     }
 
-
-
     componentDidMount = () => {
-        sideBarScript.sideBarController();
 
         loginAPI.checkSession()
         .then((res)=> {
@@ -57,7 +53,7 @@ class Login extends Component{
         })
         .catch((err) => {
             alert("Wrong username/password")
-            console.log("Wrong username/password")})
+            console.log(err)})
     }
 
     render(){
@@ -67,7 +63,6 @@ class Login extends Component{
 
         return(
             <Wrapper>
-                <Sidebar/>
                 <Container>
                     <LoginForm>
                         <h1>LOG IN</h1>

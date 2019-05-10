@@ -5,8 +5,8 @@
     height:100%;
     background:rgb(51,51,51);
     left:-200px;
-    z-index:1000;
-    transition: 0.25s
+    z-index:1;
+    transition: 0.25s;
 }
 
 #sidebar.active {
