@@ -10,14 +10,9 @@ class Home extends Component{
     render(){
 
         return(
-            <div>
-            <Sidebar/>
             <Container>
                     <h1>Home Page</h1>
             </Container>
-            </div>
-
-       
         )
     }
 }

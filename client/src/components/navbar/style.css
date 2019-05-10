@@ -1,4 +1,5 @@
 .navbar {
+    width: 100%;
     z-index: 100;
 }
 
@@ -6,7 +7,7 @@
     transition: 0.25s;
 }
 
-.navbar-brand.active {
+/* .navbar-brand.active {
     margin-right: 200px;
 }
 
@@ -14,4 +15,4 @@
     .navbar-brand.active {
         margin-right: 0px;
     }
-}
+} */
