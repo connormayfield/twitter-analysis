@@ -90,6 +90,8 @@ class Profile extends Component{
             }
         })
 
+    }
+
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
@@ -187,4 +189,4 @@ class Profile extends Component{
     }
 }
 
-export default Profile
+export default Profile;
