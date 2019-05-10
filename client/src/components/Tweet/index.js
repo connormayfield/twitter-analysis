@@ -6,6 +6,11 @@ import commentImg from "./img/comment.png"
 import retweetImg from "./img/retweet.png"
 import likeImg from "./img/heart.png"
 
+const cardStyle = {
+    margin: 5,
+    width: "18rem"
+}
+
 class Tweet extends Component{
     state = {
         tweet: []
@@ -13,11 +18,9 @@ class Tweet extends Component{
 
     componentDidMount() {
         twitterAPI.getTweets('bootcamptweeter').then(res => {
-            console.log(res.data)
             var newTweet = [];
             for(var i = 0; i < res.data.tweets.length; i++){
                 const dateToFormat = res.data.tweets[i].created_at;
-                console.log(dateToFormat);
                 const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
 
                 var oneTweet = {};
@@ -49,9 +52,9 @@ class Tweet extends Component{
                         <h1 className="text-center">No Tweets to Display</h1>
                     ) : (
                         <div>
-                            {this.state.tweet.map(tweet => {
+                            {this.state.tweet.map((tweet, ind) => {
                                 return (
-                                    <div className="card" style={{"width": "18rem"}}>
+                                    <div className="card" style={cardStyle} key = {ind}>
                                         <div className="card-body">
                                             <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
                                             <p className="card-text">{tweet.text}</p>
