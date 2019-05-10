@@ -5,6 +5,17 @@ import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
 import Sidebar from "../../components/Sidebar"
 import LineGraph from "../../components/Graphs/LineGraph"
+import moment from 'moment';
+import twitterAPI from "../../utils/twitterAPI"
+import commentImg from "./img/comment.png"
+import retweetImg from "./img/retweet.png"
+import likeImg from "./img/heart.png"
+
+const cardStyle = {
+    marginTop: 5,
+    marginLeft: 35,
+    width: "20rem"
+}
 
 class Profile extends Component{
 
@@ -41,16 +52,41 @@ class Profile extends Component{
                 console.log(this.state.user);
             }
         })
-        .catch((err) => console.log(err))
+      
+        twitterAPI.getTweets('bootcamptweeter').then(res => {
+            var user = {};
+            user.screen_name = res.data.tweets[0].user.screen_name;
+            user.location = res.data.tweets[0].user.location;
+            user.description = res.data.tweets[0].user.description;
+            user.url = res.data.tweets[0].user.url;
+            user.followers_count = res.data.tweets[0].user.followers_count;
+            user.friends_count = res.data.tweets[0].user.friends_count;
+            user.favourites_count = res.data.tweets[0].user.favourites_count;
+            user.profile_img = res.data.tweets[0].user.profile_img;
+            this.setState({user:user});
 
-        // var screen_name = res.tweets[0].user.screen_name;
-        // var location = res.tweets[0].user.location;
-        // var description = res.tweets[0].user.description;
-        // var url = res.tweets[0].user.url;
-        // var followers_count = res.tweets[0].user.followers_count;
-        // var friends_count = res.tweets[0].user.friends_count;
-        // var favourites_count = res.tweets[0].user.favourites_count;
-        // var profile_img = res.tweets[0].user.profile_img;
+            var newTweet = [];
+            for(var i = 0; i < res.data.tweets.length; i++){
+                const dateToFormat = res.data.tweets[i].created_at;
+                const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+
+
+                var oneTweet = {};
+                oneTweet.id = res.data.tweets[i].id;
+                oneTweet.created_at = formattedDate;
+                oneTweet.text = res.data.tweets[i].text;
+                oneTweet.retweets = res.data.tweets[i].retweet_count;
+                oneTweet.favorites = res.data.tweets[i].favorite_count; 
+                oneTweet.name = res.data.tweets[i].user.name; 
+                oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
+                oneTweet.user_id = res.data.tweets[i].user.id; 
+
+                newTweet.push(oneTweet);
+                }
+            this.setState({tweet:[...newTweet]});
+            })
+        .catch(err => console.log(err))
+    
     }
 
     connect = () => {
@@ -104,6 +140,36 @@ class Profile extends Component{
                         </div>          
                     </Row>
                 </div>
+                <div className="graphContainer">
+                        <h4>Weekly Tweet Data Example</h4>
+                            <LineGraph id="linegraph"
+                            labels={this.state.weekLabels}
+                            graphData={this.state.weekData} 
+                            />
+                </div>
+                <Row>
+                    <Col size="xs-12">
+                        {!this.state.tweet.length ? (
+                            <h1 className="text-center">No Tweets to Display</h1>
+                        ) : (
+                            <div>
+                                {this.state.tweet.map((tweet, ind) => {
+                                    return (
+                                        <div className="card" style={cardStyle} key = {ind}>
+                                            <div className="card-body">
+                                                <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
+                                                <p className="card-text">{tweet.text}</p>
+                                                <a href="#" className="card-link"><img src={commentImg}></img></a>
+                                                <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
+                                                <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </Col>
+                </Row>
             </Container>
         )
     }
