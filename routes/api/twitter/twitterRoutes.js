@@ -1,6 +1,8 @@
+const tweetController = require("../../../controllers/tweetController")
 const express = require("express");
 const router = require("express").Router();
 var Twitter = require('twitter');
+const db = require("../../../models/")
 
 // From the other twitter route D made... 
 // const tweetController = require("../../../controllers/tweetController")
@@ -27,17 +29,40 @@ var client = new Twitter({
 //     "access_token":"AAAAAAAAAAAAAAAAAAAAAPF1%2BQAAAAAA5nnHqs8mtuTGENA1i0aJJ6ovZHE%3DWkz1XObzIRYbbJORPQlleU7lTqAQFidBcZfXVFF8o0HCil0VyH"
 // }
 
-router.get("/", (req, res) => {
+router.get("/:username/:screen_name", (req, res) => {
     // <----------This is the user's timeline request alone---------->
-    var params = {screen_name: req.query.screen_name, count: "10", exclude_replies: "false"};
+    console.log(req.params.screen_name)
+    var params = {screen_name: req.params.screen_name, count: "10", exclude_replies: "false"};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
+            res.json(error)
         } else {
-            // console.log(response);
-            // console.log("mentions.................");
-            // console.log({tweets});
-            res.json({ tweets });
+          console.log(tweets)
+          
+            let tweetsArr = []
+            for (let i = 0; i < tweets.length; i++){
+                let tweetObj = {
+                    handle: tweets[i].user.screen_name,
+                    tweet_body: tweets[i].text,
+                    likes: tweets[i].favorite_count,
+                    retweets: tweets[i].retweet_count
+                }
+                tweetsArr.push(tweetObj)
+            }
+            db.Tweet.create(tweetsArr)
+                .then(dbTweet => {
+                    let tweetIDArr = []
+                   for(let i = 0; i < dbTweet.length; i++){
+                        tweetIDArr.push(dbTweet[i]._id)
+                   }
+                   db.User.update({username : req.params.username},
+                        {tweets: tweetIDArr}
+                    ).then((dbUser) => {
+                      res.json(tweets);
+                    })
+                })
+            
         }
     });
     

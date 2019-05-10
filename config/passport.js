@@ -83,7 +83,6 @@ passport.use(new Twitter({
 // Mongoose needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work
 passport.serializeUser(function(user, done) {
-    console.log("serialize")
 
     done(null, user._id);
 });
