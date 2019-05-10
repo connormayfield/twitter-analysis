@@ -12,6 +12,7 @@ module.exports = {
         db.User
             .findById(req.params.id, "-password")
             .then(dbModel => res.json())
+            .catch(err => res.status(422).json(err));
     },
     findUserTweets: function(req, res) {
         db.User
@@ -28,6 +29,12 @@ module.exports = {
                                                 { $push: { tweets: dbTweet._id } },
                                                 { new: true });
             })
+            .catch(err => res.status(422).json(err));
+    },
+    connectTwitter: function(req, res) {
+        db.User
+            .update({ username: req.body.username }, req.body)
+            .then(dbUser => res.json({ success: true }))
             .catch(err => res.status(422).json(err));
     }
 }

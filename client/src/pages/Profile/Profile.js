@@ -1,10 +1,9 @@
 import React, {Component} from "react";
+import { Link, Redirect } from "react-router-dom";
 import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
-import {Redirect} from "react-router-dom";
 import "../Profile/style.css";
-import UserSideBar from "../../components/UserSidebar/index"
-import sideBarScript from "../../components/Sidebar/logic"
+import Sidebar from "../../components/Sidebar"
 import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
 import twitterAPI from "../../utils/twitterAPI"
@@ -21,8 +20,7 @@ const cardStyle = {
 class Profile extends Component{
 
     state = {
-        username: "",
-        isAuthenicated: true,
+        user: {},
         weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekData: [
             {
@@ -37,15 +35,12 @@ class Profile extends Component{
                 primaryColor: "#00FF00",
                 data: [400, 6, 200, 4, 3, 2, 1]
             }
-        ],
-        tweet: [],
-        user: {}
+
+        ]
+
     }
 
     componentDidMount = () => {
-        document.querySelector("body").style.height = document.querySelector(".wrapper").offsetHeight;
-    
-        sideBarScript.sideBarController()
 
         loginAPI.checkSession()
         .then((res)=> {
@@ -53,7 +48,8 @@ class Profile extends Component{
                 this.setState({isAuthenicated: false})
             }
             else{
-                this.setState({username: res.data.username})
+                this.setState({user: res.data})
+                console.log(this.state.user);
             }
         })
       
@@ -74,6 +70,7 @@ class Profile extends Component{
                 const dateToFormat = res.data.tweets[i].created_at;
                 const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
 
+
                 var oneTweet = {};
                 oneTweet.id = res.data.tweets[i].id;
                 oneTweet.created_at = formattedDate;
@@ -89,37 +86,38 @@ class Profile extends Component{
             this.setState({tweet:[...newTweet]});
             })
         .catch(err => console.log(err))
+    
+    }
+
+    connect = () => {
+        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
 
     render(){  
-        if(!this.state.isAuthenicated){
-            return <Redirect to="/login"/>
-        }
 
         return(
-            <div>
-            <UserSideBar/>
-            <Container>
+            <Container> 
                 <div className = "profileContainer">
                     <Row >
                             <Col size = "xs-3" >
                                 <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
                             </Col>
-                            <div className = "userInfo">
-                                <Col size="xs-9">
-                                    <Row>               
-                                        <Col size = "xs-12">
-                                            <h5>Welcome back, {this.state.username}</h5>
-                                        </Col>
-                                    </Row>
-                                    <Row>               
-                                        <Col size = "xs-12">
-                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </div>
+                            <Col size = "xs-4">
+                                <h5>Welcome back, {this.state.user.username}</h5>
+                                {this.state.user.twitter === undefined &&
+                                    // <Link to="/api/user/connect/twitter">
+                                        <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
+                                    // </Link>
+                                }
+                            </Col>
                     </Row>
+                </div>
+                <div className="graphContainer">
+                    <h4>Weekly Tweet Data Example</h4>
+                        <LineGraph id="linegraph"
+                        labels={this.state.weekLabels}
+                        graphData={this.state.weekData} 
+                    />
                 </div>
                 <div className="widgetContainer">
                         <h5>Here is your weekly analysis of your likes and followers:</h5>
@@ -173,7 +171,6 @@ class Profile extends Component{
                     </Col>
                 </Row>
             </Container>
-            </div>
         )
     }
 }
