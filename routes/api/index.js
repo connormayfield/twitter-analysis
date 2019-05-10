@@ -4,7 +4,7 @@ const twitterRoutes = require("./twitter/twitterRoutes");
 const sentimentRoutes = require("./sentiment/sentimentRoutes")
 
 router.use("/user", loginRoutes)
-router.use("/profile", twitterRoutes)
+router.use("/tweets", twitterRoutes)
 router.use("/sentiment", sentimentRoutes)
 
 module.exports = router

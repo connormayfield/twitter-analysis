@@ -8,7 +8,6 @@ import UserSideBar from "../../components/UserSidebar/index"
 import sideBarScript from "../../components/Sidebar/logic"
 import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
-import twitterAPI from "../../utils/twitterAPI"
 import commentImg from "./img/comment.png"
 import retweetImg from "./img/retweet.png"
 import likeImg from "./img/heart.png"
@@ -43,12 +42,7 @@ class Profile extends Component{
         user: {}
     }
 
-    componentDidMount = () => {
-<<<<<<< HEAD
-=======
-        document.querySelector("body").style.height = document.querySelector(".wrapper").offsetHeight;
->>>>>>> 15b9bc2f962ca43dea663764be59ed9a1d562159
-    
+    componentDidMount = () => {    
         sideBarScript.sideBarController()
 
         loginAPI.checkSession()
@@ -57,47 +51,45 @@ class Profile extends Component{
                 this.setState({isAuthenicated: false})
             }
             else{
-                this.setState({username: res.data.username})
-                console.log("positing tweets")
-                twitterAPI.postTweets(res.data.username, "bootcamptweeter")
-                    .then((res) => {
-                        console.log(res)
+                twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
+                    console.log(res.data)
+                    var user = {};
+                    user.screen_name = res.data[0].user.screen_name;
+                    user.location = res.data[0].user.location;
+                    user.description = res.data[0].user.description;
+                    user.url = res.data[0].user.url;
+                    user.followers_count = res.data[0].user.followers_count;
+                    user.friends_count = res.data[0].user.friends_count;
+                    user.favourites_count = res.data[0].user.favourites_count;
+                    user.profile_img = res.data[0].user.profile_img;
+        
+                    var newTweet = [];
+                    for(var i = 0; i < res.data.length; i++){
+                        const dateToFormat = res.data[i].created_at;
+                        const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+        
+                        var oneTweet = {};
+                        oneTweet.id = res.data[i].id;
+                        oneTweet.created_at = formattedDate;
+                        oneTweet.text = res.data[i].text;
+                        oneTweet.retweets = res.data[i].retweet_count;
+                        oneTweet.favorites = res.data[i].favorite_count; 
+                        oneTweet.name = res.data[i].user.name; 
+                        oneTweet.screen_name = res.data[i].user.screen_name; 
+                        oneTweet.user_id = res.data[i].user.id; 
+        
+                        newTweet.push(oneTweet);
+                        }
+                    this.setState({username: res.data.username,
+                        user:user,
+                        tweet:[...newTweet],
+                    });
                     })
+                .catch(err => console.log(err))
             }
         })
       
-        twitterAPI.getTweets('bootcamptweeter').then(res => {
-            var user = {};
-            user.screen_name = res.data.tweets[0].user.screen_name;
-            user.location = res.data.tweets[0].user.location;
-            user.description = res.data.tweets[0].user.description;
-            user.url = res.data.tweets[0].user.url;
-            user.followers_count = res.data.tweets[0].user.followers_count;
-            user.friends_count = res.data.tweets[0].user.friends_count;
-            user.favourites_count = res.data.tweets[0].user.favourites_count;
-            user.profile_img = res.data.tweets[0].user.profile_img;
-            this.setState({user:user});
 
-            var newTweet = [];
-            for(var i = 0; i < res.data.tweets.length; i++){
-                const dateToFormat = res.data.tweets[i].created_at;
-                const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
-
-                var oneTweet = {};
-                oneTweet.id = res.data.tweets[i].id;
-                oneTweet.created_at = formattedDate;
-                oneTweet.text = res.data.tweets[i].text;
-                oneTweet.retweets = res.data.tweets[i].retweet_count;
-                oneTweet.favorites = res.data.tweets[i].favorite_count; 
-                oneTweet.name = res.data.tweets[i].user.name; 
-                oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
-                oneTweet.user_id = res.data.tweets[i].user.id; 
-
-                newTweet.push(oneTweet);
-                }
-            this.setState({tweet:[...newTweet]});
-            })
-        .catch(err => console.log(err))
     }
 
     render(){  
