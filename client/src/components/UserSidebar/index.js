@@ -41,7 +41,6 @@ class Sidebar extends Component {
         <ul>
           <Link to="/"><li>Home</li></Link>
           <Link to="/profile"><li>Profile</li></Link>
-          <li>Tweet</li>
           <li>Sentiment</li>
           <Link to="/" onClick = {()=>{this.logOut()}}><li>Logout</li></Link> 
         </ul>

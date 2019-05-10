@@ -102,9 +102,7 @@ module.exports = {
                 console.log(err)
                 res.json(err)
               });
-              
             })
-
           })
         })
         .catch((err)=>{
