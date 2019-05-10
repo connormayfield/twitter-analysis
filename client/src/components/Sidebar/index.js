@@ -32,7 +32,7 @@ class Sidebar extends Component {
     
     return (
       <div id="sidebar" className={this.state.toggle==="false"?"":"active"}>
-        <div className="toggle-btn" onClick={this.toggleSidebar}>
+        <div className="toggle-button" onClick={this.toggleSidebar}>
           <span></span>
           <span></span>
           <span></span>
