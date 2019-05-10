@@ -6,8 +6,7 @@ module.exports = {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            twitter_username: req.body.twitter_username
-
+                
         }).then(function(data) {
             res.redirect(307, "/api/user/login")
 

@@ -18,5 +18,8 @@ export default {
 
     logout: function(){
         return axios.get("api/user/logout")
+    },
+    twitterConnect: function() {
+        return axios.get("api/user/connect/twitter")
     }
 }

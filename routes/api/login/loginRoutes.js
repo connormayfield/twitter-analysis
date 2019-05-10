@@ -7,7 +7,12 @@ const router = express.Router();
 
 //logging in route
 router.post("/login", passport.authenticate("local"), function(req, res) {
+<<<<<<< HEAD
     res.send("Session created.");
+=======
+    console.log("------session")
+    res.send(req.session);
+>>>>>>> c695aebd4645b6a5224413e39ae2113d2309b1aa
 })
 //signing up account route
 router.route("/signup")
@@ -17,11 +22,16 @@ router.route("/signup")
 router.get("/session", function(req, res) {
     // console.log("req.user", req.user)
     if(req.user){
+<<<<<<< HEAD
         let userInfo = {
             username: req.user.username,
             twitter_username: req.user.twitter_username
         }
         res.send(userInfo)
+=======
+        console.log("req.user", req.user)
+        res.send(req.user);
+>>>>>>> c695aebd4645b6a5224413e39ae2113d2309b1aa
     }
     else{
         res.send(false)
@@ -34,5 +44,28 @@ router.get("/logout", function(req, res) {
     console.log(req.user)
     res.redirect("/");
 });
+
+const CLIENT_HOME_PAGE_URL = "http://127.0.0.1:3000/"
+//twitter
+router.route('/connect/twitter')
+    .get((req, res, next) => {console.log("test"); next()},
+		passport.authorize('twitter', { failureRedirect: 'http://127.0.0.1:3000/' })
+    );
+router.route('/connect/twitter/callback')
+    .get((req, res, next) => {console.log("test"); next()},
+		passport.authorize('twitter', {
+			successRedirect : CLIENT_HOME_PAGE_URL,
+			failureRedirect : '/api/user/connect/twitter/failed'
+		})
+	);
+	
+// when login failed, send failed msg
+router.route("/connect/twitter/failed")
+	.get((req, res) => {
+		res.status(401).json({
+		success: false,
+		message: "user failed to authenticate."
+		});
+	});
 
 module.exports = router;
