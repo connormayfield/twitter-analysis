@@ -36,8 +36,8 @@ passport.use(new LocalStrategy(
 passport.use(new Twitter({
     consumerKey: "P1W0cgiiR0inKGh9JYlty1FFO",
     consumerSecret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-    callbackURL: '/'
-    // proxy: trustProxy
+    callbackURL: 'http://127.0.0.1:3000/api/user/connect/twitter/callback'
+    // proxy: true
   },
   function(token, tokenSecret, profile, done) {
     // In this example, the user's Twitter profile is supplied as the user

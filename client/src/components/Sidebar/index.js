@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom"
 import loginAPI from "../../utils/loginAPI";
 import "./style.css";
+import sideImg from "./giphy.gif";
 
 class Sidebar extends Component {
   state={

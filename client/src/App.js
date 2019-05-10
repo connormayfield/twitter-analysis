@@ -20,9 +20,9 @@ class App extends Component {
   
     return (
       <Router>
-        <div>
+        <div id="page-container">
+          <Navbar />
           <Wrapper>
-            <Navbar />
             <Sidebar />
             <Switch>
               <Route exact path="/" component ={Home}/>
@@ -34,8 +34,8 @@ class App extends Component {
               <Route  component ={Error}/>
             </Switch>
           </Wrapper>
-            </div>
-        </Router>
+        </div>
+      </Router>
     );
   }
 }

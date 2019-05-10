@@ -72,11 +72,11 @@ class Profile extends Component{
                             </Col>
                             <Col size = "xs-4">
                                 <h5>Welcome back, {this.state.user.username}</h5>
-                                {/* {this.state.user.twitter === undefined &&
-                                    <Link to="/api/user/connect/twitter">
-                                        <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
-                                    </Link>
-                                } */}
+                                {this.state.user.twitter === undefined &&
+                                    // <Link to="/api/user/connect/twitter">
+                                        <a href="/api/user/connect/twitter" className="btn btn-primary" /*onClick={this.connect}*/>Connect Twitter</a>
+                                    // </Link>
+                                }
                             </Col>
                     </Row>
                 </div>

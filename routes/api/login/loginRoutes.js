@@ -7,7 +7,7 @@ const router = express.Router();
 
 //logging in route
 router.post("/login", passport.authenticate("local"), function(req, res) {
-    console.log("session")
+    console.log("------session")
     res.send(req.session);
 })
 //signing up account route
@@ -33,15 +33,18 @@ router.get("/logout", function(req, res) {
     res.redirect("/");
 });
 
+
 //twitter
-router.get('/connect/twitter',
-  passport.authorize('twitter', { failureRedirect: '/' })
-);
-router.get('/connect/twitter/callback',
-  passport.authorize('twitter', {
-      successRedirect : '/profile',
-      failureRedirect : '/'
-  })
-);
+router.route('/connect/twitter')
+    .get((req, res, next) => {console.log("test"); next()},
+		passport.authorize('twitter', { failureRedirect: '/' })
+    );
+router.route('/connect/twitter/callback')
+    .get((req, res, next) => {console.log("test"); next()},
+		passport.authorize('twitter', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		})
+    );
 
 module.exports = router;
