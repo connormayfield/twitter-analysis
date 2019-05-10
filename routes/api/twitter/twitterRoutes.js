@@ -28,22 +28,49 @@ var client = new Twitter({
 // }
 
 router.get("/", (req, res) => {
-    var params = {screen_name: req.query.screen_name, count: "10", excludes_replies: "false"};
+    // <----------This is the user's timeline request alone---------->
+    var params = {screen_name: req.query.screen_name, count: "10", exclude_replies: "false"};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
-        }
-        else {
+        } else {
+            // console.log(response);
+            // console.log("mentions.................");
+            // console.log({tweets});
             res.json({ tweets });
-            
         }
     });
-    // client.get('statuses/mentions_timeline', params, function(error, tweets, response) {
+    
+    // <----------This is the mentions request alone---------->
+    // var params2 = {screen_name: req.query.screen_name, count: "10"};
+    // client.get('statuses/mentions_timeline', params2, function(error, tweets, response) {
     //     if (error) {
     //         console.log(error);
-    //     }
-    //     else {
+    //     } else {
+    //         console.log(response);
+    //         console.log("mentions.................");
+    //         console.log({tweets});
     //         res.json({ tweets });
+    //     }
+    // });
+    
+    // <----------This should be the final request---------->
+    // var params = {screen_name: req.query.screen_name, count: "10", excludes_replies: "false"};
+    // var params2 = {screen_name: req.query.screen_name, count: "10"};
+    // client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         client.get('statuses/mentions_timeline', params2, function(error, tweets, response) {
+    //              if (error) {
+    //                  console.log(error);
+    //              } else {
+    //                  console.log(response);
+    //                  console.log("mentions.................");
+    //                  console.log({tweets});
+    //                  res.json({ tweets });
+    //              }
+    //         });
     //     }
     // });
 });
