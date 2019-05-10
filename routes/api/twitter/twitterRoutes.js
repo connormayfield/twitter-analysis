@@ -34,7 +34,6 @@ router.get("/", (req, res) => {
             console.log(error);
         }
         else {
-            console.log(tweets);
             res.json({ tweets });
             
         }

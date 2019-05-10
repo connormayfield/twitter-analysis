@@ -20,18 +20,31 @@
     border-bottom : 1px solid solid rgba(100,100,100,0.3);
 }
 
-#sidebar .toggle-btn {
-    position: absolute;;
-    left:230px;
-    top:100px;
+#sidebar .toggle-button {
+    position: absolute;
+    left:210px;
+    top:-48px;
+    border:1px solid white;
+    border-radius: 5px;
+    padding:3px 10px 3px 10px;;
+    transition:0.25s;
 }
 
-#sidebar .toggle-btn span {
+#sidebar.active .toggle-button {
+    left:10px;
+    transition:0.25s;
+}
+
+#sidebar .toggle-button span {
     display:block;
     width:30px;
-    height:5px;
-    background:#151719;
+    height:3px;
+    background:white;
     margin:5px 0px;
+}
+
+#sidebar .toggle-button:hover {
+    background:rgba(11, 11, 236, 0.6);
 }
 
 #sidebar .side-image {

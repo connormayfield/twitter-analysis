@@ -40,6 +40,12 @@ class SignUp extends Component{
         email: "",
         twitter_username: "",
         isAuthenticated: false,
+        validSuccess: {
+          username:"",
+          password:"",
+          email:"",
+          twitter_username:""
+        },
         formErrors: {
           username: "",
           password: "",
@@ -70,31 +76,42 @@ class SignUp extends Component{
     onChangeHandler = (event) => {
         let {name, value} = event.target
         let formErrors = { ...this.state.formErrors };
+        let validSuccess={ ...this.state.validSuccess};
 
         switch (name) {
           case "username":
             formErrors.username =
               value.length < 3 ? "minimum 3 characters required" : "";
+            validSuccess.username =
+              value.length >= 3 ? "username valid" : "";
             break;
           case "password":
             formErrors.password =
               value.length < 6 ? "minimum 6 characters required" : "";
+              validSuccess.password =
+                value.length >= 6 ? "password valid" : "";
             break;
           case "email":
             formErrors.email = emailRegex.test(value)
             ? ""
             : "invalid email address";
+            validSuccess.email = emailRegex.test(value)
+              ? "email valid"
+              : "";
           break;
           case "twitter_username":
             formErrors.twitter_username = twitterRegex.test(value)
             ? ""
             : "invalid twitter account";
+            validSuccess.twitter_username = twitterRegex.test(value)
+              ? "twitter valid"
+              : "";
           break;
           default:
           break;
         }
 
-        this.setState({formErrors, [name]: value}, () => console.log(this.state));
+        this.setState({formErrors, validSuccess, [name]: value}, () => console.log(this.state));
     };
 
     signUpHandler = (event) => {
@@ -131,7 +148,7 @@ class SignUp extends Component{
 
 
     render(){
-      const { formErrors } = this.state;
+      const { formErrors, validSuccess } = this.state;
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
@@ -147,7 +164,8 @@ class SignUp extends Component{
                         <label htmlFor="username"> Username</label>
                         <Input
                           type="text"
-                          className = "form-control"
+                          className={formErrors.username.length > 0 ? ("error") : validSuccess.username.length>0?("form-control success"): ("form-control")}
+                          // className = "form-control"
                           name = "username"
                           placeholder="username"
                           value = {this.state.username}
@@ -162,7 +180,8 @@ class SignUp extends Component{
                         <label htmlFor="password"> Password </label>
                         <Input
                         type="password"
-                        className = "form-control"
+                        className={formErrors.password.length > 0 ? "error" : validSuccess.password.length>0?("form-control success"): ("form-control")}
+                        // className = "form-control"
                         name = "password"
                         placeholder="password"
                         value = {this.state.password}
@@ -176,7 +195,8 @@ class SignUp extends Component{
                         <label htmlFor="email"> Email </label>
                         <Input
                         type="email"
-                        className = "form-control"
+                        className={formErrors.email.length > 0 ? "error" : validSuccess.email.length>0?("form-control success"): ("form-control")}
+                        // className = "form-control"
                         name = "email"
                         placeholder="example@mail.com"
                         value = {this.state.email}
@@ -189,7 +209,7 @@ class SignUp extends Component{
                     <div className ="form-group">
                         <label htmlFor="twitter_username"> Twitter Account </label>
                         <Input type="text"
-                        className={formErrors.twitter_username.length > 0 ? "error" : "form-control"}
+                        className={formErrors.twitter_username.length > 0 ? "error" : validSuccess.twitter_username.length >0?("form-control success"): ("form-control")}
                         // className = "form-control"
                         name = "twitter_username"
                         placeholder="@twitteruser"
@@ -201,7 +221,6 @@ class SignUp extends Component{
                         )}
                     </div>
                     <FormBtn onClick = {this.signUpHandler}>Submit</FormBtn>
-
 
 
                 </form>
