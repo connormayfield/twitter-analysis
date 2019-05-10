@@ -89,7 +89,7 @@ class Profile extends Component{
                 .catch(err => console.log(err))
             }
         })
-
+    }
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
@@ -111,13 +111,8 @@ class Profile extends Component{
                                 <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
-<<<<<<< HEAD
-                                <h5>Welcome back, {this.state.username}</h5>
-                                {this.state.user.twitter === undefined &&
-=======
                                 <h5>{this.state.user.name}</h5>
                                 {/* {this.state.user.twitter === undefined &&
->>>>>>> 30999eb6a7a460845e827bb8d75e47f96dced821
                                     // <Link to="/api/user/connect/twitter">
                                         <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
                                     // </Link>
