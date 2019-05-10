@@ -36,7 +36,7 @@ passport.use(new LocalStrategy(
 passport.use(new Twitter({
     consumerKey: "P1W0cgiiR0inKGh9JYlty1FFO",
     consumerSecret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-    callbackURL: 'http://127.0.0.1:3000/api/user/connect/twitter/callback'
+    callbackURL: '/api/user/connect/twitter/callback'
     // proxy: true
   },
   function(token, tokenSecret, profile, done) {
@@ -45,14 +45,10 @@ passport.use(new Twitter({
     // be associated with a user record in the application's database, which
     // allows for account linking and authentication with other identity
     // providers.
-    console.log(`
-                Token: ${token}
-                Token Secret: ${tokenSecret}
-                Profile: ${profile}
-                `)
+    console.log(profile);
     // When a user tries to sign in this code runs
     User.findOne({
-        username: username
+        username: profile.name
     })
     .then(dbUser => {
         // If there's no user with the given
@@ -71,9 +67,9 @@ passport.use(new Twitter({
             // Update user model to include twitter info
             dbUser.twitter.id = profile.id;
             dbUser.twitter.token = token;
-            dbUser.twitter.displayName = profile.displayName;
-            dbUser.twitter.handle = profile.username;
-            dbUser.twitter.photo = profile.photos[0].value || '';
+            dbUser.twitter.displayName = profile.name;
+            dbUser.twitter.handle = profile.screen_name;
+            // dbUser.twitter.photo = profile.profile_image_url || '';
 
             connectTwitter(dbUser);
 

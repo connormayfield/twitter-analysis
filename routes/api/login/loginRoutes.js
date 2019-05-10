@@ -33,18 +33,27 @@ router.get("/logout", function(req, res) {
     res.redirect("/");
 });
 
-
+const CLIENT_HOME_PAGE_URL = "http://127.0.0.1:3000/"
 //twitter
 router.route('/connect/twitter')
     .get((req, res, next) => {console.log("test"); next()},
-		passport.authorize('twitter', { failureRedirect: '/' })
+		passport.authorize('twitter', { failureRedirect: 'http://127.0.0.1:3000/' })
     );
 router.route('/connect/twitter/callback')
     .get((req, res, next) => {console.log("test"); next()},
 		passport.authorize('twitter', {
-			successRedirect : '/profile',
-			failureRedirect : '/'
+			successRedirect : CLIENT_HOME_PAGE_URL,
+			failureRedirect : '/api/user/connect/twitter/failed'
 		})
-    );
+	);
+	
+// when login failed, send failed msg
+router.route("/connect/twitter/failed")
+	.get((req, res) => {
+		res.status(401).json({
+		success: false,
+		message: "user failed to authenticate."
+		});
+	});
 
 module.exports = router;

@@ -54,11 +54,7 @@ class Profile extends Component{
     }
 
     connect = () => {
-        loginAPI.twitterConnect()
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => console.log(err));
+        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
 
     render(){  
@@ -74,7 +70,7 @@ class Profile extends Component{
                                 <h5>Welcome back, {this.state.user.username}</h5>
                                 {this.state.user.twitter === undefined &&
                                     // <Link to="/api/user/connect/twitter">
-                                        <a href="/api/user/connect/twitter" className="btn btn-primary" /*onClick={this.connect}*/>Connect Twitter</a>
+                                        <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
                                     // </Link>
                                 }
                             </Col>
