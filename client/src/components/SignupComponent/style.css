@@ -46,7 +46,7 @@ border-radius: 10px;
 }
 
 .form-control {
-  width: 85%;
+  width: 80%;
   margin-left: 8%;
 }
 
@@ -55,6 +55,22 @@ float: none !important;
 margin-top:10px;
 background-color: #007BFF;
 }
+
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}
+
+.error {
+  border: 3px solid red;
+  width: 80%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+
   /*
 .inputbox{
     width:260px;

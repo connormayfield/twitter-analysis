@@ -23,7 +23,8 @@ const formValid = ({ formErrors, ...rest }) => {
     val.length > 0 && (valid = false);
   });
 
-  // validate the form was filled out
+// validate the form was filled out
+
 Object.values(rest).forEach(val => {
   val === null && (valid = false);
 });
@@ -100,24 +101,25 @@ class SignUp extends Component{
         event.preventDefault()
 // validation
         if (formValid(this.state)) {
-          // this.state.isAuthenticated=true;
+
           console.log(`
+            --Submitting--
           Username: ${this.state.username}
           Password: ${this.state.password}
           Email: ${this.state.email}
           Twitter Username: ${this.state.twitter_username}
         `);
       } else {
+        alert("FORM INVALID");
         console.log("FORM INVALID - display error message");
       }
 // end form validation
-        console.log("connor");
         console.log(this.state);
         loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
-                console.log("authenticatgin")
+                console.log("authenticating")
                 this.userHasAuthenticated(res.data.username, true);
             }
         })
@@ -135,27 +137,68 @@ class SignUp extends Component{
 
         return(
 
-          <Wrapper >       
-             <Sidebar/>
+          <Wrapper >
+          <Sidebar/>
             <Container >
               <SignupForm >
                 <h1>Sign Up</h1>
                 <form>
                     <div className ="form-group">
                         <label htmlFor="username"> Username</label>
-                        <Input type="text" className = "form-control" name = "username" placeholder="username" value = {this.state.username} onChange = {this.onChangeHandler} ></Input>
+                        <Input
+                          type="text"
+                          className = "form-control"
+                          name = "username"
+                          placeholder="username"
+                          value = {this.state.username}
+                          onChange = {this.onChangeHandler} >
+                          </Input>
+                          {formErrors.username.length > 0 && (
+                            <span className="errorMessage">{formErrors.username}</span>
+                          )}
+
                     </div>
                     <div className ="form-group">
                         <label htmlFor="password"> Password </label>
-                        <Input type="password" className = "form-control" name = "password" placeholder="password" value = {this.state.password} onChange = {this.onChangeHandler}></Input>
+                        <Input
+                        type="password"
+                        className = "form-control"
+                        name = "password"
+                        placeholder="password"
+                        value = {this.state.password}
+                        onChange = {this.onChangeHandler}>
+                        </Input>
+                        {formErrors.password.length > 0 && (
+                          <span className="errorMessage">{formErrors.password}</span>
+                        )}
                     </div>
                     <div className ="form-group">
                         <label htmlFor="email"> Email </label>
-                        <Input type="email" className = "form-control" name = "email" placeholder="example@mail.com" value = {this.state.email} onChange = {this.onChangeHandler}></Input>
+                        <Input
+                        type="email"
+                        className = "form-control"
+                        name = "email"
+                        placeholder="example@mail.com"
+                        value = {this.state.email}
+                        onChange = {this.onChangeHandler}>
+                        </Input>
+                        {formErrors.email.length > 0 && (
+                          <span className="errorMessage">{formErrors.email}</span>
+                        )}
                     </div>
                     <div className ="form-group">
                         <label htmlFor="twitter_username"> Twitter Account </label>
-                        <Input type="text"  className = "form-control" name = "twitter_username" placeholder="@twitteruser" pattern=".{6,}" required value = {this.state.twitter_username} onChange = {this.onChangeHandler}></Input>
+                        <Input type="text"
+                        className={formErrors.twitter_username.length > 0 ? "error" : "form-control"}
+                        // className = "form-control"
+                        name = "twitter_username"
+                        placeholder="@twitteruser"
+                        required value = {this.state.twitter_username}
+                        onChange = {this.onChangeHandler}>
+                        </Input>
+                        {formErrors.twitter_username.length > 0 && (
+                          <span className="errorMessage">{formErrors.twitter_username}</span>
+                        )}
                     </div>
                     <FormBtn onClick = {this.signUpHandler}>Submit</FormBtn>
 
