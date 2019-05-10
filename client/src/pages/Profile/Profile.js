@@ -95,7 +95,7 @@ class Profile extends Component{
 
 
     render(){  
-        if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
+        // if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
 
         return(
             <Container> 
@@ -105,7 +105,7 @@ class Profile extends Component{
                                 <img src="https://via.placeholder.com/100" alt="profile-pic"></img>
                             </Col>
                             <Col size = "xs-4">
-                                <h5>Welcome back, {this.state.user.username}</h5>
+                                <h5>Welcome back, {this.state.username}</h5>
                                 {this.state.user.twitter === undefined &&
                                     // <Link to="/api/user/connect/twitter">
                                         <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
