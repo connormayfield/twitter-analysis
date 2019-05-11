@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 //import './App.css';
 import {Router, Route, Switch} from "react-router-dom"
 import Navbar from "./components/navbar/index.js"
@@ -14,7 +14,6 @@ import { connect } from "react-redux";
 import { doLogin, doLogout } from "./redux/actions/userActions";
 import history from "./redux/history";
 import PrivateRoute from "./redux/component/PrivateRoute";
-import PrivateRoute2 from "./redux/component/PrivateRoute2";
 
 
 

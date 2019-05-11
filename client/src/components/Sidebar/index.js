@@ -1,7 +1,6 @@
 // import React from "react";
 import React, { Component } from "react";
 import {Link} from "react-router-dom"
-import loginAPI from "../../utils/loginAPI";
 import "./style.css";
 
 class Sidebar extends Component {

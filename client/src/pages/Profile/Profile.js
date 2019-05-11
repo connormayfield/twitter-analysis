@@ -1,21 +1,17 @@
 import React, {Component} from "react";
-import { Link, Redirect } from "react-router-dom";
 import {Container, Row, Col} from "../../components/Grid/index";
 import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
-import Sidebar from "../../components/Sidebar"
+import "../../components/TweetCard/index"
 import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
 import twitterAPI from "../../utils/twitterAPI"
-import commentImg from "./img/comment.png"
-import retweetImg from "./img/retweet.png"
-import likeImg from "./img/heart.png"
+import TweetCard from "../../components/TweetCard/index";
+// import commentImg from "./img/comment.png"
+// import retweetImg from "./img/retweet.png"
+// import likeImg from "./img/heart.png"
 
-const cardStyle = {
-    marginTop: 5,
-    marginLeft: 35,
-    width: "20rem"
-}
+
 
 class Profile extends Component{
 
@@ -51,7 +47,7 @@ class Profile extends Component{
                 return;
             }
             else{
-                twitterAPI.getTweets(res.data.username, 'asdf').then(res => {
+                twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
                     console.log(res.data)
                     var user = {};
                     user.name = res.data[0].user.name;
@@ -161,15 +157,24 @@ class Profile extends Component{
                             <div>
                                 {this.state.tweets.map((tweet, ind) => {
                                     return (
-                                        <div className="card" style={cardStyle} key = {ind}>
-                                            <div className="card-body">
-                                                <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
-                                                <p className="card-text">{tweet.text}</p>
-                                                <a href="#" className="card-link"><img src={commentImg}></img></a>
-                                                <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
-                                                <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
-                                            </div>
-                                        </div>
+                                        <TweetCard
+                                            key = {tweet.id}
+                                            tweet_name = {tweet.name}
+                                            screen_name = {tweet.screen_name}
+                                            created_at = {tweet.created_at}
+                                            text = {tweet.text}
+                                            retweets = {tweet.retweets}
+                                            favorites = {tweet.favorites}
+                                            />
+                                        // <div className="card" style={cardStyle} key = {ind}>
+                                        //     <div className="card-body">
+                                        //         <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
+                                        //         <p className="card-text">{tweet.text}</p>
+                                        //         <a href="#" className="card-link"><img src={commentImg}></img></a>
+                                        //         <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
+                                        //         <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
+                                        //     </div>
+                                        // </div>
                                     );
                                 })}
                             </div>
