@@ -51,7 +51,7 @@ class Profile extends Component{
                 return;
             }
             else{
-                twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
+                twitterAPI.getTweets(res.data.username, 'asdf').then(res => {
                     console.log(res.data)
                     var user = {};
                     user.name = res.data[0].user.name;
@@ -66,7 +66,7 @@ class Profile extends Component{
                     var newTweet = [];
                     for(var i = 0; i < res.data.length; i++){
                         const dateToFormat = res.data[i].created_at;
-                        const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
+                        const formattedDate = moment(dateToFormat).format("MMM DD");
 
                         var oneTweet = {};
                         oneTweet.id = res.data[i].id;
@@ -104,8 +104,6 @@ class Profile extends Component{
 
 
     render(){  
-        // if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
-
         return(
             <Container>
                 <div className = "profileContainer">
@@ -154,13 +152,6 @@ class Profile extends Component{
                         labels={this.state.weekLabels}
                         graphData={this.state.weekData} 
                     />
-                </div>
-                <div className="graphContainer">
-                        <h4>Weekly Tweet Data Example</h4>
-                            <LineGraph id="linegraph"
-                            labels={this.state.weekLabels}
-                            graphData={this.state.weekData}
-                            />
                 </div>
                 <Row>
                     <Col size="xs-12">
