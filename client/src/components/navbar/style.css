@@ -7,6 +7,10 @@
     transition: 0.25s;
 }
 
+#toggle-sidebar:active {
+    background:rgba(11, 11, 236, 0.6);
+}
+
 /* .navbar-brand.active {
     margin-right: 200px;
 } */
