@@ -34,9 +34,7 @@ class Profile extends Component{
                 primaryColor: "#00FF00",
                 data: [400, 6, 200, 4, 3, 2, 1]
             }
-
         ]
-
     }
 
     componentDidMount = () => {
@@ -58,6 +56,7 @@ class Profile extends Component{
                     user.friends_count = res.data[0].user.friends_count;
                     user.favourites_count = res.data[0].user.favourites_count;
                     user.profile_img = res.data[0].user.profile_image_url_https;
+                    user.statuses_count = res.data[0].user.statuses_count;
         
                     var newTweet = [];
                     for(var i = 0; i < res.data.length; i++){
@@ -88,8 +87,6 @@ class Profile extends Component{
 
     }
 
-
-
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
@@ -98,86 +95,106 @@ class Profile extends Component{
         window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
     } 
 
-
     render(){  
         return(
             <Container>
                 <div className = "profileContainer">
                     <Row >
-                            <Col size = "xs-3" >
-                                <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
-                            </Col>
-                            <Col size = "xs-4">
-                                <h5>{this.state.user.name}</h5>
-                                {/* {this.state.user.twitter === undefined &&
-                                    // <Link to="/api/user/connect/twitter">
-                                        <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
-                                    // </Link>
-                                } */}
-                                <h6>{this.state.user.screen_name}</h6>
-                                <h6>{this.state.user.location}</h6>
-                                <h6>{this.state.user.description}</h6>
-                                <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
-                            </Col>
+                        <Col size = "xs-3" >
+                            <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
+                        </Col>
+                        <Col size = "xs-4">
+                            <h5>{this.state.user.name}</h5>
+                            {/* {this.state.user.twitter === undefined &&
+                                // <Link to="/api/user/connect/twitter">
+                                    <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
+                                // </Link>
+                            } */}
+                            <h6>{this.state.user.screen_name}</h6>
+                            <h6>{this.state.user.location}</h6>
+                            <h6>{this.state.user.description}</h6>
+                            <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
+                        </Col>
                     </Row>
                 </div>
                 <div className="widgetContainer">
-                        <h5>Here is your weekly analysis of your likes and followers:</h5>
-
                     <Row>
+                        <div className="widget statuses">
+                            <Col size="xs-4" >
+                                <span>Tweets</span>
+                                <br></br>
+                                <span>{this.state.user.statuses_count}0</span>
+                            </Col>
+                        </div>
                         <div className="widget tweets">
                             <Col size="xs-4" >
-                                <span>{this.state.user.friends_count}</span> Friends
+                                <span>Friends</span>
+                                <br></br>
+                                <span>{this.state.user.friends_count}0</span>
                             </Col>
                         </div>
                         <div className="widget followers">
                             <Col size="xs-4">
-                                <span>{this.state.user.followers_count}</span> Followers
+                                <span>Followers</span>
+                                <br></br>
+                                <span>{this.state.user.followers_count}0</span>
                             </Col>
                         </div>
                         <div className="widget likes">
                             <Col size="xs-4">
-                                <span>{this.state.user.favourites_count}</span> Favorites
+                                <span>Likes</span>
+                                <br></br>
+                                <span>{this.state.user.favourites_count}0</span>
                             </Col>
                         </div>
                     </Row>
                 </div>
                 <div className="graphContainer">
                     <h4>Weekly Tweet Data Example</h4>
+                    <div className="graph">
                         <LineGraph id="linegraph"
                         labels={this.state.weekLabels}
-                        graphData={this.state.weekData} 
-                    />
+                        graphData={this.state.weekData}/>
+                    </div>
                 </div>
                 <Row>
                     <Col size="xs-12">
                         {this.state.tweets.length === 0 ? (
-                            <h1 className="text-center">No Tweets to Display</h1>
+                            <h4 className="noTweets text-center">No Tweets to Display</h4>
                         ) : (
-                            <div>
-                                {this.state.tweets.map((tweet, ind) => {
-                                    return (
-                                        <TweetCard
-                                            key = {tweet.id}
-                                            tweet_name = {tweet.name}
-                                            screen_name = {tweet.screen_name}
-                                            created_at = {tweet.created_at}
-                                            text = {tweet.text}
-                                            retweets = {tweet.retweets}
-                                            favorites = {tweet.favorites}
-                                            />
-                                        // <div className="card" style={cardStyle} key = {ind}>
-                                        //     <div className="card-body">
-                                        //         <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
-                                        //         <p className="card-text">{tweet.text}</p>
-                                        //         <a href="#" className="card-link"><img src={commentImg}></img></a>
-                                        //         <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
-                                        //         <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
-                                        //     </div>
-                                        // </div>
-                                    );
-                                })}
-                            </div>
+                            // <div>
+                            //     {this.state.tweets.map((tweet, ind) => {
+                            //         return (
+
+                            //             // <div className="card" style={cardStyle} key = {ind}>
+                            //             //     <div className="card-body">
+                            //             //         <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
+                            //             //         <p className="card-text">{tweet.text}</p>
+                            //             //         <a href="#" className="card-link"><img src={commentImg}></img></a>
+                            //             //         <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
+                            //             //         <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
+                            //             //     </div>
+                            //             // </div>
+                            //         );
+                            //     })}
+                            // </div>
+                            <div className="container-fluid twitterFeed">
+                                <div className="d-flex flex-row flex-nowrap">
+                                    {this.state.tweets.map((tweet, ind) => {
+                                        return (
+                                            <div className="card" style={cardStyle} key = {ind}>
+                                                <div className="card-body">
+                                                    <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
+                                                    <p className="card-text">{tweet.text}</p>
+                                                    <a href="#" className="card-link"><img src={commentImg}></img></a>
+                                                    <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
+                                                    <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>    
                         )}
                     </Col>
                 </Row>
