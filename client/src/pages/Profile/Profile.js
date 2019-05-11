@@ -89,41 +89,6 @@ class Profile extends Component{
                 .catch(err => console.log(err))
             }
         })
-      
-        // twitterAPI.getTweets('bootcamptweeter').then(res => {
-        //     var user = {};
-        //     user.name = res.data.tweets[0].user.name;
-        //     user.screen_name = res.data.tweets[0].user.screen_name;
-        //     user.location = res.data.tweets[0].user.location;
-        //     user.description = res.data.tweets[0].user.description;
-        //     user.followers_count = res.data.tweets[0].user.followers_count;
-        //     user.friends_count = res.data.tweets[0].user.friends_count;
-        //     user.favourites_count = res.data.tweets[0].user.favourites_count;
-        //     user.profile_img = res.data.tweets[0].user.profile_image_url_https;
-        //     this.setState({user:user});
-
-        //     var newTweet = [];
-        //     for(var i = 0; i < res.data.tweets.length; i++){
-        //         const dateToFormat = res.data.tweets[i].created_at;
-        //         const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
-
-
-        //         var oneTweet = {};
-        //         oneTweet.id = res.data.tweets[i].id;
-        //         oneTweet.created_at = formattedDate;
-        //         oneTweet.text = res.data.tweets[i].text;
-        //         oneTweet.retweets = res.data.tweets[i].retweet_count;
-        //         oneTweet.favorites = res.data.tweets[i].favorite_count; 
-        //         oneTweet.name = res.data.tweets[i].user.name; 
-        //         oneTweet.screen_name = res.data.tweets[i].user.screen_name; 
-        //         oneTweet.user_id = res.data.tweets[i].user.id; 
-
-        //         newTweet.push(oneTweet);
-        //         }
-        //     this.setState({tweet:[...newTweet]});
-        //     })
-        // .catch(err => console.log(err))
-    
     }
 
     connect = () => {
