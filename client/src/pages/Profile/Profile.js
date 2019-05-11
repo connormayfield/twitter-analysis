@@ -30,7 +30,7 @@ class Profile extends Component{
                 label: "Likes",
                 backgroundColor: "#CC000044",
                 primaryColor: "#CC0000",
-                data: [1, 2, 100, 4, 5, 6, 200]                
+                data: [1, 2, 100, 4, 5, 6, 200]
             },
             {
                 label: "Retweets",
@@ -67,17 +67,17 @@ class Profile extends Component{
                     for(var i = 0; i < res.data.length; i++){
                         const dateToFormat = res.data[i].created_at;
                         const formattedDate = moment(dateToFormat, "DDD MMM DD HH:mm:ss Z YYYY").format("MMM DD");
-        
+
                         var oneTweet = {};
                         oneTweet.id = res.data[i].id;
                         oneTweet.created_at = formattedDate;
                         oneTweet.text = res.data[i].text;
                         oneTweet.retweets = res.data[i].retweet_count;
-                        oneTweet.favorites = res.data[i].favorite_count; 
-                        oneTweet.name = res.data[i].user.name; 
-                        oneTweet.screen_name = res.data[i].user.screen_name; 
-                        oneTweet.user_id = res.data[i].user.id; 
-        
+                        oneTweet.favorites = res.data[i].favorite_count;
+                        oneTweet.name = res.data[i].user.name;
+                        oneTweet.screen_name = res.data[i].user.screen_name;
+                        oneTweet.user_id = res.data[i].user.id;
+
                         newTweet.push(oneTweet);
                         }
                         this.setState({username: res.data.username,
@@ -88,8 +88,11 @@ class Profile extends Component{
                     })
                 .catch(err => console.log(err))
             }
-        })
+        });
+
     }
+
+
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
@@ -99,11 +102,12 @@ class Profile extends Component{
         window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
     } 
 
+
     render(){  
         // if(!this.state.isAuthenicated){return <Redirect to="/login"/>}
 
         return(
-            <Container> 
+            <Container>
                 <div className = "profileContainer">
                     <Row >
                             <Col size = "xs-3" >
@@ -136,12 +140,12 @@ class Profile extends Component{
                             <Col size="xs-4">
                                 <span>{this.state.user.followers_count}</span> Followers
                             </Col>
-                        </div>         
+                        </div>
                         <div className="widget likes">
                             <Col size="xs-4">
                                 <span>{this.state.user.favourites_count}</span> Favorites
                             </Col>
-                        </div>          
+                        </div>
                     </Row>
                 </div>
                 <div className="graphContainer">
@@ -155,7 +159,7 @@ class Profile extends Component{
                         <h4>Weekly Tweet Data Example</h4>
                             <LineGraph id="linegraph"
                             labels={this.state.weekLabels}
-                            graphData={this.state.weekData} 
+                            graphData={this.state.weekData}
                             />
                 </div>
                 <Row>
@@ -186,4 +190,4 @@ class Profile extends Component{
     }
 }
 
-export default Profile
+export default Profile;
