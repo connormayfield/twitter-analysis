@@ -18,6 +18,7 @@ import PrivateRoute2 from "./redux/component/PrivateRoute2";
 
 
 
+
 const App = ({user, doLogin, doLogout}) => (
 
   <Router history={history}>
@@ -37,7 +38,7 @@ const App = ({user, doLogin, doLogout}) => (
             <PrivateRoute path="/weekly" component={Weekly} user={user}/>
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
-            <PrivateRoute path="/" component={Home}/>
+            <PrivateRoute path="/" component={Home} user={user} doLogin={doLogin}/>
             <Route component ={Error}/>
             
           </Switch>

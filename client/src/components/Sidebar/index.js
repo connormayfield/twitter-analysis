@@ -5,9 +5,9 @@ import loginAPI from "../../utils/loginAPI";
 import "./style.css";
 
 class Sidebar extends Component {
-  state={
-    isAuthenticated: false
-  }
+  // state={
+  //   isAuthenticated: false
+  // }
 
   // logOut = () => {
   //   loginAPI.logout()

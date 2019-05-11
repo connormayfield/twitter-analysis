@@ -31,6 +31,8 @@ const userLogout = () => ({
   type: "LOG_OUT",
 });
 
+
+
 // const loginRequest = user => {
 //   loginApi.login(user);
 // }
@@ -56,6 +58,7 @@ export const doLogout = () => dispatch => {
   dispatch(userLogout());
   history.push("/");
 };
+
 
 
 
