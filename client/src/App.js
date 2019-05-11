@@ -31,11 +31,12 @@ const App = ({user, doLogin, doLogout}) => (
             
             {/* <Route exact path="/login" component ={Login} doLogin={doLogin} user={user}/> */}
             <PrivateRoute path="/login" component={Login} user={user} doLogin={doLogin} />
-            <PrivateRoute path="/profile" component={Profile} user={user}/>
+            <PrivateRoute2 path="/profile" component={Profile} user={user}/>
             {/* <Route exact path = "/profile" component = {Profile}/> */}
             {/* <PrivateRoute path="/login" component={Login} user={user} doLogin={doLogin}  /> */}
             <PrivateRoute path="/signup" component={SignUp} user={user} doLogin={doLogin}/>
-            <PrivateRoute path="/weekly" component={Weekly} user={user}/>
+            <PrivateRoute2 path="/weekly" component={Weekly} user={user}/>
+            <PrivateRoute path="/logout" component={Home} user={user}/>
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
             <PrivateRoute path="/" component={Home} user={user} doLogin={doLogin}/>
