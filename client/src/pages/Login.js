@@ -1,14 +1,14 @@
 import React, {Component} from "react"
 //import {Container} from "../components/Grid/index"
 //import {Input, FormBtn} from "../components/Form/index"
-import {Redirect} from "react-router-dom"
+//import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
 import {Link} from "react-router-dom"
 // import Sidebar from "../components/Sidebar";
 
 
-class Login extends Component{
+class Login extends Component {
 
     state = {
         username: "",
@@ -19,20 +19,20 @@ class Login extends Component{
 
     componentDidMount = () => {
 
-        loginAPI.checkSession()
-        .then((res)=> {
-            if(res.data){
-                return this.setState({isAuthenticated: true})
-            }
-        })
-        .catch((err) => console.log(err))
+        // loginAPI.checkSession()
+        // .then((res)=> {
+        //     if(res.data){
+        //         return this.setState({isAuthenticated: true})
+        //     }
+        // })
+        // .catch((err) => console.log(err))
 
     }
 
 
-    userHasAuthenticated = (authenticated) => {
-        this.setState({ isAuthenticated: authenticated });
-      }
+    // userHasAuthenticated = (authenticated) => {
+    //     this.setState({ isAuthenticated: authenticated });
+    //   }
 
     onChangeHandler = (event) => {
         let {name, value} = event.target
@@ -49,7 +49,8 @@ class Login extends Component{
         }
         loginAPI.login(loginObj)
         .then((res)=> {
-            this.userHasAuthenticated(true);
+            this.props.doLogin(this.state.username);
+            // this.userHasAuthenticated(true);
         })
         .catch((err) => {
             alert("Wrong username/password")
@@ -59,7 +60,7 @@ class Login extends Component{
     render(){
 
 
-        if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
+        // if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
             <Wrapper>

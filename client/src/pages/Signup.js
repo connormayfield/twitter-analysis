@@ -53,15 +53,18 @@ class SignUp extends Component{
         }
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
 
-        loginAPI.checkSession()
-        .then((res)=> {
-            if(res.data){
-                return this.setState({isAuthenticated: true})
-            }
-        })
-        .catch((err) => console.log(err))
+        // loginAPI.checkSession()
+        // .then((res)=> {
+        //     if(res.data){
+        //         return this.setState({isAuthenticated: true})
+        //     }
+        // })
+        // .catch((err) => console.log(err))
+        if(this.props.user.logged) {
+          this.setState({isAuthenticated: true})
+        }
 
     }
 
@@ -135,7 +138,8 @@ class SignUp extends Component{
             console.log(res.data)
             if(res.status === 200){
                 console.log("authenticating")
-                this.userHasAuthenticated(res.data.username, true);
+                this.props.doLogin(this.state.username);
+                // this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
