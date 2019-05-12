@@ -26,65 +26,159 @@ class Profile extends Component{
                 label: "Likes",
                 backgroundColor: "#CC000044",
                 primaryColor: "#CC0000",
-                data: [1, 2, 100, 4, 5, 6, 200]
+                data: [0, 0, 0, 0, 0, 0, 0]
             },
             {
                 label: "Retweets",
                 backgroundColor: "#00FF0044",
                 primaryColor: "#00FF00",
-                data: [400, 6, 200, 4, 3, 2, 1]
+                data: [0, 0, 0, 0, 0, 0, 0]
             }
         ]
     }
 
     componentDidMount = () => {
-
         loginAPI.checkSession()
         .then((res)=> {
             if(!res.data){
                 return;
             }
             else{
-                twitterAPI.getTweets(res.data.username, 'bootcamptweeter').then(res => {
-                    console.log(res.data)
-                    var user = {};
-                    user.name = res.data[0].user.name;
-                    user.screen_name = res.data[0].user.screen_name;
-                    user.location = res.data[0].user.location;
-                    user.description = res.data[0].user.description;
-                    user.followers_count = res.data[0].user.followers_count;
-                    user.friends_count = res.data[0].user.friends_count;
-                    user.favourites_count = res.data[0].user.favourites_count;
-                    user.profile_img = res.data[0].user.profile_image_url_https;
-                    user.statuses_count = res.data[0].user.statuses_count;
+                twitterAPI.getTweets(res.data.username, 'JebBush').then(({data}) => {
+                    //Gathering user information
+                    console.log(data)
+                    let user = data[0].user
         
-                    var newTweet = [];
-                    for(var i = 0; i < res.data.length; i++){
-                        const dateToFormat = res.data[i].created_at;
-                        const formattedDate = moment(dateToFormat).format("MMM DD");
+                    var newTweets = [];
 
+                    for(var i = 0; i < data.length; i++){
                         var oneTweet = {};
-                        oneTweet.id = res.data[i].id;
-                        oneTweet.created_at = formattedDate;
-                        oneTweet.text = res.data[i].text;
-                        oneTweet.retweets = res.data[i].retweet_count;
-                        oneTweet.favorites = res.data[i].favorite_count;
-                        oneTweet.name = res.data[i].user.name;
-                        oneTweet.screen_name = res.data[i].user.screen_name;
-                        oneTweet.user_id = res.data[i].user.id;
-
-                        newTweet.push(oneTweet);
+                        oneTweet.id = data[i].id;
+                        oneTweet.created_at = moment(data[i].created_at).format("MMM DD YYYY");
+                        oneTweet.text = data[i].text;
+                        oneTweet.retweets = data[i].retweet_count;
+                        oneTweet.favorites = data[i].favorite_count;
+                        oneTweet.name = data[i].user.name;
+                        oneTweet.screen_name = data[i].user.screen_name;
+                        oneTweet.user_id = data[i].user.id;
+                        newTweets.push(oneTweet);
                         }
-                        this.setState({username: res.data.username,
+
+                        this.setState({username: data.username,
                             user:user,
-                            tweets:[...newTweet],
+                            tweets: newTweets,
                             isAuthenicated: true
                      });
+                     this.updateWeeklyGraph()
+                    //  this.setState({weekInterval: setInterval(this.updateWeeklyGraph, 10000)})
                     })
+
                 .catch(err => console.log(err))
             }
         });
+    }
 
+    updateWeeklyGraph = () => {
+        twitterAPI.getTweets(this.state.username, 'JebBush').then(({data}) => {
+            //Gathering user information
+            var newTweets = [];
+
+            for(var i = 0; i < data.length; i++){
+                var oneTweet = {};
+                oneTweet.created_at = moment(data[i].created_at).format("MMM DD YYYY");
+                oneTweet.retweets = data[i].retweet_count;
+                oneTweet.favorites = data[i].favorite_count;
+                newTweets.push(oneTweet);
+                }
+
+                let graphData = new Array(7);
+                    
+                newTweets.forEach(tweet => {
+
+                    //Gathering "retweet" data and "favorites" data
+                    let day = moment(tweet.created_at).format("dddd");
+                    switch (day){
+                        case("Sunday"):
+                            if (graphData[0] === undefined){
+                              graphData[0] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[0].favorites += tweet.favorites;
+                                graphData[0].retweets  += tweet.retweets;
+                            }
+                            break;
+
+                            case("Monday"):
+                            if (graphData[1] === undefined){
+                              graphData[1] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[1].favorites += tweet.favorites;
+                                graphData[1].retweets += tweet.retweets;
+                            }
+                            break;
+
+                            case("Tuesday"):
+                            if (graphData[2] === undefined){
+                              graphData[2] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[2].favorites += tweet.favorites;
+                                graphData[2].retweets += tweet.retweets;
+                            }
+                            break;
+
+                            case("Wednesday"):
+                            if (graphData[3] === undefined){
+                              graphData[3] = {favorites: tweet.favorites, retweets: tweet.retweets}
+                            }else {
+                                graphData[3].favorites += tweet.favorites;
+                                graphData[3].retweets += tweet.retweets;
+                            }
+                            break;
+
+                            case("Thursday"):
+                            if (graphData[4] === undefined){
+                              graphData[4] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[4].favorites += tweet.favorites;
+                                graphData[4].retweets += tweet.retweets;
+                            }
+                            break;
+
+                            case("Friday"):
+                            if (graphData[5] === undefined){
+                              graphData[5] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[5].favorites += tweet.favorites;
+                                graphData[5].retweets += tweet.retweets;
+                            }
+                            break;
+
+                            case("Saturday"):
+                            if (graphData[6] === undefined){
+                              graphData[6] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                            }else {
+                                graphData[6].favorites += tweet.favorites;
+                                graphData[6].retweets += tweet.retweets;
+                            }
+                            break;
+                            
+                            default:
+                            break;
+                    }
+                })
+                console.log(graphData);
+                let weekData = [...this.state.weekData];
+                for(let i = 0; i < weekData[0].data.length; i++){
+                    if(graphData[i] !== undefined){
+                        weekData[0].data[i] = graphData[i].favorites
+                        weekData[1].data[i] = graphData[i].retweets
+                    }
+                }
+                this.setState({
+                    weekData: weekData
+             });
+
+            })
+        .catch(err => console.log(err))
     }
 
     connect = () => {
@@ -96,12 +190,13 @@ class Profile extends Component{
     } 
 
     render(){  
+        console.log(this.state.weekData)
         return(
             <Container>
                 <div className = "profileContainer">
                     <Row >
                         <Col size = "xs-3" >
-                            <img className="profile-image" src={this.state.user.profile_img} alt="profile-pic"></img>
+                            <img className="profile-image" src={this.state.user.profile_image_url_https} alt="profile-pic"></img>
                         </Col>
                         <Col size = "xs-4">
                             <h5>{this.state.user.name}</h5>
@@ -162,35 +257,20 @@ class Profile extends Component{
                         {this.state.tweets.length === 0 ? (
                             <h4 className="noTweets text-center">No Tweets to Display</h4>
                         ) : (
-                            // <div>
-                            //     {this.state.tweets.map((tweet, ind) => {
-                            //         return (
-
-                            //             // <div className="card" style={cardStyle} key = {ind}>
-                            //             //     <div className="card-body">
-                            //             //         <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
-                            //             //         <p className="card-text">{tweet.text}</p>
-                            //             //         <a href="#" className="card-link"><img src={commentImg}></img></a>
-                            //             //         <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
-                            //             //         <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
-                            //             //     </div>
-                            //             // </div>
-                            //         );
-                            //     })}
-                            // </div>
                             <div className="container-fluid twitterFeed">
-                                <div className="d-flex flex-row flex-nowrap">
-                                    {this.state.tweets.map((tweet, ind) => {
+                            <h3>Your Most Recent Twitter Feed</h3>
+                                <div className="d-flex flex-row flex-wrap">
+                                    {this.state.tweets.map((tweet) => {
                                         return (
-                                            <div className="card" style={cardStyle} key = {ind}>
-                                                <div className="card-body">
-                                                    <h6 className="card-title">{tweet.name} - @{tweet.screen_name} - {tweet.created_at}</h6>
-                                                    <p className="card-text">{tweet.text}</p>
-                                                    <a href="#" className="card-link"><img src={commentImg}></img></a>
-                                                    <a href="#" className="card-link"><img src={retweetImg}></img> {tweet.retweets}</a>
-                                                    <a href="#" className="card-link"><img src={likeImg}></img> {tweet.favorites}</a>
-                                                </div>
-                                            </div>
+                                            <TweetCard
+                                            key = {tweet.id}
+                                            name = {tweet.name}
+                                            screen_name = {tweet.screen_name}
+                                            created_at = {tweet.created_at}
+                                            text = {tweet.text}
+                                            retweets = {tweet.retweets}
+                                            favorites = {tweet.favorites}
+                                            />
                                         );
                                     })}
                                 </div>
@@ -202,5 +282,6 @@ class Profile extends Component{
         )
     }
 }
+
 
 export default Profile;

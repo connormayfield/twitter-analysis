@@ -43,14 +43,4 @@ module.exports = {
         });
     },
 
-    getTweets(req, res){
-        db.User.find({
-            username: req.params.username  
-        }).populate("tweets")
-
-        .then( (dbUser) => {
-            res.json(dbUser[0].tweets)
-        })
-
-    }
 }
