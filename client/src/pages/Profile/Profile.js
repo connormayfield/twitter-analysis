@@ -7,10 +7,6 @@ import LineGraph from "../../components/Graphs/LineGraph"
 import moment from 'moment';
 import twitterAPI from "../../utils/twitterAPI"
 import TweetCard from "../../components/TweetCard/index";
-// import commentImg from "./img/comment.png"
-// import retweetImg from "./img/retweet.png"
-// import likeImg from "./img/heart.png"
-
 
 
 class Profile extends Component{
@@ -209,15 +205,9 @@ class Profile extends Component{
                         </Col>
                         <Col size = "xs-4">
                             <h5>{this.state.user.name}</h5>
-                            {/* {this.state.user.twitter === undefined &&
-                                // <Link to="/api/user/connect/twitter">
-                                    <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
-                                // </Link>
-                            } */}
                             <h6>{this.state.user.screen_name}</h6>
                             <h6>{this.state.user.location}</h6>
                             <h6>{this.state.user.description}</h6>
-                            <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
                         </Col>
                     </Row>
                 </div>
