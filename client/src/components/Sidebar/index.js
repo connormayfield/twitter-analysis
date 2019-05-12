@@ -24,7 +24,7 @@ class Sidebar extends Component {
 
   render(){
     const { user } = this.props;
-    if(user!==undefined && user.logged) {
+    if(user !== undefined && user.logged) {
       return (
         <div id="sidebar">
           <ul>
@@ -32,6 +32,7 @@ class Sidebar extends Component {
             <Link to="/profile"><li>Profile</li></Link>
             <li>Tweet</li>
             <li>Sentiment</li>
+            <Link to="/connections"><li>Connections</li></Link>
             <Link to="/logout" onClick = {this.logout}><li>Logout</li></Link>
           </ul>
           <div className="side-image"></div>

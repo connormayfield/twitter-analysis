@@ -181,14 +181,6 @@ class Profile extends Component{
         .catch(err => console.log(err))
     }
 
-    connect = () => {
-        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
-    }
-
-    redirectTwitter = () => {
-        window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
-    } 
-
     render(){  
         console.log(this.state.weekData)
         return(
@@ -200,15 +192,9 @@ class Profile extends Component{
                         </Col>
                         <Col size = "xs-4">
                             <h5>{this.state.user.name}</h5>
-                            {/* {this.state.user.twitter === undefined &&
-                                // <Link to="/api/user/connect/twitter">
-                                    <button className="btn btn-primary" onClick={this.connect}>Connect Twitter</button>
-                                // </Link>
-                            } */}
                             <h6>{this.state.user.screen_name}</h6>
                             <h6>{this.state.user.location}</h6>
                             <h6>{this.state.user.description}</h6>
-                            <button className="btn btn-primary" onClick={this.redirectTwitter}>Twitter Home</button>
                         </Col>
                     </Row>
                 </div>
