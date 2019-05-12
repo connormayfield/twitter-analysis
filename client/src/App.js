@@ -10,6 +10,7 @@ import SignUp from './pages/Signup';
 import Weekly from "./pages/Weekly";
 import Wrapper from "./components/Wrapper";
 import Sidebar from "./components/Sidebar";
+import Connections from "./pages/Connections";
 import { connect } from "react-redux";
 import { doLogin, doLogout } from "./redux/actions/userActions";
 import history from "./redux/history";
@@ -36,6 +37,7 @@ const App = ({user, doLogin, doLogout}) => (
             {/* <PrivateRoute path="/login" component={Login} user={user} doLogin={doLogin}  /> */}
             <PrivateRoute path="/signup" component={SignUp} user={user} doLogin={doLogin}/>
             <PrivateRoute2 path="/weekly" component={Weekly} user={user}/>
+            <PrivateRoute2 path="/connections" component={Connections} user={user} />
             <PrivateRoute path="/logout" component={Home} user={user}/>
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
