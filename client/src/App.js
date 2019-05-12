@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { doLogin, doLogout } from "./redux/actions/userActions";
 import history from "./redux/history";
 import PrivateRoute from "./redux/component/PrivateRoute";
+import PrivateRoute2 from "./redux/component/PrivateRoute2";
 
 
 
