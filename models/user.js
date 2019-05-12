@@ -55,20 +55,26 @@ userSchema.methods.validPassword = function(password){
 
 userSchema.pre("save", function(next){
     var user = this;
+    console.log(user)
+    console.log(user.isModified("password"))
+
     if (!user.isModified('password')) {
+        console.log(next)
         return next();
       }
+
       bcrypt.genSalt(10, (err, salt) => {
+        console.log("salting 10")
         if (err) {
           return next(err);
         }
         bcrypt.hash(user.password, salt, null, (error, hash) => {
+          console.log("hashing password")
+
           if (error) {
             return next(error);
           }
-          console.log('HASH: ', hash);
           user.password = hash;
-          console.log('USER.PASSWORD: ', user.password);
           next();
         });
       });

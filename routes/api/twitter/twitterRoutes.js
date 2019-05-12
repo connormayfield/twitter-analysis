@@ -38,7 +38,7 @@ router.get("/:username/:screen_name", (req, res) => {
             console.log(error);
             res.json(error)
         } else {
-          console.log(tweets)
+        //   console.log(tweets)
           
             let tweetsArr = []
             for (let i = 0; i < tweets.length; i++){

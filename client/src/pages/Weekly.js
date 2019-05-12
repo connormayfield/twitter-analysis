@@ -33,12 +33,12 @@ class Weekly extends Component {
 
     componentWillMount() {
         
-        sentimentAPI.find(1234)
+        sentimentAPI.create(1234)
         .then(({data})=>{
             
             this.setState({sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]})
         })
-        // this.setState({ weekInterval: setInterval(this.weekRandom, 5000) });
+        this.setState({ weekInterval: setInterval(this.weekRandom, 10000) });
         // this.setState({ sentimentInterval: setInterval(this.sentimentRandom, 5000) });
     }
 
@@ -50,7 +50,7 @@ class Weekly extends Component {
 
     weekRandom = () => {
 
-        let newData = this.state.weekData;
+        let newData = [...this.state.weekData];
 
         for (let x = 0; x < newData.length; x++) {
 
@@ -79,7 +79,7 @@ class Weekly extends Component {
 
 
     render() {
-        console.log(this.state)
+        console.log(this.state.weekData)
         return (
             <div className="text-center">
                 <h4>Weekly Tweet Data Example</h4>
