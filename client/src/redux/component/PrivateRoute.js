@@ -5,7 +5,7 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => (
   
   <Route
   {...rest}
-    render={props =>
+    render={() =>
 <Component user={user} {...rest} />
       
       

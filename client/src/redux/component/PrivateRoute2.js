@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 const PrivateRoute2 = ({ component: Component, user, ...rest }) => (
   <Route
   {...rest}
-  render={props =>
+  render={() =>
     user.logged ? (
       <Component user={user} {...rest} />
     ) : (
