@@ -2,10 +2,6 @@ import React, {Component} from "react"
 import {Container} from "../components/Grid/index"
 
 class Home extends Component{
-    state = {
-        username: "",
-    }
-
     render(){
         if(this.props.user.logged===true) {   
             console.log("")
@@ -18,7 +14,7 @@ class Home extends Component{
         
         return(
             <Container>
-                <h1>Home Page {this.state.username} </h1>
+                <h1>Home Page</h1>
             </Container>
         )
     }
