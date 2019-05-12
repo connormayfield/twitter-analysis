@@ -2,6 +2,7 @@ import React from "react";
 import commentImg from "../../pages/Profile/img/comment.png"
 import retweetImg from "../../pages/Profile/img/retweet.png"
 import likeImg from "../../pages/Profile/img/heart.png"
+import graphImg from "../../pages/Profile/img/graph-button.png"
 // import "./style.css"
 
 const TweetCard = props=>{
@@ -18,9 +19,12 @@ const TweetCard = props=>{
         <a href="/#" className="card-link"><img src={commentImg} alt="comment-icon"/></a>
         <a href="/#" className="card-link"><img src={retweetImg} alt="retweet-icon"/>{props.retweets}</a>
         <a href="/#" className="card-link"><img src={likeImg} alt="like-icon"/>{props.favorites}</a>
+        <a href="/#" className="card-link"><img src={graphImg} alt="graph-icon" onClick = {props.donutModalHandler}/></a>
     </div>
 </div>
 
 }
 
 export default TweetCard
+
+

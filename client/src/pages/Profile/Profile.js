@@ -189,6 +189,15 @@ class Profile extends Component{
         window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
     } 
 
+    showModal = ()=>{
+
+    }
+
+    hideModal = () => {
+        
+    }
+
+
     render(){  
         console.log(this.state.weekData)
         return(
