@@ -104,7 +104,7 @@ module.exports = {
           })
         })
         .catch((err)=>{
-          console.log(err)
+          res.json(err)
         })     
     },
 
@@ -117,7 +117,6 @@ module.exports = {
         username : username})
         .populate("tweets")
         .then((dbUser) => {
-          console.log("dbUser", dbUser)
           let tweetID = dbUser[0].tweets[0]._id
           db.Tweet.find({
             _id: tweetID
@@ -125,7 +124,6 @@ module.exports = {
           .populate("comments")
           .populate("sentiment")
           .then((dbTweet) => {
-               console.log("dbTweet",  dbTweet[0].sentiment[0])
                res.json(dbTweet[0].sentiment[0])
 
           })

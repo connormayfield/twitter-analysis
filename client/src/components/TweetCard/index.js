@@ -19,7 +19,7 @@ const TweetCard = props=>{
         <a href="/#" className="card-link"><img src={commentImg} alt="comment-icon"/></a>
         <a href="/#" className="card-link"><img src={retweetImg} alt="retweet-icon"/>{props.retweets}</a>
         <a href="/#" className="card-link"><img src={likeImg} alt="like-icon"/>{props.favorites}</a>
-        <a href="/#" className="card-link"><img src={graphImg} alt="graph-icon" onClick = {props.donutModalHandler}/></a>
+        <span className="card-link" ><img src={graphImg} alt="graph-icon" onClick = {props.donutModalHandler}/></span>
     </div>
 </div>
 
