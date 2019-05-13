@@ -4,67 +4,94 @@ import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
 import "../../components/TweetCard/index"
 import LineGraph from "../../components/Graphs/LineGraph"
-import moment from 'moment';
 import twitterAPI from "../../utils/twitterAPI"
 import TweetCard from "../../components/TweetCard/index";
+import Modal from "react-bootstrap/Modal"
+import DoughnutGraph from "../../components/Graphs/DoughnutGraph";
+import sentimentAPI from "../../utils/sentimentAPI";
+
+
+
+
 
 
 class Profile extends Component{
+    constructor(props, context) {
+        super(props, context);
+    
+        this.showModal = ()=>{
+            sentimentAPI.find(1234)
+            .then(({data})=>{
+                
+                this.setState({
+                    sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
+                    showModal: true})
+            })
+        }
 
-    state = {
-        user: {},
-        tweets:[],
-        username: "",
-        isAuthenicated: false,
-        weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        weekData: [
-            {
-                label: "Likes",
-                backgroundColor: "#CC000044",
-                primaryColor: "#CC0000",
-                data: [0, 0, 0, 0, 0, 0, 0]
-            },
-            {
-                label: "Retweets",
-                backgroundColor: "#00FF0044",
-                primaryColor: "#00FF00",
-                data: [0, 0, 0, 0, 0, 0, 0]
-            }
-        ]
-    }
+        this.hideModal =  () => {
+            this.setState({showModal: false})
+    
+        }
+    
+        this.state = {
+            user: {},
+            tweets:[],
+            username: "",
+            isAuthenicated: false,
+            modalShow: false,
+            weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            weekData: [
+                {
+                    label: "Likes",
+                    backgroundColor: "#CC000044",
+                    primaryColor: "#CC0000",
+                    data: [0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                    label: "Retweets",
+                    backgroundColor: "#00FF0044",
+                    primaryColor: "#00FF00",
+                    data: [0, 0, 0, 0, 0, 0, 0]
+                }
+            ],
+            sentimentLabels: ["Anger", "Disgust", "Fear", "Joy", "Sadness"],
+            sentimentData: [40, 75, 140, 160, 200]
+        }
+      }
+ 
+
 
     componentDidMount = () => {
-        loginAPI.checkSession()
-        .then((res)=> {
-            if(!res.data){
-                return;
-            }
-            else{
-                twitterAPI.getTweets(res.data.username, 'JebBush').then(({data}) => {
-                    //Gathering user information
-                    console.log(data)
+
+            twitterAPI.getTweets(this.props.user.username, 'UTAustin').then(({data}) => {
+                //Gathering user information
+                console.log(data)
 
 
-                    let weekData = [...this.state.weekData];
-                    
-                    for(let i = 0; i < data.weeklyData.length; i++){
-                        if(data.weeklyData[i] !== null){
-                            weekData[0].data[i] = data.weeklyData[i].favorites
-                            weekData[1].data[i] = data.weeklyData[i].retweets
-                        }
+                let weekData = [...this.state.weekData];
+
+     
+
+                for(let i = 0; i < data.weeklyData.length; i++){
+                    if(data.weeklyData[i] !== null){
+                        weekData[0].data[i] = data.weeklyData[i].favorites
+                        weekData[1].data[i] = data.weeklyData[i].retweets
                     }
-                        this.setState({username: res.data.username,
-                            user: data.user,
-                            tweets: data.newTweets,
-                            isAuthenicated: true,
-                            weekData: weekData
-                     });
-                })
+                }
+                    this.setState({username: this.props.user.username,
+                        user: data.user,
+                        tweets: data.newTweets,
+                        isAuthenicated: true,
+                        weekLabels: data.labels,
+                        weekData: weekData
+                    });
+            })
 
-                .catch(err => console.log(err))
-            }
-        });
-    }
+            .catch(err => console.log(err))
+        }
+
+    
 
 
 
@@ -75,14 +102,6 @@ class Profile extends Component{
     redirectTwitter = () => {
         window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
     } 
-
-    showModal = ()=>{
-
-    }
-
-    hideModal = () => {
-        
-    }
 
 
     render(){  
@@ -137,7 +156,7 @@ class Profile extends Component{
                 <div className="graphContainer">
                     <h4>Weekly Tweet Data Example</h4>
                     <div className="graph">
-                        <LineGraph id="linegraph"
+                        <LineGraph key="1" id="linegraph"
                         labels={this.state.weekLabels}
                         graphData={this.state.weekData}/>
                     </div>
@@ -160,6 +179,7 @@ class Profile extends Component{
                                             text = {tweet.text}
                                             retweets = {tweet.retweets}
                                             favorites = {tweet.favorites}
+                                            donutModalHandler = {this.showModal}
                                             />
                                         );
                                     })}
@@ -168,7 +188,22 @@ class Profile extends Component{
                         )}
                     </Col>
                 </Row>
+                <Modal show={this.state.showModal} onHide={this.hideModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sentiment Data</Modal.Title>
+                    </Modal.Header>
+                        <Modal.Body>
+                        <DoughnutGraph
+                        labels={this.state.sentimentLabels}
+                        graphData={this.state.sentimentData}
+                        />
+                        </Modal.Body>
+                    <Modal.Footer>
+                    </Modal.Footer>
+             </Modal>
             </Container>
+
+
         )
     }
 }
