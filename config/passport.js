@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Twitter = require("passport-twitter");
+const TwitterTokenStrategy = require("passport-twitter-token");
 const User = require("../models/user");
 const { connectTwitter } = require("../controllers/userController");
 
@@ -26,58 +26,55 @@ passport.use(new LocalStrategy(
     })
 );
 
-// Configure the Twitter strategy for use by Passport.
-//
-// OAuth 1.0-based strategies require a `verify` function which receives the
-// credentials (`token` and `tokenSecret`) for accessing the Twitter API on the
-// user's behalf, along with the user's profile.  The function must invoke `cb`
-// with a user object, which will be set at `req.user` in route handlers after
-// authentication.
-passport.use(new Twitter({
-    consumerKey: "P1W0cgiiR0inKGh9JYlty1FFO",
-    consumerSecret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-    callbackURL: '/api/user/connect/twitter/callback'
-    // proxy: true
-  },
-  function(token, tokenSecret, profile, done) {
-    // In this example, the user's Twitter profile is supplied as the user
-    // record.  In a production-quality application, the Twitter profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    console.log(profile);
-    // When a user tries to sign in this code runs
-    User.findOne({
-        username: profile.name
-    })
-    .then(dbUser => {
-        // If there's no user with the given
-        if (!dbUser) {
-            return done(null, false, {
-                message: "User doesn't have an account"
-            });
-        } else if (dbUser.twitter.id) {
+// Use the Twitter Token Strategy to call the Oauth Verifier
+passport.use(new TwitterTokenStrategy({
 
-            // Twitter is already connected
-            return done(null, false, {
-                message: "Twitter is already connected"
-            });
+    consumerKey: "PUKeIFz9XrfpLMaePxdSBCOpo",
+    consumerSecret: "u6YVPzov7A2RKOd37PGIASbQAG09aHUrolU93YXhqL9aBZuyXJ",
+    passReqToCallback: true
+},
+    function(req, token, tokenSecret, profile, done) {
+
+        if (req.user) {
+            User.findOne({
+                username: req.user.username
+            })
+            .then(dbUser => {
+                // If there's no user with the given
+                if (!dbUser) {
+                    console.log("Failed to find user in DB!");
+                    return done(null, false, {
+                        message: "User doesn't have an account"
+                    });
+                } else if (dbUser.twitter.id !== undefined) {
+        
+                    console.log("Twitter is already connected!")
+                    // Twitter is already connected
+                    return done(null, dbUser);
+                } else {
+
+                    // Update user model to include twitter info
+                    dbUser.twitter.id = profile.id;
+                    dbUser.twitter.token = token;
+                    dbUser.twitter.displayName = profile.displayName;
+                    dbUser.twitter.handle = profile.username;
+                    dbUser.twitter.photo = profile.photos[0].value || '';
+
+                    User.updateOne({ username: dbUser.username}, dbUser)
+                        .then(newUser => {
+                            const user = newUser;
+                            done(null, user);
+                        })
+                        .catch(err => console.log(err));
+                }
+            }).catch(err => console.log(err));
         } else {
-
-            // Update user model to include twitter info
-            dbUser.twitter.id = profile.id;
-            dbUser.twitter.token = token;
-            dbUser.twitter.displayName = profile.name;
-            dbUser.twitter.handle = profile.screen_name;
-            // dbUser.twitter.photo = profile.profile_image_url || '';
-
-            connectTwitter(dbUser);
-
-            return done(null, profile);
+            return done(null, false, {
+                message: "User isn't Authenticated with this application!"
+            })
         }
-    })
-    
-  }));
+    }
+))
 
 // In order to help keep authentication state across HTTP requests,
 // Mongoose needs to serialize and deserialize the user

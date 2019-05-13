@@ -9,6 +9,17 @@ const app = express();
 
 const mongoose = require("mongoose")
 
+const cors = require("cors");
+
+const corsOption = {
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    exposedHeaders: ["x-auth-token"]
+};
+
+app.use(cors(corsOption));
+
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -63,7 +63,6 @@ module.exports = {
 //Function will create a sentiment document for a particular tweet. First, it will pull the comments associated with that tweet. IBM Tone analyzer will add all the emotion scores for each comment. The sentiment will be added to the sentiment model and then to Tweet model.
     
   //parameters need to be passed: 1. username, 2. Tweet _id
-
   create(req, res){
       let username = "delta1234"
       let emotionScore = {
@@ -73,7 +72,6 @@ module.exports = {
         joy: 0, 
         fear: 0
       }
-
       db.User.find({
         username : username})
         .populate("tweets")
@@ -95,18 +93,18 @@ module.exports = {
                  sentiment: sentimentID
                }
               }).then((data) => {
-                console.log(data)
+                //returning emotion scores
+
                 res.json(emotionScore)
               })
               .catch(err => {
-                console.log(err)
                 res.json(err)
               });
             })
           })
         })
         .catch((err)=>{
-          console.log(err)
+          res.json(err)
         })     
     },
 
@@ -114,7 +112,7 @@ module.exports = {
 
     getSentimentScore(req, res){
       let username = "delta1234"
-
+    
       db.User.find({
         username : username})
         .populate("tweets")
@@ -126,7 +124,6 @@ module.exports = {
           .populate("comments")
           .populate("sentiment")
           .then((dbTweet) => {
-               console.log(dbTweet[0].sentiment[0])
                res.json(dbTweet[0].sentiment[0])
 
           })

@@ -1,25 +1,22 @@
  .profileContainer{
-
     padding: 50px;
  }
 
   .profileContainer img{
-     margin: 0 25vw ;
-     border:  3px solid black;
-     display: inline-block;
-     
+     border:  1px solid black;
+     border-radius: 50%;
  }
 
- .profileContainer h5, .profileContainer p{
+ .profileContainer h5, .profileContainer h6, .profileContainer p{
     margin: 5px ;
-   
 }
 
 .widgetContainer{
     padding: 20px;
     width: 100%;
-    border: 1px black solid;
     display: inline-block;
+    border-top: 2px solid #E6ECF0;
+    border-bottom: 2px solid #E6ECF0;
 }
 
 .widget{
@@ -27,14 +24,13 @@
     padding: 30px;
     height: 100px;
     flex-grow: 3;
-    border: 2px solid black;
     text-align: center;
 }
 
   .graphContainer {
-    margin: 20px 0;
-    border:  1px solid black;
-    justify-content:  center 
+    margin-top: 50px;
+    justify-content:  center ;
+    border-bottom: 2px solid #E6ECF0;
  }
 
 canvas{
@@ -42,7 +38,14 @@ canvas{
      width: 100%;
  }
 
- .graphContainer,.widgetContainer {
-    
-    box-shadow: 6px 6px gray;
+ .graph {
+     margin-bottom: 50px;
+ }
+
+ .noTweets {
+     padding: 50px 0 50px 15px;
+ }
+ 
+ .twitterFeed{
+    padding: 50px 0 50px 15px;
  }
