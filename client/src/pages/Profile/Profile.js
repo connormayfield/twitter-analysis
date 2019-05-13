@@ -10,17 +10,12 @@ import Modal from "react-bootstrap/Modal"
 import DoughnutGraph from "../../components/Graphs/DoughnutGraph";
 import sentimentAPI from "../../utils/sentimentAPI";
 
-
-
-
-
-
 class Profile extends Component{
     constructor(props, context) {
         super(props, context);
     
-        this.showModal = ()=>{
-            sentimentAPI.find(1234)
+        this.showModal = (username, twitterHandle, tweetID)=>{
+            sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
                 
                 this.setState({
@@ -62,16 +57,12 @@ class Profile extends Component{
  
 
 
-    componentDidMount = () => {
+    componentWillMount = () => {
 
-            twitterAPI.getTweets(this.props.user.username, 'UTAustin').then(({data}) => {
+            twitterAPI.getTweets(this.props.user.username, 'bootcamptweeter').then(({data}) => {
                 //Gathering user information
-                console.log(data)
-
 
                 let weekData = [...this.state.weekData];
-
-     
 
                 for(let i = 0; i < data.weeklyData.length; i++){
                     if(data.weeklyData[i] !== null){
@@ -91,19 +82,12 @@ class Profile extends Component{
             .catch(err => console.log(err))
         }
 
-    
-
-    showModal = ()=>{
-
+    connect = () => {
+        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
     }
-
-    hideModal = () => {
-        
-    }
-
 
     render(){  
-        console.log(this.state.weekData)
+        console.log(this.state.username)
         return(
             <Container>
                 <div className = "profileContainer">
@@ -152,7 +136,7 @@ class Profile extends Component{
                     </Row>
                 </div>
                 <div className="graphContainer">
-                    <h4>Weekly Tweet Data Example</h4>
+                    <h4>Weekly Tweet Insight Data</h4>
                     <div className="graph">
                         <LineGraph key="1" id="linegraph"
                         labels={this.state.weekLabels}
@@ -177,7 +161,7 @@ class Profile extends Component{
                                             text = {tweet.text}
                                             retweets = {tweet.retweets}
                                             favorites = {tweet.favorites}
-                                            donutModalHandler = {this.showModal}
+                                            donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
                                             />
                                         );
                                     })}
