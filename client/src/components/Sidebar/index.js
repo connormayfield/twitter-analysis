@@ -29,8 +29,6 @@ class Sidebar extends Component {
         <div id="sidebar">
           <ul>
             <Link to="/profile"><li>Profile</li></Link>
-            <li>Tweet</li>
-            <li>Sentiment</li>
             <Link to="/connections"><li>Connections</li></Link>
             <Link to="/logout" onClick = {this.logout}><li>Logout</li></Link>
           </ul>
@@ -40,11 +38,6 @@ class Sidebar extends Component {
     }
     return (
       <div id="sidebar">
-        {/* <div className="toggle-btn" id="toggle-sidebar" onClick={this.toggleSidebar}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div> */}
         <ul>
           <Link to="/login"><li>Login</li></Link>
           <Link to="/signup"><li>Signup</li></Link>
