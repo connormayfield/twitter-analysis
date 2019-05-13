@@ -70,7 +70,15 @@ class SignUp extends Component{
           "Poor",
           "Okay",
           "Great"
-        ]
+        ],
+        progressBarArray:[
+         "bg-danger",
+         "bg-warning",
+         "bg-info",
+         "bg-success"
+       ],
+       progressState:"",
+       progressNumber:""
 
 
     };
@@ -115,6 +123,9 @@ class SignUp extends Component{
         const evaluation = zxcvbn(password)
         let scoreMessage = ""
         let passwordStatus=""
+        let progressState=""
+        let progressBarArray=this.state.progressBarArray;
+        let progressNumber=""
 
 
 
@@ -134,17 +145,48 @@ class SignUp extends Component{
             //   value.length >= 6 ? "password valid" : "";
 
             scoreMessage = this.state.scoreArray[evaluation.score];
-            if(scoreMessage==="Okay" || scoreMessage==="Great" ) {
-              validSuccess.password = "password status : "+ scoreMessage+". Password valid"
-              formErrors.password = "";
+            // if(scoreMessage==="Okay" || scoreMessage==="Great" ) {
+            //   validSuccess.password = "password status : "+ scoreMessage+". Password valid"
+            //   formErrors.password = "";
+            //   passwordStatus="good";
+            //
+            // } else {
+            //   scoreMessage = "password status : "+scoreMessage;
+            //   formErrors.password = "you need more password character";
+            //   validSuccess.password = "";
+            //   passwordStatus="bad";
+            //
+            // }
+            if(scoreMessage==="Great") {
+              progressState=progressBarArray[3];
+              progressNumber="100%"
               passwordStatus="good";
-
-            } else {
-              scoreMessage = "password status : "+scoreMessage;
-              formErrors.password = "you need more password character";
-              validSuccess.password = "";
+              validSuccess.password = "password status : "+ scoreMessage
+              formErrors.password = "";
+            } else if(scoreMessage==="Okay") {
+              progressState=progressBarArray[2];
+              progressNumber="75%"
+              passwordStatus="good";
+              validSuccess.password = "password status : "+ scoreMessage
+              formErrors.password = "";
+            } else if(scoreMessage==="Poor") {
+              progressState=progressBarArray[1];
+              progressNumber="50%"
               passwordStatus="bad";
-
+              validSuccess.password = "";
+              formErrors.password = "password status : "+ scoreMessage;
+            } else if(scoreMessage==="Weak") {
+              progressState=progressBarArray[0];
+              progressNumber="25%"
+              passwordStatus="bad";
+              validSuccess.password = "";
+              formErrors.password = "password status : "+ scoreMessage;
+            } else {
+              progressState=progressBarArray[0];
+              progressNumber="0%"
+              passwordStatus="bad";
+              validSuccess.password = "";
+              formErrors.password = "password status : "+ scoreMessage;
             }
             break;
             case "confirmPassword":
@@ -181,7 +223,9 @@ class SignUp extends Component{
           validSuccess,
           password,
           confirmPassword,
+          progressState,
           passwordStatus,
+          progressNumber,
           score:evaluation.score,
           suggestions:evaluation.feedback.suggestions,
           [name]: value},
@@ -233,7 +277,10 @@ class SignUp extends Component{
       password.length > 0 &&
       confirmPassword.length > 0 &&
       email.length > 0 &&
-      twitter_username.length > 0;
+      twitter_username.length > 0 &&
+      this.state.password === this.state.confirmPassword;
+
+    console.log("***************password " + password)
 
       const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
 
@@ -267,7 +314,7 @@ class SignUp extends Component{
                         <label htmlFor="password"> Password </label>
                         <Input
                         type="password"
-                        id = "password"
+                        id = "signuppassword"
                         className=
                         {
                         score === 0 ? ("scoreZero"):
@@ -284,16 +331,12 @@ class SignUp extends Component{
                         maxLength = "15">
 
                         </Input>
-                        {formErrors.password.length > 0 && (
-                          <span className="errorMessage">
-                          <li>{scoreMessage}</li>
-                          <li>{formErrors.password}</li>
-                          <li>{suggestions[0]}</li>
-                          <li>{suggestions[1]}</li>
-                          <li>{suggestions[2]}</li>
-                          </span>
-                        )}
-                        <li className="successMessage">{password}</li>
+                        <div className="progress" id="progress">
+  <div className={`progress-bar ${this.state.progressState}`} id="progress-bar" role="progressbar" style={{"width": this.state.progressNumber}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+{ passwordStatus==="good"? password : formErrors.password}
+
+
 
                     </div>
                     <div className ="form-group">
@@ -303,7 +346,7 @@ class SignUp extends Component{
                           className={
                           this.state.confirmPassword !== this.state.password && this.state.password.length > 0 && this.state.confirmPassword > 0? ("error") :
                           this.state.password.length === 0 && this.state.confirmPassword.length > 0 ? ("error") :
-                          this.state.confirmPassword === this.state.password && this.state.confirmPassword.length && passwordStatus ==="good" ?("success"):
+                          this.state.confirmPassword === this.state.password && this.state.confirmPassword.length && passwordStatus ==="good" ? ("success"):
                           ("form-control")}
                           name = "confirmPassword"
                           placeholder="password"

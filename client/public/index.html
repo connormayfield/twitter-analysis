@@ -16,13 +16,20 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
+
     <script>
       $(document).on("click", "#toggle-sidebar", function() {
         console.log("toggle");
         $("#sidebar").toggleClass("active");
         $(".wrapper").toggleClass("active");
         // $(".navbar-brand").toggleClass("active");
+      })
+      $(document).on("focus","#signuppassword",function(){
+        $("#progress").show();
+        $("#progress-bar").show();
+      })
+      $(document).on("blur","#signuppassword",function(){
+        $("#progress").hide();
       })
     </script>
   </body>
