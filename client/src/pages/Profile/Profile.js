@@ -66,16 +66,6 @@ class Profile extends Component{
         });
     }
 
-
-
-    connect = () => {
-        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
-    }
-
-    redirectTwitter = () => {
-        window.open("https://twitter.com/"+this.state.user.screen_name, "_blank");
-    } 
-
     showModal = ()=>{
 
     }

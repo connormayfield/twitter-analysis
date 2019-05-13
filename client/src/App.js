@@ -24,7 +24,7 @@ const App = ({user, doLogin, doLogout}) => (
 
   <Router history={history}>
       <div id="page-container">
-        <Navbar/>
+        <Navbar user= {user} doLogin={doLogin} doLogout={doLogout}/>
         <Wrapper>
         <Sidebar user={user} doLogin={doLogin} doLogout={doLogout}/>
           <Switch>
