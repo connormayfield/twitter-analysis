@@ -82,19 +82,8 @@ class Profile extends Component{
             .catch(err => console.log(err))
         }
 
-<<<<<<< HEAD
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
-=======
-    
-
-    showModal = ()=>{
-
->>>>>>> daf65b0e7604b6fa817acf8d81995c608d1cf2fe
-    }
-
-    hideModal = () => {
-        
     }
 
     render(){  
