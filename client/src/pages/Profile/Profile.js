@@ -43,139 +43,30 @@ class Profile extends Component{
                 twitterAPI.getTweets(res.data.username, 'JebBush').then(({data}) => {
                     //Gathering user information
                     console.log(data)
-                    let user = data[0].user
-        
-                    var newTweets = [];
 
-                    for(var i = 0; i < data.length; i++){
-                        var oneTweet = {};
-                        oneTweet.id = data[i].id;
-                        oneTweet.created_at = moment(data[i].created_at).format("MMM DD YYYY");
-                        oneTweet.text = data[i].text;
-                        oneTweet.retweets = data[i].retweet_count;
-                        oneTweet.favorites = data[i].favorite_count;
-                        oneTweet.name = data[i].user.name;
-                        oneTweet.screen_name = data[i].user.screen_name;
-                        oneTweet.user_id = data[i].user.id;
-                        newTweets.push(oneTweet);
+
+                    let weekData = [...this.state.weekData];
+                    
+                    for(let i = 0; i < data.weeklyData.length; i++){
+                        if(data.weeklyData[i] !== null){
+                            weekData[0].data[i] = data.weeklyData[i].favorites
+                            weekData[1].data[i] = data.weeklyData[i].retweets
                         }
-
-                        this.setState({username: data.username,
-                            user:user,
-                            tweets: newTweets,
-                            isAuthenicated: true
+                    }
+                        this.setState({username: res.data.username,
+                            user: data.user,
+                            tweets: data.newTweets,
+                            isAuthenicated: true,
+                            weekData: weekData
                      });
-                     this.updateWeeklyGraph()
-                    //  this.setState({weekInterval: setInterval(this.updateWeeklyGraph, 10000)})
-                    })
+                })
 
                 .catch(err => console.log(err))
             }
         });
     }
 
-    updateWeeklyGraph = () => {
-        twitterAPI.getTweets(this.state.username, 'JebBush').then(({data}) => {
-            //Gathering user information
-            var newTweets = [];
 
-            for(var i = 0; i < data.length; i++){
-                var oneTweet = {};
-                oneTweet.created_at = moment(data[i].created_at).format("MMM DD YYYY");
-                oneTweet.retweets = data[i].retweet_count;
-                oneTweet.favorites = data[i].favorite_count;
-                newTweets.push(oneTweet);
-                }
-
-                let graphData = new Array(7);
-                    
-                newTweets.forEach(tweet => {
-
-                    //Gathering "retweet" data and "favorites" data
-                    let day = moment(tweet.created_at).format("dddd");
-                    switch (day){
-                        case("Sunday"):
-                            if (graphData[0] === undefined){
-                              graphData[0] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[0].favorites += tweet.favorites;
-                                graphData[0].retweets  += tweet.retweets;
-                            }
-                            break;
-
-                            case("Monday"):
-                            if (graphData[1] === undefined){
-                              graphData[1] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[1].favorites += tweet.favorites;
-                                graphData[1].retweets += tweet.retweets;
-                            }
-                            break;
-
-                            case("Tuesday"):
-                            if (graphData[2] === undefined){
-                              graphData[2] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[2].favorites += tweet.favorites;
-                                graphData[2].retweets += tweet.retweets;
-                            }
-                            break;
-
-                            case("Wednesday"):
-                            if (graphData[3] === undefined){
-                              graphData[3] = {favorites: tweet.favorites, retweets: tweet.retweets}
-                            }else {
-                                graphData[3].favorites += tweet.favorites;
-                                graphData[3].retweets += tweet.retweets;
-                            }
-                            break;
-
-                            case("Thursday"):
-                            if (graphData[4] === undefined){
-                              graphData[4] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[4].favorites += tweet.favorites;
-                                graphData[4].retweets += tweet.retweets;
-                            }
-                            break;
-
-                            case("Friday"):
-                            if (graphData[5] === undefined){
-                              graphData[5] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[5].favorites += tweet.favorites;
-                                graphData[5].retweets += tweet.retweets;
-                            }
-                            break;
-
-                            case("Saturday"):
-                            if (graphData[6] === undefined){
-                              graphData[6] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                            }else {
-                                graphData[6].favorites += tweet.favorites;
-                                graphData[6].retweets += tweet.retweets;
-                            }
-                            break;
-                            
-                            default:
-                            break;
-                    }
-                })
-                console.log(graphData);
-                let weekData = [...this.state.weekData];
-                for(let i = 0; i < weekData[0].data.length; i++){
-                    if(graphData[i] !== undefined){
-                        weekData[0].data[i] = graphData[i].favorites
-                        weekData[1].data[i] = graphData[i].retweets
-                    }
-                }
-                this.setState({
-                    weekData: weekData
-             });
-
-            })
-        .catch(err => console.log(err))
-    }
 
     connect = () => {
         window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
