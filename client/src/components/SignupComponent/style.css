@@ -88,33 +88,104 @@ background-color: #007BFF;
 
 }
 
-.errorMessage {
+.errorMessage li{
   color: red;
   font-size: .95em;
-  display: relative;
+  /* display: relative; */
+  list-style-type: none;
 }
+
+li.successMessage{
+  color: green;
+  font-size: .95em;
+  /* display: relative; */
+  list-style-type: none;
+}
+
+
 
 form input.error {
   border-bottom: 3px solid red !important;
   width: 70%;
   padding: 5px;
-  /* border-radius: 5px; */
   outline: none;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-form input.success {
-  border-bottom: 3px solid green !important;
+form input.scoreZero {
+  /* border-bottom: 3px solid red !important; */
   width: 70%;
   padding: 5px;
-  /* border-radius: 5px; */
   outline: none;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
+form input.scoreOne {
+  border-bottom: 3px solid red !important;
+  width: 70%;
+  padding: 5px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+form input.scoreTwo {
+  border-bottom: 3px solid orange !important;
+  width: 70%;
+  padding: 5px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+form input.scoreThree {
+  border-bottom: 3px solid yellow !important;
+  width: 70%;
+  padding: 5px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+form input.scoreFour {
+  border-bottom: 3px solid green !important;
+  width: 70%;
+  padding: 5px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+
+
+form input.success {
+  border-bottom: 3px solid green !important;
+  width: 70%;
+  padding: 5px;
+
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.error {
+  border-bottom: 3px solid red !important;
+  width: 70%;
+  padding: 5px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+}
+
+
 
 
 
