@@ -6,6 +6,5 @@ export default {
     console.log(screen_name)
     return axios.get("/api/tweets/"+username+"/"+screen_name);
    
-    // return axios.get("/api/tweets", { params: { screen_name: screen_name } });
   }
 };

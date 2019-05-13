@@ -3,6 +3,7 @@ const express = require("express");
 const router = require("express").Router();
 var Twitter = require('twitter');
 const db = require("../../../models/")
+const moment = require("moment")
 
 // From the other twitter route D made... 
 // const tweetController = require("../../../controllers/tweetController")
@@ -37,9 +38,7 @@ router.get("/:username/:screen_name", (req, res) => {
         if (error) {
             console.log(error);
             res.json(error)
-        } else {
-        //   console.log(tweets)
-          
+        } else {          
             let tweetsArr = []
             for (let i = 0; i < tweets.length; i++){
                 let tweetObj = {
@@ -59,8 +58,109 @@ router.get("/:username/:screen_name", (req, res) => {
                    db.User.update({username : req.params.username},
                         {tweets: tweetIDArr}
                     ).then((dbUser) => {
-                      res.json(tweets);
+
+                      let user = tweets[0].user;
+                      console.log(user)
+
+                      let newTweets = [];
+
+                      for(let i = 0; i < tweets.length; i++){
+                          let oneTweet = {};
+                          oneTweet.id = tweets[i].id;
+                          oneTweet.created_at = moment(tweets[i].created_at).format("MMM DD YYYY");
+                          oneTweet.text = tweets[i].text;
+                          oneTweet.retweets = tweets[i].retweet_count;
+                          oneTweet.favorites = tweets[i].favorite_count;
+                          oneTweet.name = tweets[i].user.name;
+                          oneTweet.screen_name = tweets[i].user.screen_name;
+                          oneTweet.user_id = tweets[i].user.id;
+                          newTweets.push(oneTweet);
+                          }
+
+                          let weeklyData = new Array(7);
+
+                          newTweets.forEach(tweet => {
+
+                            //Gathering "retweet" data and "favorites" data
+                            let day = moment(tweet.created_at).format("dddd");
+                            console.log()
+                            switch (day){
+                                case("Sunday"):
+                                    if (weeklyData[0] === undefined){
+                                        weeklyData[0] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[0].favorites += tweet.favorites;
+                                        weeklyData[0].retweets  += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Monday"):
+                                    if (weeklyData[1] === undefined){
+                                        weeklyData[1] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[1].favorites += tweet.favorites;
+                                        weeklyData[1].retweets += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Tuesday"):
+                                    if (weeklyData[2] === undefined){
+                                        weeklyData[2] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[2].favorites += tweet.favorites;
+                                        weeklyData[2].retweets += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Wednesday"):
+                                    if (weeklyData[3] === undefined){
+                                        weeklyData[3] = {favorites: tweet.favorites, retweets: tweet.retweets}
+                                    }else {
+                                        weeklyData[3].favorites += tweet.favorites;
+                                        weeklyData[3].retweets += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Thursday"):
+                                    if (weeklyData[4] === undefined){
+                                        weeklyData[4] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[4].favorites += tweet.favorites;
+                                        weeklyData[4].retweets += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Friday"):
+                                    if (weeklyData[5] === undefined){
+                                        weeklyData[5] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[5].favorites += tweet.favorites;
+                                        weeklyData[5].retweets += tweet.retweets;
+                                    }
+                                    break;
+        
+                                    case("Saturday"):
+                                    if (weeklyData[6] === undefined){
+                                        weeklyData[6] = {favorites: tweet.favorites, retweets: tweet.retweets};
+                                    }else {
+                                        weeklyData[6].favorites += tweet.favorites;
+                                        weeklyData[6].retweets += tweet.retweets;
+                                    }
+                                    break;
+                                    
+                                    default:
+                                    break;
+                            }
+                        })
+
+                          res.json({
+                            user: user,
+                            newTweets: newTweets,
+                            weeklyData: weeklyData
+                          });
+
                     })
+                    .catch(err => res.json(err))
                 })
             
         }
