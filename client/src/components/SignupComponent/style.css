@@ -94,15 +94,18 @@ background-color: #007BFF;
   /* display: relative; */
   list-style-type: none;
 }
-
+.errorMessage {
+  color: red;
+  font-size: .95em;
+  /* display: relative; */
+  list-style-type: none;
+}
 li.successMessage{
   color: green;
   font-size: .95em;
   /* display: relative; */
   list-style-type: none;
 }
-
-
 
 form input.error {
   border-bottom: 3px solid red !important;
@@ -142,7 +145,7 @@ form input.scoreTwo {
   box-shadow: none !important;
 }
 form input.scoreThree {
-  border-bottom: 3px solid yellow !important;
+  border-bottom: 3px solid teal !important;
   width: 70%;
   padding: 5px;
   outline: none;

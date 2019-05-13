@@ -161,32 +161,32 @@ class SignUp extends Component{
               progressState=progressBarArray[3];
               progressNumber="100%"
               passwordStatus="good";
-              validSuccess.password = "password status : "+ scoreMessage
+              validSuccess.password = "Password Strength : "+ scoreMessage
               formErrors.password = "";
             } else if(scoreMessage==="Okay") {
               progressState=progressBarArray[2];
               progressNumber="75%"
               passwordStatus="good";
-              validSuccess.password = "password status : "+ scoreMessage
+              validSuccess.password = "Password Strength : "+ scoreMessage
               formErrors.password = "";
             } else if(scoreMessage==="Poor") {
               progressState=progressBarArray[1];
               progressNumber="50%"
               passwordStatus="bad";
               validSuccess.password = "";
-              formErrors.password = "password status : "+ scoreMessage;
+              formErrors.password = "Password Strength : "+ scoreMessage;
             } else if(scoreMessage==="Weak") {
               progressState=progressBarArray[0];
               progressNumber="25%"
               passwordStatus="bad";
               validSuccess.password = "";
-              formErrors.password = "password status : "+ scoreMessage;
+              formErrors.password = "Password Strength : "+ scoreMessage;
             } else {
               progressState=progressBarArray[0];
               progressNumber="0%"
               passwordStatus="bad";
               validSuccess.password = "";
-              formErrors.password = "password status : "+ scoreMessage;
+              formErrors.password = "Password Strength : "+ scoreMessage;
             }
             break;
             case "confirmPassword":
@@ -279,8 +279,6 @@ class SignUp extends Component{
       email.length > 0 &&
       twitter_username.length > 0 &&
       this.state.password === this.state.confirmPassword;
-
-    console.log("***************password " + password)
 
       const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
 

@@ -1,12 +1,13 @@
 .wrapper {
   width:100%;
+  margin-top: 56px;
   height: calc(100% - 56px);
   margin-left: 0;
   padding:0;
   transition: 0.25s;
 }
-/* 
-.wrapper.active {
+
+/* .wrapper.active {
   margin-left: 200px;
 
 } */

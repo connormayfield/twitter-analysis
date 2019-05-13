@@ -1,6 +1,7 @@
 .navbar {
     width: 100%;
     z-index: 100;
+    height: 56px;
 }
 
 .navbar-brand{
@@ -9,6 +10,16 @@
 
 #toggle-sidebar:active {
     background:rgba(11, 11, 236, 0.6);
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    left: -60%;
+}
+
+@media (max-width: 992px) { 
+    #navbarDropdown {
+        display: none;
+    }
 }
 
 /* .navbar-brand.active {

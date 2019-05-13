@@ -2,7 +2,6 @@ import React from 'react';
 //import './App.css';
 import {Router, Route, Switch} from "react-router-dom"
 import Navbar from "./components/navbar/index.js"
-import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile/Profile"
 import Error from "./pages/Error"
@@ -24,11 +23,10 @@ const App = ({user, doLogin, doLogout}) => (
 
   <Router history={history}>
       <div id="page-container">
-        <Navbar/>
+        <Navbar user= {user} doLogin={doLogin} doLogout={doLogout}/>
         <Wrapper>
         <Sidebar user={user} doLogin={doLogin} doLogout={doLogout}/>
           <Switch>
-            {/* <Route exact path="/" component ={Home}/> */}
             
             {/* <Route exact path="/login" component ={Login} doLogin={doLogin} user={user}/> */}
             <PrivateRoute path="/login" component={Login} user={user} doLogin={doLogin} />
@@ -38,10 +36,8 @@ const App = ({user, doLogin, doLogout}) => (
             <PrivateRoute path="/signup" component={SignUp} user={user} doLogin={doLogin}/>
             <PrivateRoute2 path="/weekly" component={Weekly} user={user}/>
             <PrivateRoute2 path="/connections" component={Connections} user={user} />
-            <PrivateRoute path="/logout" component={Home} user={user}/>
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
-            <PrivateRoute path="/" component={Home} user={user} doLogin={doLogin}/>
             <Route component ={Error}/>
             
           </Switch>
