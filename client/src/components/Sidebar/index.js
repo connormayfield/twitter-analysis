@@ -28,7 +28,6 @@ class Sidebar extends Component {
       return (
         <div id="sidebar">
           <ul>
-            <Link to="/"><li>Home</li></Link>
             <Link to="/profile"><li>Profile</li></Link>
             <li>Tweet</li>
             <li>Sentiment</li>
@@ -47,7 +46,6 @@ class Sidebar extends Component {
           <span></span>
         </div> */}
         <ul>
-          <Link to="/"><li>Home</li></Link>
           <Link to="/login"><li>Login</li></Link>
           <Link to="/signup"><li>Signup</li></Link>
         </ul>
