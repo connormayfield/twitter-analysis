@@ -130,13 +130,16 @@ router.get("/:username/:screen_name", (req, res) => {
         } else {          
             let tweetsArr = []
             for (let i = 0; i < tweets.length; i++){
+
                 let tweetObj = {
                     handle: tweets[i].user.screen_name,
                     tweet_body: tweets[i].text,
                     likes: tweets[i].favorite_count,
-                    retweets: tweets[i].retweet_count
-                }
-                tweetsArr.push(tweetObj)
+                    retweets: tweets[i].retweet_count,
+                    tweet_id: tweets[i].id
+                };
+
+                tweetsArr.push(tweetObj);
             }
             db.Tweet.create(tweetsArr)
                 .then(dbTweet => {
@@ -182,22 +185,22 @@ router.get("/:username/:screen_name", (req, res) => {
     }
     });
 
-    router.get("/mentions/:screenname", (req, res) => {
+    // router.get("/mentions/:screenname", (req, res) => {
 
-    // <----------This is the mentions request alone---------->
-    var params2 = {screen_name: req.params.screen_name, count: "10"};
-    client.get('statuses/mentions_timeline', params2, function(error, tweets, response) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(response);
-            console.log("mentions.................");
-            console.log({tweets});
-            res.json({ tweets });
-        }
-    });
+    // // <----------This is the mentions request alone---------->
+    // var params2 = {screen_name: req.params.screen_name, count: "10"};
+    // client.get('statuses/mentions_timeline', params2, function(error, tweets, response) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log(response);
+    //         console.log("mentions.................");
+    //         console.log({tweets});
+    //         res.json({ tweets });
+    //     }
+    // });
 
-    })
+    // })
     
 
     

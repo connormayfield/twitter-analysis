@@ -15,7 +15,7 @@ export const doLogin = username => dispatch => {
   try {
     dispatch(userLogin(username));
     history.push("/profile");
-  } catch (error) {
+  } catch (error){
     throw(error);
   } finally {
   }

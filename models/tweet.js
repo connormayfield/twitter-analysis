@@ -27,6 +27,12 @@ const tweetSchema = new Schema({
         required: true
     },
 
+    tweet_id: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
     // This be a list of 5-10 tweets that the sentiment analysis will be run on
     // May combine into the Sentiment Model
     comments: [
