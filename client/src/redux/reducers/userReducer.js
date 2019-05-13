@@ -1,6 +1,7 @@
 const initialState={
-  username:"",
-  logging:false,
+  username: "",
+  twitterHandle: "",
+  twitterConnected: false,
   logged:false,
   error: null
 }
@@ -9,21 +10,17 @@ const userReducer=(state=initialState, action) => {
   console.log(action.type);
     switch (action.type) {
       
-      case "LOGGING_IN": {
-        return {...state, logging: true, username: action.username}
-      }
       case "LOG_IN": {
-        return {...state, logging: false, logged: true, username: action.username}
+        return {...state, logged: true, username: action.username}
+      } 
+
+      case "TWTTIER_LOGIN":{
+        
       }
-      case "LOG_IN_ERROR": {
-        return {...state, logging: false, logged: false, error: action.error}
-      }
-      // case "CHANGE_USER_NAME": {
-      //   return {
-      //     ...state,
-      //     user: {...state.user, name: action.username},
-      //   }
+      // case "LOG_IN_ERROR": {
+      //   return {...state,logged: false, error: action.error}
       // }
+
       case "LOG_OUT": {
         return initialState;
       }
