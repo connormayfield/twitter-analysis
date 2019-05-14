@@ -39,14 +39,14 @@ class Profile extends Component{
             weekData: [
                 {
                     label: "Likes",
-                    backgroundColor: "#CC000044",
-                    primaryColor: "#CC0000",
+                    backgroundColor: "#E8F5FD44",
+                    primaryColor: "#E8F5FD",
                     data: [0, 0, 0, 0, 0, 0, 0]
                 },
                 {
                     label: "Retweets",
-                    backgroundColor: "#00FF0044",
-                    primaryColor: "#00FF00",
+                    backgroundColor: "#1DA1F244",
+                    primaryColor: "#1DA1F2",
                     data: [0, 0, 0, 0, 0, 0, 0]
                 }
             ],
