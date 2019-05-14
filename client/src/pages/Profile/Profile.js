@@ -89,11 +89,7 @@ class Profile extends Component{
 
             .catch(err => console.log(err))
         }
-
-    connect = () => {
-        window.open("http://127.0.0.1:3001/api/user/connect/twitter", "_self");
-    }
-
+        
     render(){  
         console.log(this.state.username)
         return(

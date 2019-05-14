@@ -10,7 +10,7 @@ class Navbar extends Component {
 
     render() {
       const { user } = this.props;
-      console.log(user);
+      // console.log(user);
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
           <Container>
@@ -26,12 +26,12 @@ class Navbar extends Component {
                         Profile
                       </a>
                       <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link to="/" className="dropdown-item">Home</Link>
+                        <Link to="/home" className="dropdown-item">Home</Link>
                         <Link to="/profile" className="dropdown-item">Profile</Link>
                         {/* Tweet
                         Sentiment */}
                         <Link to="/connections" className="dropdown-item">Connections</Link>
-                        <div className="dropdown-divider" className="dropdown-item"></div>
+                        <div className="dropdown-divider"></div>
                         <Link to="/logout" onClick = {this.logout} className="dropdown-item">Logout</Link>
                       </div>
                     </li>

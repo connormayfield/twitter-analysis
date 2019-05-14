@@ -11,8 +11,8 @@ const toneAnalyzer = new ToneAnalyzerV3({
 const clientMentions = new Twitter({
   consumer_key: "P1W0cgiiR0inKGh9JYlty1FFO",
   consumer_secret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-  access_token_key: "1124396418360385542-1c6D7YXBRG9euCxPmssWs224zqlula",
-  access_token_secret: "4R41FIGPqNsOcL4U6z5vwiuMqTJkzzCtvZ1aoz2549KXd"
+  access_token_key: "",
+  access_token_secret: ""
 });
 
 function calculatingEmotions(dbComments, es, ind = 0, cb){
@@ -106,7 +106,7 @@ function addComments(tweets, tweetID, ind, done){
 
 module.exports = {
 //Function will create a sentiment document for a particular tweet. First, it will pull the comments associated with that tweet. IBM Tone analyzer will add all the emotion scores for each comment. The sentiment will be added to the sentiment model and then to Tweet model.
-      create(req, res){
+  create(req, res){
     console.log(req.params);
 
       let emotionScore = {
@@ -117,10 +117,15 @@ module.exports = {
         fear: 0
       }
 
-      db.User.find({
+      db.User.findOne({
         username : req.params.username})
         .populate("tweets")
         .then((dbUser) => {
+
+          console.log(dbUser);
+
+          clientMentions.access_token_key = dbUser.twitter.token;
+          clientMentions.access_token_secret = dbUser.twitter.tokenSecret;
 
           const params = {screen_name: req.params.tweetHandle, count: "10"};
           clientMentions.get('statuses/mentions_timeline', params, function(error, tweets, response) {
