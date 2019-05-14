@@ -1,101 +1,17 @@
 const Twitter = require('twitter');
 const db = require("../models")
-const moment = require("moment")
+var Twitter = require('twitter');
+var client = new Twitter({
+    consumer_key: 'P1W0cgiiR0inKGh9JYlty1FFO',
+    consumer_secret: 'VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ',
+    bearer_token: "AAAAAAAAAAAAAAAAAAAAAPF1%2BQAAAAAA5nnHqs8mtuTGENA1i0aJJ6ovZHE%3DWkz1XObzIRYbbJORPQlleU7lTqAQFidBcZfXVFF8o0HCil0VyH"
+  });
 
-const updateWeeklyGraph = (tweetsArr) => {
-    let weeklyData = new Array(7);
-    let today = moment().subtract(6, 'days').format("dddd")
-    let labels = [];
-    for (let i = 0; i < 7; i++){
-        labels.unshift(moment().subtract(i, 'days').format("dddd"))
-    }
-    tweetsArr.forEach(tweet => {
-        //Gathering "retweet" data and "favorites" data
-        let day = moment(tweet.created_at).format("dddd");
-        
-        switch (day){
-            case(labels[0]):
-                if (weeklyData[0] === undefined){
-                    weeklyData[0] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[0].favorites += tweet.favorites;
-                    weeklyData[0].retweets  += tweet.retweets;
-                }
-                break;
-
-                case(labels[1]):
-                if (weeklyData[1] === undefined){
-                    weeklyData[1] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[1].favorites += tweet.favorites;
-                    weeklyData[1].retweets += tweet.retweets;
-                }
-                break;
-
-                case(labels[2]):
-                if (weeklyData[2] === undefined){
-                    weeklyData[2] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[2].favorites += tweet.favorites;
-                    weeklyData[2].retweets += tweet.retweets;
-                }
-                break;
-
-                case(labels[3]):
-                if (weeklyData[3] === undefined){
-                    weeklyData[3] = {favorites: tweet.favorites, retweets: tweet.retweets}
-                }else {
-                    weeklyData[3].favorites += tweet.favorites;
-                    weeklyData[3].retweets += tweet.retweets;
-                }
-                break;
-
-                case(labels[4]):
-                if (weeklyData[4] === undefined){
-                    weeklyData[4] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[4].favorites += tweet.favorites;
-                    weeklyData[4].retweets += tweet.retweets;
-                }
-                break;
-
-                case(labels[5]):
-                if (weeklyData[5] === undefined){
-                    weeklyData[5] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[5].favorites += tweet.favorites;
-                    weeklyData[5].retweets += tweet.retweets;
-                }
-                break;
-
-                case(labels[6]):
-                if (weeklyData[6] === undefined){
-                    weeklyData[6] = {favorites: tweet.favorites, retweets: tweet.retweets};
-                }else {
-                    weeklyData[6].favorites += tweet.favorites;
-                    weeklyData[6].retweets += tweet.retweets;
-                }
-                break;
-                
-                default:
-                break;
-        }
-    });
-
-    return {labels: labels,  weeklyData: weeklyData};
-}
-
-const clientTweets = new Twitter({
-  consumer_key: 'P1W0cgiiR0inKGh9JYlty1FFO',
-  consumer_secret: 'VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ',
-  bearer_token: "AAAAAAAAAAAAAAAAAAAAAPF1%2BQAAAAAA5nnHqs8mtuTGENA1i0aJJ6ovZHE%3DWkz1XObzIRYbbJORPQlleU7lTqAQFidBcZfXVFF8o0HCil0VyH"
-});
-
-module.export = {
-    create(req, res){
-        // <----------This is the user's timeline request alone---------->
-        const params = {screen_name: req.params.screen_name, count: "20", exclude_replies: "false"};
-        clientTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
+module.exports = {
+    storeTweets(req, res){
+        console.log(req.params.screen_name)
+        let params = {screen_name: req.params.screen_name, count: "50", excludes_replies: "false"};
+        client.get('statuses/user_timeline', params, function(error, tweets, response) {
             if (error) {
                 console.log(error);
                 res.json(error)
