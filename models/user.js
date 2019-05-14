@@ -17,9 +17,6 @@ const userSchema = new Schema({
         minlength: 6
     },
 	
-    email:{
-      type: String,
-    },
     
     // This will store the connected twitter account
     twitter: {

@@ -6,6 +6,7 @@ import LineGraph from "../../components/Graphs/LineGraph"
 import twitterAPI from "../../utils/twitterAPI"
 import TweetCard from "../../components/TweetCard/index";
 import Modal from "react-bootstrap/Modal"
+import Loading from "../../components/LoadingScreen/index"
 import DoughnutGraph from "../../components/Graphs/DoughnutGraph";
 import sentimentAPI from "../../utils/sentimentAPI";
 
@@ -14,17 +15,19 @@ class Profile extends Component{
         super(props, context);
     
         this.showModal = (username, twitterHandle, tweetID)=>{
+
+            this.setState({showModal: true, loading: true})
+
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                
+                this.setState({
+                    loading: false
+                })
                 if(!data.errors){
                     this.setState({
-                        sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
-                        showModal: true})
-                }else{
-                    this.setState({showModal: true})
+                        sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]
+                    })
                 }
-
             })
             .catch((err) => {console.log(err)})
         }
@@ -198,7 +201,7 @@ class Profile extends Component{
                         {this.state.sentimentData.length > 0 ? (<DoughnutGraph
                         labels={this.state.sentimentLabels}
                         graphData={this.state.sentimentData}
-                        />) : ("No sentiment data is avaiable")}
+                        />) : ((this.state.loading) ? (<Loading/>) : ("No sentiment data is avaiable"))}
                         </Modal.Body>
                     <Modal.Footer>
                     </Modal.Footer>
