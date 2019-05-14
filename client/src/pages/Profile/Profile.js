@@ -20,9 +20,10 @@ class Profile extends Component{
 
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                this.setState({
+                setTimeout(() => {this.setState({
                     loading: false
                 })
+            }, 2000);
                 if(!data.errors){
                     this.setState({
                         sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]

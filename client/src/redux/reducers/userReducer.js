@@ -14,7 +14,7 @@ const userReducer=(state=initialState, action) => {
         return {...state, logged: true, username: action.username}
       } 
 
-      case "TWTTIER_CONNECTED":{
+      case "TWITTER_CONNECTED":{
         return {...state, twitterConnected: true, twitterHandle: action.twitterHandle}
         
       }
