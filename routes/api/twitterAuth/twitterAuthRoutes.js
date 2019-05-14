@@ -82,7 +82,7 @@ router.route("/")
 
 router.route("/callback")
     .get(function(req, res) {
-        const callback = process.env.CALLBACK || "http://localhost:3000/";
+        const callback = process.env.PROD_CALLBACK || "http://localhost:3000/";
         res.redirect(callback + "home?" + req.url.split("?")[1]);
     })
 
