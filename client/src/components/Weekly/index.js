@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import LineGraph from "../components/Graphs/LineGraph";
-import DoughnutGraph from "../components/Graphs/DoughnutGraph";
-import sentimentAPI from "../utils/sentimentAPI";
+import LineGraph from "../Graphs/LineGraph";
+import DoughnutGraph from "../Graphs/DoughnutGraph";
 
 class Weekly extends Component {
 
@@ -17,29 +16,30 @@ class Weekly extends Component {
                 label: "Likes",
                 backgroundColor: "#CC000044",
                 primaryColor: "#CC0000",
-                data: [1, 2, 3, 4, 5, 6, 7]                
+                data: []                
             },
             {
                 label: "Retweets",
                 backgroundColor: "#00FF0044",
                 primaryColor: "#00FF00",
-                data: [7, 6, 5, 4, 3, 2, 1]
+                data: []
             }
         ],
-        sentimentData: [40, 75, 140, 160, 200]
+        sentimentData: []
     }
 
+    componentDidMount() {
 
+        this.weekRandom();
+        this.sentimentRandom();
+    }
 
     componentWillMount() {
         
-        sentimentAPI.create(1234)
-        .then(({data})=>{
-            
-            this.setState({sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]})
-        })
-        this.setState({ weekInterval: setInterval(this.weekRandom, 10000) });
-        // this.setState({ sentimentInterval: setInterval(this.sentimentRandom, 5000) });
+        this.setState({
+             weekInterval: setInterval(this.weekRandom, 5000),
+             sentimentInterval: setInterval(this.sentimentRandom, 5000)
+        });
     }
 
     componentWillUnmount() {
@@ -68,26 +68,29 @@ class Weekly extends Component {
     };
 
     sentimentRandom = () => {
-        const newData = [0.5, 0.6, 0.1, 1.3, 2];
+        const newData = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
 
-        this.setState({ sentimentData: newData })
+        const sum = newData.reduce( (total, num) => total + num);
+
+        const newSentiment = [(newData[0] / sum * 100).toFixed(2), 
+                              (newData[1] / sum * 100).toFixed(2), 
+                              (newData[2] / sum * 100).toFixed(2), 
+                              (newData[3] / sum * 100).toFixed(2), 
+                              (newData[4] / sum * 100).toFixed(2)]
+
+        this.setState({ sentimentData: newSentiment })
     }
-
-    getRandomInt = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
 
     render() {
-        console.log(this.state.weekData)
+        // console.log(this.state.weekData)
         return (
             <div className="text-center">
-                <h4>Weekly Tweet Data Example</h4>
+                <h4>Weekly Likes & Retweets</h4>
                 <LineGraph 
                     labels={this.state.weekLabels}
                     graphData={this.state.weekData} 
                 />
-                <h4>Sentiment Tweet Data Example</h4>
+                <h4>Comment Sentiment</h4>
                 <DoughnutGraph
                     labels={this.state.sentimentLabels}
                     graphData={this.state.sentimentData}
