@@ -48,13 +48,13 @@ class Login extends Component {
                         <h1>Login</h1>
                         <Link className="createbtn" to="/signup">or Sign Up</Link>
                         <form onSubmit={this.loginHandler}>
-                        <div className="inputbox">
-                            <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
-                        </div>
-                        <div className="inputbox">
-                            <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
-                        </div>
-                        <input className="loginbtn btn" type="submit" name="" value="Login" />
+                            <div className="inputbox">
+                                <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
+                            </div>
+                            <div className="inputbox">
+                                <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
+                            </div>
+                            <input className="loginbtn btn" type="submit" name="" value="Login" />
                         </form>
                     </LoginForm>
                 </Container>
