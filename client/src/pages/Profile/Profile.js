@@ -189,8 +189,8 @@ class Profile extends Component{
                         {/* </Col> */}
                         </div>
                         <div className="scroll">
-                            <button id="leftScroll" value="<"></button>
-                            <button id="rightScroll" value=">"></button>
+                            <div id="leftScroll"></div>
+                            <div id="rightScroll"></div>
                         </div>
                     </div>
 

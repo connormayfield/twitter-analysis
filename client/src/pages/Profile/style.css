@@ -60,9 +60,8 @@ canvas {
 
 .card-container {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: hidden;
     padding-bottom: 50px;
-    position:relative;
 }
 
 .tweet-stats {
@@ -74,10 +73,45 @@ canvas {
     cursor: pointer;
 }
 
+.scroll {
+    position:relative;
+}
+
 #leftScroll{
     position:absolute;
-    top:50px;
+    background:url("img/left-arrow.png") no-repeat;
+    background-size:contain;
+    border:none;
+    height:40px;
+    width:25px;
+    opacity:0.4;
+    top:-250px;
+    left:10px;
+    display:inline-block;
+}
 
+#leftScroll:hover{
+    opacity:0.6;
+}
+
+#rightScroll{
+    background:url("img/right-arrow.png") no-repeat;
+    border:none; 
+    height:40px;
+    width:25px;
+    opacity:0.4;
+    top:-250px;
+    right:10px;
+}
+
+#rightScroll:hover{
+    opacity:0.6;
+}
+
+#rightScroll{
+    position:absolute;
+    bottom:50px;
+    background:url("img/right-arrow.png")
 }
 
 @media screen and (min-width:1024px)  {
