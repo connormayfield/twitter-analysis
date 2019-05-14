@@ -58,41 +58,23 @@ class Login extends Component {
             <Wrapper>
                 <Container>
                     <LoginForm>
-<<<<<<< HEAD
-                        <h1>LOG IN</h1>
-
-                        <form onSubmit={this.loginHandler}>
-                        <div className="inputbox">
-                            <input type="text" name="username" placeholder="@username" autocomplete = "off" value={this.state.username} onChange={this.onChangeHandler}/>
-=======
                         <h1>Login</h1>
                         <Link className="createbtn" to="/signup">or Sign Up</Link>
                         <form onSubmit={this.loginHandler}>
                         <div className="inputbox">
-                            <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
->>>>>>> master
+                            <input type="text" name="username" placeholder="username" autocomplete = "off" value={this.state.username} onChange={this.onChangeHandler}/>
                         </div>
 
                         <div className="inputbox">
                             <input type="password" name="password" placeholder="password" autocomplete = "off" value={this.state.password} onChange={this.onChangeHandler}/>
                         </div>
-<<<<<<< HEAD
 
-                        <input className="loginbtn" type="submit" name="" value="LOG IN" />
-
-=======
-            
                         <input className="loginbtn btn" type="submit" name="" value="Login" />
-            
->>>>>>> master
+
                         </form>
                     </LoginForm>
                 </Container>
             </Wrapper>
-<<<<<<< HEAD
-
-=======
->>>>>>> master
         )
     }
 }

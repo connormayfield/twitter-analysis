@@ -276,9 +276,14 @@ class SignUp extends Component{
 
                         </Input>
                         <div className="progress" id="progress">
-  <div className={`progress-bar ${this.state.progressState}`} id="progress-bar" role="progressbar" style={{"width": this.state.progressNumber}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-{ passwordStatus==="good"? password : formErrors.password}
+                        <div className={`progress-bar ${this.state.progressState}`}
+                        id="progress-bar"
+                        role="progressbar" 
+                        style={{"width": this.state.progressNumber}}
+                        aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                        </div>
+                        { passwordStatus==="good"? password : formErrors.password}
 
 
 
@@ -306,15 +311,8 @@ class SignUp extends Component{
                             </span>
                           )}
                     </div>
-<<<<<<< HEAD
-
-                    <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Submit</FormBtn>
-
-
-=======
                     <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Sign Up</FormBtn>
-                    
->>>>>>> master
+
                 </form>
                 </SignupForm>
               </Container>
@@ -325,4 +323,3 @@ class SignUp extends Component{
 
 
 export default SignUp
-
