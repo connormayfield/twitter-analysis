@@ -62,6 +62,7 @@ canvas {
     display: flex;
     overflow-x: scroll;
     padding-bottom: 50px;
+    position:relative;
 }
 
 .tweet-stats {
@@ -71,6 +72,12 @@ canvas {
 
 .card-link:hover {
     cursor: pointer;
+}
+
+#leftScroll{
+    position:absolute;
+    top:50px;
+
 }
 
 @media screen and (min-width:1024px)  {
