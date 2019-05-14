@@ -13,7 +13,7 @@ passport.use(new LocalStrategy(
             }
         ).then(function(dbUser) {
             // If there's no user with the given username or incoorect password
-            if (!dbUser || !dbUser.validPassword(password)) {
+            if (!dbUser || !dbUser.comparePassword(password)) {
                 return done(null, false, {
                     message: "Incorrect username/password"
                 });
@@ -56,6 +56,7 @@ passport.use(new TwitterTokenStrategy({
                     // Update user model to include twitter info
                     dbUser.twitter.id = profile.id;
                     dbUser.twitter.token = token;
+                    dbUser.twitter.tokenSecret = tokenSecret;
                     dbUser.twitter.displayName = profile.displayName;
                     dbUser.twitter.handle = profile.username;
                     dbUser.twitter.photo = profile.photos[0].value || '';

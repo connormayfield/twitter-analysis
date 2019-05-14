@@ -17,7 +17,7 @@ class Navbar extends Component {
             <button id="toggle-sidebar" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <Link className="navbar-brand" to="/">TweetTrace</Link>
+            <Link className="navbar-brand" to="/connections">TweetTrace</Link>
               <div className="collapse navbar-collapse" id="navbarText">
                 { (user !== undefined && user.logged) ?
                   <ul className="navbar-nav ml-auto">
@@ -25,12 +25,12 @@ class Navbar extends Component {
                       <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Profile
                       </a>
+
                       <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link to="/" className="dropdown-item">Home</Link>
-                        <Link to="/profile" className="dropdown-item">Profile</Link>
-                        {/* Tweet
-                        Sentiment */}
-                        <Link to="/connections" className="dropdown-item">Connections</Link>
+                        <Link to="/connections" className="dropdown-item">Connections Home</Link>
+                        <Link to="/profile" className="dropdown-item">Twitter</Link>
+                        <Link to="/inprogress" className="dropdown-item">Instagram</Link>
+                        <Link to="/inprogress" className="dropdown-item">Facebook</Link>
                         <div className="dropdown-divider" className="dropdown-item"></div>
                         <Link to="/logout" onClick = {this.logout} className="dropdown-item">Logout</Link>
                       </div>
