@@ -1,14 +1,15 @@
 import React from "react";
 import {Container} from "../components/Grid/index"
 import SideBar from "../components/Sidebar/index"
+import bird from "../components/SignupComponent/bluetwitter.jpg";
 
 const Error = ()=>{
 
     const style = {
-        background: "url(\"https://www.pngkey.com/png/detail/14-141359_dead-bird-twitter.png\")",
+        backgroundImage: `url(${bird})`,
         backgroundSize: "cover",
         backgroundRepeat: "none",
-        height: "500px",
+        height: "560px",
         color: "gray"
 
     }
