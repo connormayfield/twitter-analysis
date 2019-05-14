@@ -17,7 +17,7 @@ class Sidebar extends Component {
             <Link to="/profile"><li>Twitter</li></Link>
             <Link to="/inprogress"><li>Instagram</li></Link>
             <Link to="/inprogress"><li>Facebook</li></Link>
-            <Link to="/logout" onClick = {this.logout}><li>Logout</li></Link>
+            <Link to="/" onClick = {this.logout}><li>Logout</li></Link>
           </ul>
           <div className="side-image"></div>
         </div>
