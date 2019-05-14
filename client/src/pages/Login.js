@@ -1,9 +1,8 @@
-import React, {Component} from "react"
-import loginAPI from "../utils/loginAPI"
+import React, {Component} from "react";
+import loginAPI from "../utils/loginAPI";
 import {Wrapper, Container, LoginForm} from "../components/LoginComponent";
-import {Link} from "react-router-dom"
-
-
+import {Link} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 class Login extends Component {
 
@@ -11,30 +10,17 @@ class Login extends Component {
         username: "",
         password: "",
         isAuthenticated: false
-        
     }
 
-    componentDidMount = () => {
-
-        // loginAPI.checkSession()
-        // .then((res)=> {
-        //     if(res.data){
-        //         return this.setState({isAuthenticated: true})
-        //     }
-        // })
-        // .catch((err) => console.log(err))
-
+    componentWillMount = () => {
+        if(this.props.user.username) {
+            this.setState({isAuthenticated:true});
+        }
     }
-
-
-    // userHasAuthenticated = (authenticated) => {
-    //     this.setState({ isAuthenticated: authenticated });
-    //   }
 
     onChangeHandler = (event) => {
-        let {name, value} = event.target
-        
-        this.setState({[name]: value})
+        let {name, value} = event.target;
+        this.setState({[name]: value});
     }
 
 
@@ -54,6 +40,7 @@ class Login extends Component {
     }
 
     render(){
+        if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
         return(
             <Wrapper>
                 <Container>
@@ -64,13 +51,10 @@ class Login extends Component {
                         <div className="inputbox">
                             <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
                         </div>
-            
                         <div className="inputbox">
                             <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
                         </div>
-            
                         <input className="loginbtn btn" type="submit" name="" value="Login" />
-            
                         </form>
                     </LoginForm>
                 </Container>
