@@ -12,7 +12,7 @@ import Wrapper from "./components/Wrapper";
 import Sidebar from "./components/Sidebar";
 // import Home from "./pages/Home";
 import { connect } from "react-redux";
-import { doLogin, doLogout, doTwitterConnect } from "./redux/actions/userActions";
+import { doLogin, doLogout} from "./redux/actions/userActions";
 import history from "./redux/history";
 import PrivateRoute from "./redux/component/PrivateRoute";
 import PrivateRoute2 from "./redux/component/PrivateRoute2";
@@ -55,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { doLogin, doLogout, doTwitterConnect },
+  { doLogin, doLogout},
 )(App);

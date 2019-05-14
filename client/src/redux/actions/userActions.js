@@ -11,13 +11,6 @@ const userLogout = () => ({
 });
 
 
-const twitterConnection = (twitterHandle) => ({
-   
-  type: "TWITTER_CONNECTED",
-  twitterHandle
-  });
-
-
 export const doLogin = username => dispatch => {
   try {
     dispatch(userLogin(username));
@@ -33,11 +26,6 @@ export const doLogout = () => dispatch => {
   history.push("/");
 };
 
-
-export const doTwitterConnect = (twitterHandle) => dispatch => {
-  dispatch(twitterConnection(twitterHandle));
-
-}
 
 
 

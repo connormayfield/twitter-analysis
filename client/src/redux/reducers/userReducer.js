@@ -14,14 +14,6 @@ const userReducer=(state=initialState, action) => {
         return {...state, logged: true, username: action.username}
       } 
 
-      case "TWITTER_CONNECTED":{
-        return {...state, twitterConnected: true, twitterHandle: action.twitterHandle}
-        
-      }
-      // case "LOG_IN_ERROR": {
-      //   return {...state,logged: false, error: action.error}
-      // }
-
       case "LOG_OUT": {
         return initialState;
       }
