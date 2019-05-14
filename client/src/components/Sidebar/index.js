@@ -4,21 +4,6 @@ import {Link} from "react-router-dom"
 import "./style.css";
 
 class Sidebar extends Component {
-  // state={
-  //   isAuthenticated: false
-  // }
-
-  // logOut = () => {
-  //   loginAPI.logout()
-
-  // }
-  // renderTag = () => {
-  //   if(this.props.user===undefined ||this.props.user.logged===false) {
-  //     this.setState({isAuthenticated:false})
-  //   } else {
-  //     this.setState({isAuthenticated:true})
-  //   }
-  // }
     
   logout = () => this.props.doLogout();
 
@@ -28,7 +13,7 @@ class Sidebar extends Component {
       return (
         <div id="sidebar">
           <ul>
-            <Link to="/connections"><li>Connections Home</li></Link>
+            <Link to="/home"><li>Home</li></Link>
             <Link to="/profile"><li>Twitter</li></Link>
             <Link to="/inprogress"><li>Instagram</li></Link>
             <Link to="/inprogress"><li>Facebook</li></Link>
@@ -39,12 +24,8 @@ class Sidebar extends Component {
       )
     }
     return (
-      <div id="sidebar">
-        <ul>
-          <Link to="/login"><li>Login</li></Link>
-          <Link to="/signup"><li>Signup</li></Link>
-        </ul>
-        <div className="side-image"></div>
+      <div >
+      
       </div>
     );
 

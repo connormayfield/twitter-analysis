@@ -8,13 +8,8 @@ color: black;
     padding:0;
     margin:0;
     font-family: sans-serif;
-    /* background:url(anigif.gif) no-repeat left top;
-    background-position-x: 0%;
-    background-position-y: 460px;  */
-    background:url(dummy_image/anigif.gif) no-repeat;
-    background-position-x: 0%;
-    background-position-y: 460px;
-    /* background-size:cover; */
+    background:url(dummy_image/logo.gif) no-repeat;
+
 }
 
 .signup-container {
@@ -23,7 +18,6 @@ color: black;
     padding:0;
     margin:0;
     background:url(sky.jpg) no-repeat;
-    /* background:url(hell.jpg) no-repeat; */
     background-size:cover;
     opacity: 0.7;
 }
@@ -32,14 +26,12 @@ color: black;
 
   width:360px;
   height:100%;
-    /* width:100%;
-    height:100%; */
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    color:white;
-    text-align:center;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  text-align:center;
 }
 
 .signup-form h1 {
@@ -65,7 +57,17 @@ margin-top:10px;
 background-color: #007BFF;
 }
 
-
+.createbtn{
+  position: absolute;
+  top:120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:260px;
+  padding:10px 0;
+  text-decoration:none;
+  text-align:center;
+  transition: 0.4s;
+}
 
 .signup-form input{
     margin:0 auto;
