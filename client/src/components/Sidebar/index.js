@@ -39,12 +39,8 @@ class Sidebar extends Component {
       )
     }
     return (
-      <div id="sidebar">
-        <ul>
-          <Link to="/login"><li>Login</li></Link>
-          <Link to="/signup"><li>Signup</li></Link>
-        </ul>
-        <div className="side-image"></div>
+      <div >
+      
       </div>
     );
 

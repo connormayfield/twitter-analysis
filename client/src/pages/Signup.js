@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {Wrapper, Container, SignupForm} from "../components/SignupComponent"
-// import {Container} from "../components/Grid/index"
+import {Link} from "react-router-dom"
 import {Input, FormBtn} from "../components/Form/index"
 import {Redirect} from "react-router-dom"
 import loginAPI from "../utils/loginAPI"
@@ -276,8 +276,6 @@ class SignUp extends Component{
       username.length > 0 &&
       password.length > 0 &&
       confirmPassword.length > 0 &&
-      email.length > 0 &&
-      twitter_username.length > 0 &&
       this.state.password === this.state.confirmPassword;
 
       const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
@@ -291,9 +289,10 @@ class SignUp extends Component{
             <Container >
               <SignupForm >
                 <h1>Sign Up</h1>
+                <Link className="createbtn" to="/">or Login</Link>
                 <form>
                     <div className ="form-group">
-                        <label htmlFor="username"> Username</label>
+                        {/* <label htmlFor="username"> Username</label> */}
                         <Input
                           type="text"
                           className={formErrors.username.length > 0 ? ("error") : validSuccess.username.length>0?("form-control success"): ("form-control")}
@@ -309,7 +308,7 @@ class SignUp extends Component{
 
                     </div>
                     <div className ="form-group">
-                        <label htmlFor="password"> Password </label>
+                        {/* <label htmlFor="password"> Password </label> */}
                         <Input
                         type="password"
                         id = "signuppassword"
@@ -338,7 +337,7 @@ class SignUp extends Component{
 
                     </div>
                     <div className ="form-group">
-                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        {/* <label htmlFor="confirmPassword">Confirm Password</label> */}
                         <Input
                           type="password"
                           className={
@@ -347,7 +346,7 @@ class SignUp extends Component{
                           this.state.confirmPassword === this.state.password && this.state.confirmPassword.length && passwordStatus ==="good" ? ("success"):
                           ("form-control")}
                           name = "confirmPassword"
-                          placeholder="password"
+                          placeholder="confirm password"
                           value = {this.state.confirmPassword}
                           onChange = {this.onChangeHandler}
                           maxLength = "15">
@@ -358,54 +357,16 @@ class SignUp extends Component{
                             </span>
                           )}
                     </div>
-                    <div className ="form-group">
-                        <label htmlFor="email"> Email </label>
-                        <Input
-                        type="email"
-                        className={formErrors.email.length > 0 ? "error" : validSuccess.email.length>0?("success"): ("form-control")}
-                        name = "email"
-                        placeholder="example@mail.com"
-                        value = {this.state.email}
-                        onChange = {this.onChangeHandler}>
-                        </Input>
-                        {formErrors.email.length > 0 && (
-                          <span className="errorMessage">{formErrors.email}</span>
-                        )}
-                    </div>
-                    <div className ="form-group">
-                        <label htmlFor="twitter_username"> Twitter Account </label>
-                        <Input type="text"
-                        className={formErrors.twitter_username.length > 0 ? "error" : validSuccess.twitter_username.length >0?("form-control success"):  ("form-control")}
-                        name = "twitter_username"
-                        placeholder="@twitteruser"
-                        required value = {this.state.twitter_username}
-                        onChange = {this.onChangeHandler}>
-
-                        </Input>
-                        {formErrors.twitter_username.length > 0 && (
-                          <span className="errorMessage">{formErrors.twitter_username}</span>
-                        )}
-                    </div>
-                    <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Submit</FormBtn>
-
-
+                    <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Sign Up</FormBtn>
+                    
                 </form>
                 </SignupForm>
               </Container>
             </Wrapper>
         )
     }
-
 }
 
 
 export default SignUp
 
-
-// <form>
-//   <h2>Twitter Username Validation</h2>
-//   <label for="twitter">Twitter username with the leading @ symbol:</label><br/>
-//   <input id="twitter" type="text" pattern="^@[A-Za-z0-9_]{1,15}$" required>
-//   <input type="submit" value="Submit">
-//
-//
