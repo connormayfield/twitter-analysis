@@ -7,7 +7,8 @@ const router = express.Router();
 
 //logging in route
 router.post("/", passport.authenticate("local"), function(req, res) {
-    console.log("------session")
+    console.log("------session");
+
     res.send(req.session);
 })
 //signing up account route
@@ -16,14 +17,9 @@ router.route("/signup")
 
 // Route for checking if the user has an existing session
 router.get("/session", function(req, res) {
-    // console.log("req.user", req.user)
-    if(req.user){
-        console.log("req.user", req.user)
-        res.send(req.user);
-    }
-    else{
-        res.send(false)
-    }
+        console.log("----session")
+        console.log(req.user)
+        res.json(req.user)
 });
 
 // Route for logging user out

@@ -8,12 +8,12 @@ const toneAnalyzer = new ToneAnalyzerV3({
   url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
 });
 
-const clientMentions = new Twitter({
-  consumer_key: "P1W0cgiiR0inKGh9JYlty1FFO",
-  consumer_secret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-  access_token_key: "",
-  access_token_secret: ""
-});
+// const clientMentions = new Twitter({
+//   consumer_key: "P1W0cgiiR0inKGh9JYlty1FFO",
+//   consumer_secret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
+//   access_token_key: "",
+//   access_token_secret: ""
+// });
 
 function calculatingEmotions(dbComments, es, ind = 0, cb){
   //Store score in Sentiment Model after calculating sentiment score
@@ -123,15 +123,27 @@ module.exports = {
         .then((dbUser) => {
 
           console.log(dbUser);
+          // console.log(clientMentions)
+          // clientMentions.access_token_key = dbUser.twitter.token;
+          // clientMentions.access_token_secret = dbUser.twitter.tokenSecret;
 
-          clientMentions.access_token_key = dbUser.twitter.token;
-          clientMentions.access_token_secret = dbUser.twitter.tokenSecret;
+
+          let clientMentions = new Twitter({
+            consumer_key: "P1W0cgiiR0inKGh9JYlty1FFO",
+            consumer_secret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
+            access_token_key: dbUser.twitter.token,
+            access_token_secret: dbUser.twitter.tokenSecret
+          });
+
+          console.log(clientMentions)
+          
 
           const params = {screen_name: req.params.tweetHandle, count: "10"};
-          clientMentions.get('statuses/mentions_timeline', params, function(error, tweets, response) {
+          clientMentions.get('statuses/mentions_timeline', function(error, tweets, response) {
               if (error) {
                   console.log(error);
               } else {
+                  console.log(tweets)
                   addComments(tweets, req.params.tweetID, 0, function(){
 
                     

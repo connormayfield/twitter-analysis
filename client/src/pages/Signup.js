@@ -202,10 +202,13 @@ class SignUp extends Component{
         loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
-            if(res.status === 200){
+            if(!res.data.errors){
                 console.log("authenticating")
                 this.props.doLogin(this.state.username);
                 // this.userHasAuthenticated(res.data.username, true);
+            }
+            else{
+              alert("Username has already been taken")
             }
         })
         .catch((err) => {
