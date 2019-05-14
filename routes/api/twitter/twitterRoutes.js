@@ -93,33 +93,8 @@ const clientTweets = new Twitter({
   bearer_token: "AAAAAAAAAAAAAAAAAAAAAPF1%2BQAAAAAA5nnHqs8mtuTGENA1i0aJJ6ovZHE%3DWkz1XObzIRYbbJORPQlleU7lTqAQFidBcZfXVFF8o0HCil0VyH"
 });
 
-
-
-// const insertTweets = (tweets, username, done, ind = 0) => {
-//     console.log(ind)
-//     if(ind < tweets.length){
-//         tweets.forEach( tweet => {
-//             db.Tweet.findOrCreate({tweet_id : tweet.tweet_id}, tweet).then((dbTweet) => {
-//                 db.User.update({username : username},
-//                     { $push:
-//                 {tweets: dbTweet.tweet_id}
-//                 }).then((dbUser) => {
-//                     ind++;
-//                     insertTweets(tweets, username, done, ind)
-//                 })
-//                 .catch( err => console.log(err))
-//             }) 
-//         })
-//     }
-//     else{
-//         done()
-//     }
-// }
-
-
-
-
 router.get("/:username/:screen_name", (req, res)=>{
+    
     // <----------This is the user's timeline request alone---------->
     const params = {screen_name: req.params.screen_name, count: "20", exclude_replies: "false"};
     clientTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
@@ -139,7 +114,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                     }
                     tweetsArr.push(tweetObj)
                 }
-                    console.log(tweetsArr)
+                    // console.log(tweetsArr)
                 db.Tweet.create(tweetsArr)  
                         .then(dbTweet => {
                           
