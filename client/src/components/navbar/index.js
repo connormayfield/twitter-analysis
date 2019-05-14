@@ -10,7 +10,7 @@ class Navbar extends Component {
 
     render() {
       const { user } = this.props;
-      console.log(user);
+      // console.log(user);
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
           <Container>
