@@ -40,7 +40,7 @@ class Login extends Component {
     }
 
     render(){
-        if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
+        if(this.state.isAuthenticated) {return <Redirect to="/home"/>}
         return(
             <Wrapper>
                 <Container>
