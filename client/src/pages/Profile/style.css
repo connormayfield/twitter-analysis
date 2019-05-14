@@ -60,7 +60,7 @@ canvas {
 
 .card-container {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: hidden;
     padding-bottom: 50px;
 }
 
@@ -71,6 +71,47 @@ canvas {
 
 .card-link:hover {
     cursor: pointer;
+}
+
+.scroll {
+    position:relative;
+}
+
+#leftScroll{
+    position:absolute;
+    background:url("img/left-arrow.png") no-repeat;
+    background-size:contain;
+    border:none;
+    height:40px;
+    width:25px;
+    opacity:0.4;
+    top:-250px;
+    left:20px;
+    display:inline-block;
+}
+
+#leftScroll:hover{
+    opacity:0.6;
+}
+
+#rightScroll{
+    background:url("img/right-arrow.png") no-repeat;
+    border:none; 
+    height:40px;
+    width:25px;
+    opacity:0.4;
+    top:-250px;
+    right:15px;
+}
+
+#rightScroll:hover{
+    opacity:0.6;
+}
+
+#rightScroll{
+    position:absolute;
+    bottom:50px;
+    background:url("img/right-arrow.png")
 }
 
 @media screen and (min-width:1024px)  {
@@ -107,11 +148,9 @@ canvas {
     .imageContainer {
         position: absolute;
         z-index:-1;
-        /* width:100%; */
         height:100%;
         left:0px;
         right:0px;
-        /* top:50px; */
         background:url(img/human-sm.png) no-repeat;
         background-size:cover;
     }

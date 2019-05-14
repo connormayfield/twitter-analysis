@@ -8,7 +8,8 @@ export default {
     },
 
     login: function(loginInfo){
-        return axios.post("api/user/login", loginInfo)
+        console.log("yyy")
+        return axios.post("api/user/", loginInfo)
     },
 
     checkSession: function(){
