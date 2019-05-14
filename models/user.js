@@ -17,9 +17,6 @@ const userSchema = new Schema({
         minlength: 6
     },
 	
-    email:{
-      type: String,
-    },
     
     // This will store the connected twitter account
     twitter: {
@@ -49,7 +46,7 @@ const userSchema = new Schema({
 
 userSchema.plugin(uniqueValidator)
 
-userSchema.methods.validPassword = function(password){
+userSchema.methods.comparePassword = function(password){
     let user = this
     return bcrypt.compareSync(password, user.password)
 }
@@ -57,7 +54,6 @@ userSchema.methods.validPassword = function(password){
 
 userSchema.pre("save", function(next){
     var user = this;
-    console.log(user.isModified("password"))
 
     if (!user.isModified('password')) {
         return next();
@@ -66,9 +62,10 @@ userSchema.pre("save", function(next){
       bcrypt.genSalt(10, (err, salt) => {
         console.log("salting 10")
         if (err) {
+          console.log(err)
           return next(err);
         }
-        bcrypt.hash(user.password, salt, null, (error, hash) => {
+        bcrypt.hash(user.password, salt, (error, hash) => {
           console.log("hashing password")
 
           if (error) {

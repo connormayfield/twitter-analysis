@@ -6,6 +6,7 @@ import LineGraph from "../../components/Graphs/LineGraph"
 import twitterAPI from "../../utils/twitterAPI"
 import TweetCard from "../../components/TweetCard/index";
 import Modal from "react-bootstrap/Modal"
+import Loading from "../../components/LoadingScreen/index"
 import DoughnutGraph from "../../components/Graphs/DoughnutGraph";
 import sentimentAPI from "../../utils/sentimentAPI";
 
@@ -14,17 +15,19 @@ class Profile extends Component{
         super(props, context);
     
         this.showModal = (username, twitterHandle, tweetID)=>{
+
+            this.setState({showModal: true, loading: true})
+
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                console.log("data")
+                this.setState({
+                    loading: false
+                })
                 if(!data.errors){
                     this.setState({
-                        sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
-                        showModal: true})
-                }else{
-                    this.setState({showModal: true})
+                        sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]
+                    })
                 }
-
             })
             .catch((err) => {console.log(err)})
         }
@@ -155,36 +158,42 @@ class Profile extends Component{
                 </div>
                 <Row>
                     <div className="container-fluid">
-                    <div className="">
-                    {/* <Col size="xs-12"> */}
-                        {this.state.tweets.length === 0 ? (
-                            <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
-                        ) : (
-                            <div>
-                                <h4 className="feedTitle">Recent Tweets</h4>
-                                <div className="card-container">
-                                    <div className="row flex-row flex-nowrap twitterFeed">
-                                        {this.state.tweets.map((tweet) => {
-                                            return (
-                                                <TweetCard
-                                                key = {tweet.id}
-                                                name = {tweet.name}
-                                                screen_name = {tweet.screen_name}
-                                                created_at = {tweet.created_at}
-                                                text = {tweet.text}
-                                                retweets = {tweet.retweets}
-                                                favorites = {tweet.favorites}
-                                                donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </div>  
-                            </div>
-                        )}
-                    {/* </Col> */}
+                        <div className="">
+                        {/* <Col size="xs-12"> */}
+                            {this.state.tweets.length === 0 ? (
+                                <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
+                            ) : (
+                                <div>
+                                    <h4 className="feedTitle">Recent Tweets</h4>
+                                    <div className="card-container">
+                                        <div className="row flex-row flex-nowrap twitterFeed">
+                                            {this.state.tweets.map((tweet) => {
+                                                return (
+                                                    <TweetCard
+                                                    key = {tweet.id}
+                                                    name = {tweet.name}
+                                                    screen_name = {tweet.screen_name}
+                                                    created_at = {tweet.created_at}
+                                                    text = {tweet.text}
+                                                    retweets = {tweet.retweets}
+                                                    favorites = {tweet.favorites}
+                                                    donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </div>  
+                                </div>
+                            )}
+                        {/* </Col> */}
+                        </div>
+                        <div className="scroll">
+                            <div id="leftScroll"></div>
+                            <div id="rightScroll"></div>
+                        </div>
                     </div>
-                    </div>
+
+                    
                 </Row>
                 <Modal show={this.state.showModal} onHide={this.hideModal}>
                     <Modal.Header closeButton>
@@ -194,7 +203,7 @@ class Profile extends Component{
                         {this.state.sentimentData.length > 0 ? (<DoughnutGraph
                         labels={this.state.sentimentLabels}
                         graphData={this.state.sentimentData}
-                        />) : ("No sentiment data is avaiable")}
+                        />) : ((this.state.loading) ? (<Loading/>) : ("No sentiment data is avaiable"))}
                         </Modal.Body>
                     <Modal.Footer>
                     </Modal.Footer>

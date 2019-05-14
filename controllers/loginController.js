@@ -8,7 +8,7 @@ module.exports = {
             email: req.body.email,
                 
         }).then(function(data) {
-            res.redirect(307, "/api/user/login")
+            res.redirect(307, "/api/user/")
 
         }).catch(function(err) {
             res.json(err);

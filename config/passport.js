@@ -13,7 +13,7 @@ passport.use(new LocalStrategy(
             }
         ).then(function(dbUser) {
             // If there's no user with the given username or incoorect password
-            if (!dbUser || !dbUser.validPassword(password)) {
+            if (!dbUser || !dbUser.comparePassword(password)) {
                 return done(null, false, {
                     message: "Incorrect username/password"
                 });
