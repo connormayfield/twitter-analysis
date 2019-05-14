@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/index.js"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile/Profile"
 import Error from "./pages/Error"
+import Progress from "./pages/Progress";
 import SignUp from './pages/Signup';
 import Weekly from "./pages/Weekly";
 import Wrapper from "./components/Wrapper";
@@ -39,6 +40,7 @@ const App = ({user, doLogin, doLogout}) => (
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
             <Route component ={Error}/>
+            <Route component ={Progress}/>
             
           </Switch>
         </Wrapper>
