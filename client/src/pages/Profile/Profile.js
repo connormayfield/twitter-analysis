@@ -162,36 +162,42 @@ class Profile extends Component{
                 </div>
                 <Row>
                     <div className="container-fluid">
-                    <div className="">
-                    {/* <Col size="xs-12"> */}
-                        {this.state.tweets.length === 0 ? (
-                            <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
-                        ) : (
-                            <div>
-                                <h4 className="feedTitle">Recent Tweets</h4>
-                                <div className="card-container">
-                                    <div className="row flex-row flex-nowrap twitterFeed">
-                                        {this.state.tweets.map((tweet) => {
-                                            return (
-                                                <TweetCard
-                                                key = {tweet.id}
-                                                name = {tweet.name}
-                                                screen_name = {tweet.screen_name}
-                                                created_at = {tweet.created_at}
-                                                text = {tweet.text}
-                                                retweets = {tweet.retweets}
-                                                favorites = {tweet.favorites}
-                                                donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </div>  
-                            </div>
-                        )}
-                    {/* </Col> */}
+                        <div className="">
+                        {/* <Col size="xs-12"> */}
+                            {this.state.tweets.length === 0 ? (
+                                <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
+                            ) : (
+                                <div>
+                                    <h4 className="feedTitle">Recent Tweets</h4>
+                                    <div className="card-container">
+                                        <div className="row flex-row flex-nowrap twitterFeed">
+                                            {this.state.tweets.map((tweet) => {
+                                                return (
+                                                    <TweetCard
+                                                    key = {tweet.id}
+                                                    name = {tweet.name}
+                                                    screen_name = {tweet.screen_name}
+                                                    created_at = {tweet.created_at}
+                                                    text = {tweet.text}
+                                                    retweets = {tweet.retweets}
+                                                    favorites = {tweet.favorites}
+                                                    donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </div>  
+                                </div>
+                            )}
+                        {/* </Col> */}
+                        </div>
+                        <div className="scroll">
+                            <div id="leftScroll"></div>
+                            <div id="rightScroll"></div>
+                        </div>
                     </div>
-                    </div>
+
+                    
                 </Row>
                 <Modal show={this.state.showModal} onHide={this.hideModal}>
                     <Modal.Header closeButton>
