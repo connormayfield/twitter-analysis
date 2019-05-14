@@ -14,7 +14,7 @@ class Login extends Component {
         username: "",
         password: "",
         isAuthenticated: false
-        
+
     }
 
     componentDidMount = () => {
@@ -36,7 +36,7 @@ class Login extends Component {
 
     onChangeHandler = (event) => {
         let {name, value} = event.target
-        
+
         this.setState({[name]: value})
     }
 
@@ -67,18 +67,18 @@ class Login extends Component {
                 <Container>
                     <LoginForm>
                         <h1>LOG IN</h1>
-            
+
                         <form onSubmit={this.loginHandler}>
                         <div className="inputbox">
-                            <input type="text" name="username" placeholder="@username" value={this.state.username} onChange={this.onChangeHandler}/>
+                            <input type="text" name="username" placeholder="@username" autocomplete = "off" value={this.state.username} onChange={this.onChangeHandler}/>
                         </div>
-            
+
                         <div className="inputbox">
-                            <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
+                            <input type="password" name="password" placeholder="password" autocomplete = "off" value={this.state.password} onChange={this.onChangeHandler}/>
                         </div>
-            
+
                         <input className="loginbtn" type="submit" name="" value="LOG IN" />
-            
+
                         </form>
                         {/* <a className="passbtn" href="#">FORGOT PASSWORD?</a> */}
                         <Link className="createbtn" to="/signup">CREATE AN ACCOUNT</Link>
@@ -86,7 +86,7 @@ class Login extends Component {
                     </LoginForm>
                 </Container>
             </Wrapper>
-            
+
         )
     }
 

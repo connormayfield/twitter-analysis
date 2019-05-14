@@ -276,8 +276,6 @@ class SignUp extends Component{
       username.length > 0 &&
       password.length > 0 &&
       confirmPassword.length > 0 &&
-      email.length > 0 &&
-      twitter_username.length > 0 &&
       this.state.password === this.state.confirmPassword;
 
       const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
@@ -301,7 +299,8 @@ class SignUp extends Component{
                           name = "username"
                           placeholder="username"
                           value = {this.state.username}
-                          onChange = {this.onChangeHandler} >
+                          onChange = {this.onChangeHandler}
+                          autocomplete = "off">
                           </Input>
                           {formErrors.username.length > 0 && (
                             <span className="errorMessage">{formErrors.username}</span>
@@ -326,7 +325,8 @@ class SignUp extends Component{
                         placeholder="password"
                         value = {this.state.password}
                         onChange = {this.onChangeHandler}
-                        maxLength = "15">
+                        maxLength = "15"
+                        autocomplete = "off">
 
                         </Input>
                         <div className="progress" id="progress">
@@ -352,7 +352,8 @@ class SignUp extends Component{
                           placeholder="password"
                           value = {this.state.confirmPassword}
                           onChange = {this.onChangeHandler}
-                          maxLength = "15">
+                          maxLength = "15"
+                          autocomplete = "off">
                           </Input>
                           {formErrors.confirmPassword.length > 0 && (
                             <span className="errorMessage">
@@ -360,34 +361,7 @@ class SignUp extends Component{
                             </span>
                           )}
                     </div>
-                    <div className ="form-group">
-                        <label htmlFor="email"> Email </label>
-                        <Input
-                        type="email"
-                        className={formErrors.email.length > 0 ? "error" : validSuccess.email.length>0?("success"): ("form-control")}
-                        name = "email"
-                        placeholder="example@mail.com"
-                        value = {this.state.email}
-                        onChange = {this.onChangeHandler}>
-                        </Input>
-                        {formErrors.email.length > 0 && (
-                          <span className="errorMessage">{formErrors.email}</span>
-                        )}
-                    </div>
-                    <div className ="form-group">
-                        <label htmlFor="twitter_username"> Twitter Account </label>
-                        <Input type="text"
-                        className={formErrors.twitter_username.length > 0 ? "error" : validSuccess.twitter_username.length >0?("form-control success"):  ("form-control")}
-                        name = "twitter_username"
-                        placeholder="@twitteruser"
-                        required value = {this.state.twitter_username}
-                        onChange = {this.onChangeHandler}>
 
-                        </Input>
-                        {formErrors.twitter_username.length > 0 && (
-                          <span className="errorMessage">{formErrors.twitter_username}</span>
-                        )}
-                    </div>
                     <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Submit</FormBtn>
 
 
