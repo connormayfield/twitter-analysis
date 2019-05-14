@@ -205,7 +205,6 @@ class SignUp extends Component{
             if(res.status === 200){
                 console.log("authenticating")
                 this.props.doLogin(this.state.username);
-                // this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
@@ -215,15 +214,14 @@ class SignUp extends Component{
     }
 
     render(){
-      console.log("xxxx")
-    const { username, password,confirmPassword,email,twitter_username } = this.state.validSuccess;
+    const { username, password,confirmPassword,} = this.state.validSuccess;
     const isEnabled =
       username.length > 0 &&
       password.length > 0 &&
       confirmPassword.length > 0 &&
       this.state.password === this.state.confirmPassword;
 
-      const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
+      const { formErrors, validSuccess, score,passwordStatus } = this.state;
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
