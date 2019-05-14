@@ -207,7 +207,8 @@ class SignUp extends Component{
                           name = "username"
                           placeholder="username"
                           value = {this.state.username}
-                          onChange = {this.onChangeHandler} >
+                          onChange = {this.onChangeHandler}
+                          autocomplete = "off">
                           </Input>
                           {formErrors.username.length > 0 && (
                             <span className="errorMessage">{formErrors.username}</span>
@@ -230,12 +231,22 @@ class SignUp extends Component{
                         placeholder="password"
                         value = {this.state.password}
                         onChange = {this.onChangeHandler}
-                        maxLength = "15">
+                        maxLength = "15"
+                        autocomplete = "off">
 
                         </Input>
                         <div className="progress" id="progress">
-                          <div className={`progress-bar ${this.state.progressState}`} id="progress-bar" role="progressbar" style={{"width": this.state.progressNumber}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>{ passwordStatus==="good"? password : formErrors.password}
+                        <div className={`progress-bar ${this.state.progressState}`}
+                        id="progress-bar"
+                        role="progressbar"
+                        style={{"width": this.state.progressNumber}}
+                        aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                        </div>
+                        { passwordStatus==="good"? password : formErrors.password}
+
+
+
                     </div>
                     <div className ="form-group">
                         <Input
@@ -251,7 +262,8 @@ class SignUp extends Component{
                           placeholder="confirm password"
                           value = {this.state.confirmPassword}
                           onChange = {this.onChangeHandler}
-                          maxLength = "15">
+                          maxLength = "15"
+                          autocomplete = "off">
                           </Input>
                           {formErrors.confirmPassword.length > 0 && (
                             <span className="errorMessage">
@@ -260,7 +272,7 @@ class SignUp extends Component{
                           )}
                     </div>
                     <FormBtn onClick = {this.signUpHandler} disabled = {!isEnabled}>Sign Up</FormBtn>
-                    
+
                 </form>
                 </SignupForm>
               </Container>
@@ -271,4 +283,3 @@ class SignUp extends Component{
 
 
 export default SignUp
-
