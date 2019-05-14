@@ -3,7 +3,6 @@ import commentImg from "../../pages/Profile/img/comment.png"
 import retweetImg from "../../pages/Profile/img/retweet.png"
 import likeImg from "../../pages/Profile/img/heart.png"
 import graphImg from "../../pages/Profile/img/graph-button.png"
-import { relative } from "path";
 
 const TweetCard = props=>{
     const cardStyle = {

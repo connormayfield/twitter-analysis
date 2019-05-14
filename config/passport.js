@@ -87,7 +87,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(userId, done) {
     console.log("deserialize")
-    User.findById(userId, "-password -twitter.token", (err, user) => done(err,user));
+    User.findById(userId, "-password -twitter.token -twitter.tokenSecret", (err, user) => done(err,user));
 });
 
 // Exporting our configured passport
