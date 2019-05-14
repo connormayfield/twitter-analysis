@@ -24,6 +24,9 @@
         // $(".wrapper").toggleClass("active");
         // $(".navbar-brand").toggleClass("active");
       })
+      $(document).on("click", "#twitter-login-switch", function() {
+        $(".twitter-login").click();
+      })
       $(document).on("focus","#signuppassword",function(){
         $("#progress").show();
         $("#progress-bar").show();
