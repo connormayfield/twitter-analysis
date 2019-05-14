@@ -23,7 +23,7 @@ class Profile extends Component{
                 setTimeout(() => {this.setState({
                     loading: false
                 })
-            }, 2000);
+            }, 500);
                 if(!data.errors){
                     this.setState({
                         sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]
