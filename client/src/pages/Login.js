@@ -49,10 +49,10 @@ class Login extends Component {
                         <Link className="createbtn" to="/signup">or Sign Up</Link>
                         <form onSubmit={this.loginHandler}>
                             <div className="inputbox">
-                                <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
+                                <input type="text" name="username" autocomplete="off" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>
                             </div>
                             <div className="inputbox">
-                                <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
+                                <input type="password" name="password" autocomplete="off" placeholder="password" value={this.state.password} onChange={this.onChangeHandler}/>
                             </div>
                             <input className="loginbtn btn" type="submit" name="" value="Login" />
                         </form>
