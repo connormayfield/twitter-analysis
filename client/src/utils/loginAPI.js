@@ -3,7 +3,6 @@ const axios = require("axios")
 
 export default {
     signup: function(signupInfo){
-      console.log("xxxxx")
        return axios.post("api/user/signup", signupInfo)
 
     },
