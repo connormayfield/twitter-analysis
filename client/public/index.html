@@ -33,19 +33,16 @@
       $(document).on("blur","#signuppassword",function(){
         $("#progress").hide();
       })
-
       $(document).on("click","#leftScroll",function(){
         var leftPos = $('.card-container').scrollLeft();
         console.log(leftPos);
         $(".card-container").animate({scrollLeft: leftPos - 350},"fast");
       })
-
       $(document).on("click","#rightScroll",function(){
         var leftPos = $('.card-container').scrollLeft();
         console.log(leftPos);
         $(".card-container").animate({scrollLeft: leftPos + 350},"fast");
       })
-
       $(document).on("click", function(e) {
         if (!($(e.target).closest("#sidebar").length > 0) && !($(e.target).closest("#toggle-sidebar").length > 0)){
           $("#sidebar").removeClass("active");
