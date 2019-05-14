@@ -16,7 +16,7 @@ class Profile extends Component{
         this.showModal = (username, twitterHandle, tweetID)=>{
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                console.log("data")
+                
                 if(!data.errors){
                     this.setState({
                         sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],

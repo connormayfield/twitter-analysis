@@ -344,6 +344,8 @@ class SignUp extends Component{
                           this.state.confirmPassword !== this.state.password && this.state.password.length > 0 && this.state.confirmPassword > 0? ("error") :
                           this.state.password.length === 0 && this.state.confirmPassword.length > 0 ? ("error") :
                           this.state.confirmPassword === this.state.password && this.state.confirmPassword.length && passwordStatus ==="good" ? ("success"):
+                          this.state.confirmPassword === this.state.password && this.state.password.length > 0 ? ("success"):
+                          this.state.confirmPassword !== this.state.password && this.state.password.length > 0 && this.state.confirmPassword.length > 0 ? ("error"):
                           ("form-control")}
                           name = "confirmPassword"
                           placeholder="confirm password"
