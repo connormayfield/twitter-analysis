@@ -8,9 +8,8 @@ color: black;
     padding:0;
     margin:0;
     font-family: sans-serif;
-    background:url(dummy_image/anigif.gif) no-repeat;
-    background-position-x: 0%;
-    background-position-y: 460px;
+    background:url(dummy_image/logo.gif) no-repeat;
+
 }
 
 .signup-container {

@@ -42,8 +42,6 @@ class SignUp extends Component{
         username: "",
         password: "",
         confirmPassword: "",
-        email: "",
-        twitter_username: "",
         isAuthenticated: false,
         suggestions:[],
         score:0,
@@ -53,16 +51,12 @@ class SignUp extends Component{
         validSuccess: {
           username:"",
           password:"",
-          confirmPassword: "",
-          email:"",
-          twitter_username:""
+          confirmPassword: ""
         },
         formErrors: {
           username: "",
           password: "",
-          confirmPassword: "",
-          email: "",
-          twitter_username:""
+          confirmPassword: ""
         },
         scoreArray:[
           "Terrible",
@@ -83,23 +77,8 @@ class SignUp extends Component{
 
     };
 
-// score === 0 ? "terrible" : "";
-// score === 1 ? "weak" : "";
-// score === 2 ? "poor" : "";
-// score === 3 ? "okay" : "";
-// score === 4 ? "great" : "";
-
-
-
     componentWillMount = () => {
 
-        // loginAPI.checkSession()
-        // .then((res)=> {
-        //     if(res.data){
-        //         return this.setState({isAuthenticated: true})
-        //     }
-        // })
-        // .catch((err) => console.log(err))
         if(this.props.user.logged) {
           this.setState({isAuthenticated: true})
         }
@@ -139,24 +118,9 @@ class SignUp extends Component{
               value.length >= 3 ? "username valid" : "";
             break;
           case "password":
-            // formErrors.password =
-            //   value.length < 6 ? "Minimum 6 characters required. " : "";
-            // validSuccess.password =
-            //   value.length >= 6 ? "password valid" : "";
 
             scoreMessage = this.state.scoreArray[evaluation.score];
-            // if(scoreMessage==="Okay" || scoreMessage==="Great" ) {
-            //   validSuccess.password = "password status : "+ scoreMessage+". Password valid"
-            //   formErrors.password = "";
-            //   passwordStatus="good";
-            //
-            // } else {
-            //   scoreMessage = "password status : "+scoreMessage;
-            //   formErrors.password = "you need more password character";
-            //   validSuccess.password = "";
-            //   passwordStatus="bad";
-            //
-            // }
+
             if(scoreMessage==="Great") {
               progressState=progressBarArray[3];
               progressNumber="100%"
@@ -195,23 +159,6 @@ class SignUp extends Component{
               validSuccess.confirmPassword =
                 confirmPassword.value === password.value ? "Password valid" : "";
               break;
-          case "email":
-            formErrors.email = emailRegex.test(value)
-            ? ""
-            : "invalid email address";
-            validSuccess.email = emailRegex.test(value)
-              ? "email valid"
-              : "";
-          break;
-          case "twitter_username":
-            formErrors.twitter_username = twitterRegex.test(value)
-            ? ""
-            : "invalid twitter account";
-            validSuccess.twitter_username = twitterRegex.test(value)
-              ? "twitter valid"
-              : "";
-
-          break;
           default:
 
         }
@@ -245,8 +192,6 @@ class SignUp extends Component{
             --Submitting--
           Username: ${this.state.username}
           Password: ${this.state.password}
-          Email: ${this.state.email}
-          Twitter Username: ${this.state.twitter_username}
         `);
       } else {
         alert("FORM INVALID");
@@ -270,7 +215,7 @@ class SignUp extends Component{
     }
 
     render(){
-
+      console.log("xxxx")
     const { username, password,confirmPassword,email,twitter_username } = this.state.validSuccess;
     const isEnabled =
       username.length > 0 &&
@@ -337,7 +282,6 @@ class SignUp extends Component{
 
                     </div>
                     <div className ="form-group">
-                        {/* <label htmlFor="confirmPassword">Confirm Password</label> */}
                         <Input
                           type="password"
                           className={
