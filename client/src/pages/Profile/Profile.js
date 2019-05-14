@@ -39,14 +39,14 @@ class Profile extends Component{
             weekData: [
                 {
                     label: "Likes",
-                    backgroundColor: "#CC000044",
-                    primaryColor: "#CC0000",
+                    backgroundColor: "#82AFC344",
+                    primaryColor: "#82AFC3",
                     data: [0, 0, 0, 0, 0, 0, 0]
                 },
                 {
                     label: "Retweets",
-                    backgroundColor: "#00FF0044",
-                    primaryColor: "#00FF00",
+                    backgroundColor: "#04507344",
+                    primaryColor: "#045073",
                     data: [0, 0, 0, 0, 0, 0, 0]
                 }
             ],
@@ -57,9 +57,9 @@ class Profile extends Component{
  
 
 
-    componentWillMount = () => {
+    componentDidMount = () => {
 
-            twitterAPI.getTweets(this.props.user.username, 'bootcamptweeter').then(({data}) => {
+            twitterAPI.getTweets(this.props.user.username, "bootcamptweeter").then(({data}) => {
                 //Gathering user information
 
                 let weekData = [...this.state.weekData];
@@ -92,51 +92,56 @@ class Profile extends Component{
             <Container>
                 <div className = "profileContainer">
                     <Row >
-                        <Col size = "xs-3" >
-                            <img className="profile-image" src={this.state.user.profile_image_url_https} alt="profile-pic"></img>
+                        <Col size = "xs-4" >
+                            <div className="">
+                                <img className="profile-image" src={this.state.user.profile_image_url_https} alt="profile-pic"></img>
+                            </div>
                         </Col>
                         <Col size = "xs-4">
-                            <h5>{this.state.user.name}</h5>
-                            <h6>{this.state.user.screen_name}</h6>
-                            <h6>{this.state.user.location}</h6>
-                            <h6>{this.state.user.description}</h6>
+                            <div className="">
+                                <h5>{this.state.user.name}</h5>
+                                <h6>@{this.state.user.screen_name}</h6>
+                                <h6>{this.state.user.location}</h6>
+                                <h6>{this.state.user.description}</h6>
+                            </div>
                         </Col>
                     </Row>
                 </div>
                 <div className="widgetContainer">
+                    <h4 className="feedTitle">Your Account Overall</h4>
                     <Row>
-                        <div className="widget statuses">
+                        <div className="widget statuses border">
                             <Col size="xs-4" >
                                 <span>Tweets</span>
                                 <br></br>
-                                <span>{this.state.user.statuses_count}0</span>
+                                <span className="font-weight-bold">{this.state.user.statuses_count}</span>
                             </Col>
                         </div>
-                        <div className="widget tweets">
+                        <div className="widget tweets border">
                             <Col size="xs-4" >
                                 <span>Friends</span>
                                 <br></br>
-                                <span>{this.state.user.friends_count}0</span>
+                                <span className="font-weight-bold">{this.state.user.friends_count}</span>
                             </Col>
                         </div>
-                        <div className="widget followers">
+                        <div className="widget followers border">
                             <Col size="xs-4">
                                 <span>Followers</span>
                                 <br></br>
-                                <span>{this.state.user.followers_count}0</span>
+                                <span className="font-weight-bold">{this.state.user.followers_count}</span>
                             </Col>
                         </div>
-                        <div className="widget likes">
+                        <div className="widget likes border">
                             <Col size="xs-4">
                                 <span>Likes</span>
                                 <br></br>
-                                <span>{this.state.user.favourites_count}0</span>
+                                <span className="font-weight-bold">{this.state.user.favourites_count}</span>
                             </Col>
                         </div>
                     </Row>
                 </div>
                 <div className="graphContainer">
-                    <h4>Weekly Tweet Insight Data</h4>
+                    <h4 className="feedTitle">Weekly Insight</h4>
                     <div className="graph">
                         <LineGraph key="1" id="linegraph"
                         labels={this.state.weekLabels}
@@ -144,31 +149,37 @@ class Profile extends Component{
                     </div>
                 </div>
                 <Row>
-                    <Col size="xs-12">
+                    <div className="container-fluid">
+                    <div className="">
+                    {/* <Col size="xs-12"> */}
                         {this.state.tweets.length === 0 ? (
-                            <h4 className="noTweets text-center">No Tweets to Display</h4>
+                            <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
                         ) : (
-                            <div className="container-fluid twitterFeed">
-                            <h3>Your Most Recent Twitter Feed</h3>
-                                <div className="d-flex flex-row flex-wrap">
-                                    {this.state.tweets.map((tweet) => {
-                                        return (
-                                            <TweetCard
-                                            key = {tweet.id}
-                                            name = {tweet.name}
-                                            screen_name = {tweet.screen_name}
-                                            created_at = {tweet.created_at}
-                                            text = {tweet.text}
-                                            retweets = {tweet.retweets}
-                                            favorites = {tweet.favorites}
-                                            donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            </div>    
+                            <div>
+                                <h4 className="feedTitle">Recent Tweets</h4>
+                                <div className="card-container">
+                                    <div className="row flex-row flex-nowrap twitterFeed">
+                                        {this.state.tweets.map((tweet) => {
+                                            return (
+                                                <TweetCard
+                                                key = {tweet.id}
+                                                name = {tweet.name}
+                                                screen_name = {tweet.screen_name}
+                                                created_at = {tweet.created_at}
+                                                text = {tweet.text}
+                                                retweets = {tweet.retweets}
+                                                favorites = {tweet.favorites}
+                                                donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </div>  
+                            </div>
                         )}
-                    </Col>
+                    {/* </Col> */}
+                    </div>
+                    </div>
                 </Row>
                 <Modal show={this.state.showModal} onHide={this.hideModal}>
                     <Modal.Header closeButton>

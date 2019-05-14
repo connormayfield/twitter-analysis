@@ -9,7 +9,7 @@ var client = new Twitter({
 module.exports = {
     storeTweets(req, res){
         console.log(req.params.screen_name)
-        let params = {screen_name: req.params.screen_name, count: "10", excludes_replies: "false"};
+        let params = {screen_name: req.params.screen_name, count: "50", excludes_replies: "false"};
         client.get('statuses/user_timeline', params, function(error, tweets, response) {
             if (error) {
                 console.log(error)

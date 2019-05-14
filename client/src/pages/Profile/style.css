@@ -1,25 +1,27 @@
- .profileContainer{
+.profileContainer {
     padding: 50px;
- }
-
-  .profileContainer img{
-     border:  1px solid black;
-     border-radius: 50%;
- }
-
- .profileContainer h5, .profileContainer h6, .profileContainer p{
-    margin: 5px ;
 }
 
-.widgetContainer{
-    padding: 20px;
+.profileContainer img {
+    border:  1px solid black;
+    border-radius: 50%;
+    margin-top: 8px;
+}
+
+
+.profileContainer h5, .profileContainer h6, .profileContainer p {
+    margin: 5px;
+}
+
+.widgetContainer {
+    padding-bottom: 50px;
     width: 100%;
     display: inline-block;
     border-top: 2px solid #E6ECF0;
     border-bottom: 2px solid #E6ECF0;
 }
 
-.widget{
+.widget {
     margin: 5px;
     padding: 30px;
     height: 100px;
@@ -27,25 +29,46 @@
     text-align: center;
 }
 
-  .graphContainer {
+.graphContainer {
     margin-top: 50px;
-    justify-content:  center ;
+    justify-content: center;
     border-bottom: 2px solid #E6ECF0;
- }
+}
 
-canvas{
-     height: 100%;
-     width: 100%;
- }
+canvas {
+    height: 100%;
+    width: 100%;
+}
 
- .graph {
-     margin-bottom: 50px;
- }
+.graph {
+    margin-bottom: 50px;
+}
 
- .noTweets {
-     padding: 50px 0 50px 15px;
- }
- 
- .twitterFeed{
-    padding: 50px 0 50px 15px;
- }
+.twitterFeed{
+    margin-left: 15px;
+}
+
+.feedTitle {
+    margin: 50px 0 50px 15px; 
+}
+
+.card-link {
+    margin: 5px;
+    color: black !important;
+}
+
+.card-container {
+    display: flex;
+    overflow-x: scroll;
+    padding-bottom: 50px;
+}
+
+.tweet-stats {
+    position: absolute;
+    bottom: 15px;
+}
+
+.card-link:hover {
+    cursor: pointer;
+}
+
