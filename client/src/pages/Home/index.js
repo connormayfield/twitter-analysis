@@ -83,9 +83,9 @@ class Home extends Component {
                                             </Col>
                                             <Col size="3">
                                                 <TwitterLogin
-                                                    loginUrl="http://localhost:3001/api/auth/twitter"
+                                                    loginUrl="/api/auth/twitter"
                                                     onFailure={this.onFailed} onSuccess={this.onSuccess}
-                                                    requestTokenUrl="http://localhost:3001/api/auth/twitter/reverse"
+                                                    requestTokenUrl="/api/auth/twitter/reverse"
                                                     credentials="include"
                                                     text=""
                                                     className="twitter-login"
