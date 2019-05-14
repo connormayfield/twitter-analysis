@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 // Tweet model
 const tweetSchema = new Schema({
     // The user's twitter handle, most likely will be used as 
@@ -51,6 +52,9 @@ const tweetSchema = new Schema({
     ]
 });
 
+
 const Tweet = mongoose.model("Tweet", tweetSchema);
+
+
 
 module.exports = Tweet;

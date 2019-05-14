@@ -4,9 +4,5 @@ const sentimentController = require("../../../controllers/sentimentController")
 
 router.route("/:username/:twitterHandle/:tweetID")
       .post(sentimentController.create)
-      .get(sentimentController.getSentimentScore)
-
-
-
 
 module.exports = router;

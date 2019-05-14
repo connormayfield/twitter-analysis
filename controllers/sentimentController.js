@@ -20,7 +20,6 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
   if (ind === dbComments.length){
     let total = 0;
     for (var score in es){
-
        total += parseFloat(es[score])
     }
     es = {
@@ -39,9 +38,13 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
       sadness: es.sadness
     })
     .then( ({ _id }) => {
-           return cb(es, _id)}
-    )
-   .catch(err => console.log(err));  
+           return cb(es, _id, null)
+    })
+   .catch(err => {
+     console.log("Sentiment score cannot be calculated because there are no comments.")
+     return cb(null, null, err)
+    
+    });  
   }
   //Calculate sentiment scores while iterating through comment Array
   else{
@@ -68,7 +71,6 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
 }
 
 function addComments(tweets, tweetID, ind, done){
-  console.log(ind)
   if(ind < tweets.length){
    
     if(tweets[ind].in_reply_to_status_id == tweetID){
@@ -107,7 +109,6 @@ module.exports = {
       create(req, res){
     console.log(req.params);
 
-
       let emotionScore = {
         anger: 0,
         disgust: 0,
@@ -126,12 +127,8 @@ module.exports = {
               if (error) {
                   console.log(error);
               } else {
-                  console.log("mentions.................");
-                  console.log(tweets);
-                  
                   addComments(tweets, req.params.tweetID, 0, function(){
 
-                    console.log("calculating score")
                     
                     db.Tweet.find({
                       tweet_id: req.params.tweetID
@@ -143,16 +140,17 @@ module.exports = {
                       commentObj.forEach(element => {
                         comments.push(element.comment_body)
                       });
-                      calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID){
+                      calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID, err){
+                        if(err){
+                          return res.json(err)
+                        }
                         db.Tweet.update({
                           tweet_id: req.params.tweetID
                         }, {
                             $set: {
                            sentiment: sentimentID
                          }
-                        }).then((data) => {
-                          //returning emotion scores
-          
+                        }).then((data) => {          
                           res.json(emotionScore)
                         })
                         .catch(err => {
@@ -170,34 +168,6 @@ module.exports = {
         .catch(err => {
           console.log(err)
         })
-      
          
-    
     },
-
-    //parameters need to be passed: 1. username, 2. Tweet _id
-
-    getSentimentScore(req, res){
-      let username = "delta1234"
-    
-      db.User.find({
-        username : username})
-        .populate("tweets")
-        .then((dbUser) => {
-          let tweetID = dbUser[0].tweets[0]._id
-          db.Tweet.find({
-            _id: tweetID
-          })
-          .populate("comments")
-          .populate("sentiment")
-          .then((dbTweet) => {
-               res.json(dbTweet[0].sentiment[0])
-
-          })
-        })
-        .catch((err)=>{
-          console.log(err)
-        })     
-
-    }
 }

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Container, Row, Col} from "../../components/Grid/index";
-import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
 import "../../components/TweetCard/index"
 import LineGraph from "../../components/Graphs/LineGraph"
@@ -17,15 +16,24 @@ class Profile extends Component{
         this.showModal = (username, twitterHandle, tweetID)=>{
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                
-                this.setState({
-                    sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
-                    showModal: true})
+                console.log("data")
+                if(!data.errors){
+                    this.setState({
+                        sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
+                        showModal: true})
+                }else{
+                    this.setState({showModal: true})
+                }
+
             })
+            .catch((err) => {console.log(err)})
         }
 
         this.hideModal =  () => {
-            this.setState({showModal: false})
+            this.setState({
+                sentimentData: [],
+                showModal: false
+            })
     
         }
     
@@ -51,7 +59,7 @@ class Profile extends Component{
                 }
             ],
             sentimentLabels: ["Anger", "Disgust", "Fear", "Joy", "Sadness"],
-            sentimentData: [40, 75, 140, 160, 200]
+            sentimentData: []
         }
       }
  
@@ -186,10 +194,10 @@ class Profile extends Component{
                         <Modal.Title>Sentiment Data</Modal.Title>
                     </Modal.Header>
                         <Modal.Body>
-                        <DoughnutGraph
+                        {this.state.sentimentData.length > 0 ? (<DoughnutGraph
                         labels={this.state.sentimentLabels}
                         graphData={this.state.sentimentData}
-                        />
+                        />) : ("No sentiment data is avaiable")}
                         </Modal.Body>
                     <Modal.Footer>
                     </Modal.Footer>
