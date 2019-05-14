@@ -31,8 +31,8 @@ router.route("/reverse")
             url: "https://api.twitter.com/oauth/request_token",
             oauth: {
                 oauth_callback: process.env.CALLBACK || "http%3A%2F%2Flocalhost%3A3000%2F",
-                consumer_key: "PUKeIFz9XrfpLMaePxdSBCOpo",
-                consumer_secret: "u6YVPzov7A2RKOd37PGIASbQAG09aHUrolU93YXhqL9aBZuyXJ"
+                consumer_key: "4D371g3g31jj8KagqUFEiIBQa",
+                consumer_secret: "wwXQN7yyUSz16WkHCzLuqUc7r5QlWTkNdQMXHGWNd8ZRfmm2k6"
             }
         }, function(err, r, body) {
             if (err) {
@@ -49,8 +49,8 @@ router.route("/")
         request.post({
             url: "https://api.twitter.com/oauth/access_token?oauth_verifier",
             oauth: {
-                consumer_key: "PUKeIFz9XrfpLMaePxdSBCOpo",
-                consumer_secret: "u6YVPzov7A2RKOd37PGIASbQAG09aHUrolU93YXhqL9aBZuyXJ",
+                consumer_key: "4D371g3g31jj8KagqUFEiIBQa",
+                consumer_secret: "wwXQN7yyUSz16WkHCzLuqUc7r5QlWTkNdQMXHGWNd8ZRfmm2k6",
                 token: req.query.oauth_token
             },
             form: { oauth_verifier: req.query.oauth_verifier }
