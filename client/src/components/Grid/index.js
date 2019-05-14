@@ -14,13 +14,15 @@ export function Row({ fluid, textCenter, children }) {
 
 // This Col component lets us size bootstrap columns with less syntax
 // e.g. <Col size="md-12"> instead of <div className="col-md-12">
-export function Col({ size, children }) {
+export function Col({ size, children, classes }) {
   return (
     <div
       className={size
         .split(" ")
         .map(size => "col-" + size)
-        .join(" ")}
+        .join(" ")
+        + " " + (classes ? classes : "")
+      }
     >
       {children}
     </div>

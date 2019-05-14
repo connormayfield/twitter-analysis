@@ -9,7 +9,7 @@ import Progress from "./pages/Progress";
 import SignUp from './pages/Signup';
 import Wrapper from "./components/Wrapper";
 import Sidebar from "./components/Sidebar";
-import Home from "./pages/Home";
+import Home from "./pages/Home/index";
 import { connect } from "react-redux";
 import { doLogin, doLogout, doTwitterConnect } from "./redux/actions/userActions";
 import history from "./redux/history";
