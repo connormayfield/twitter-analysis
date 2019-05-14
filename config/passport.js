@@ -56,6 +56,7 @@ passport.use(new TwitterTokenStrategy({
                     // Update user model to include twitter info
                     dbUser.twitter.id = profile.id;
                     dbUser.twitter.token = token;
+                    dbUser.twitter.tokenSecret = tokenSecret;
                     dbUser.twitter.displayName = profile.displayName;
                     dbUser.twitter.handle = profile.username;
                     dbUser.twitter.photo = profile.photos[0].value || '';
