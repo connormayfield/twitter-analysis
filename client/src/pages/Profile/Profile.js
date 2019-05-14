@@ -65,7 +65,7 @@ class Profile extends Component{
  
 
 
-    componentDidMount = () => {
+    componentWillMount = () => {
 
             twitterAPI.getTweets(this.props.user.username, "bootcamptweeter").then(({data}) => {
                 //Gathering user information
@@ -98,6 +98,7 @@ class Profile extends Component{
         console.log(this.state.username)
         return(
             <Container>
+                <div className="imageContainer"></div>
                 <div className = "profileContainer">
                     <Row >
                         <Col size = "xs-4" >
