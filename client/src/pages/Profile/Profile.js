@@ -3,6 +3,7 @@ import {Container, Row, Col} from "../../components/Grid/index";
 import "../Profile/style.css";
 import "../../components/TweetCard/index"
 import LineGraph from "../../components/Graphs/LineGraph"
+import loginAPI from "../../utils/loginAPI";
 import twitterAPI from "../../utils/twitterAPI"
 import TweetCard from "../../components/TweetCard/index";
 import Modal from "react-bootstrap/Modal"
@@ -20,9 +21,10 @@ class Profile extends Component{
 
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
-                this.setState({
+                setTimeout(() => {this.setState({
                     loading: false
                 })
+            }, 500);
                 if(!data.errors){
                     this.setState({
                         sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness]
@@ -44,6 +46,7 @@ class Profile extends Component{
             user: {},
             tweets:[],
             username: "",
+            tweetHandle: "",
             isAuthenicated: false,
             modalShow: false,
             weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -69,29 +72,39 @@ class Profile extends Component{
 
 
     componentWillMount = () => {
-
-            twitterAPI.getTweets(this.props.user.username, "bootcamptweeter").then(({data}) => {
-                //Gathering user information
-
-                let weekData = [...this.state.weekData];
-
-                for(let i = 0; i < data.weeklyData.length; i++){
-                    if(data.weeklyData[i] !== null){
-                        weekData[0].data[i] = data.weeklyData[i].favorites
-                        weekData[1].data[i] = data.weeklyData[i].retweets
-                    }
+            loginAPI.checkSession()
+            .then(({data}) => {
+                console.log(data)
+                if(data.twitter){
+                    this.setState({
+                        tweetHandle: data.twitter.handle
+                    }, function(){
+                        twitterAPI.getTweets(this.props.user.username, this.state.tweetHandle).then(({data}) => {
+                            //Gathering user information
+            
+                            let weekData = [...this.state.weekData];
+            
+                            for(let i = 0; i < data.weeklyData.length; i++){
+                                if(data.weeklyData[i] !== null){
+                                    weekData[0].data[i] = data.weeklyData[i].favorites
+                                    weekData[1].data[i] = data.weeklyData[i].retweets
+                                }
+                            }
+                                this.setState({username: this.props.user.username,
+                                    user: data.user,
+                                    tweets: data.newTweets,
+                                    isAuthenicated: true,
+                                    weekLabels: data.labels,
+                                    weekData: weekData
+                                });
+                        })
+                        .catch(err => console.log(err))
+                    })
                 }
-                    this.setState({username: this.props.user.username,
-                        user: data.user,
-                        tweets: data.newTweets,
-                        isAuthenicated: true,
-                        weekLabels: data.labels,
-                        weekData: weekData
-                    });
-            })
+            });
 
-            .catch(err => console.log(err))
-        }
+ 
+}
         
     render(){  
         console.log(this.state.username)
@@ -177,7 +190,7 @@ class Profile extends Component{
                                                     text = {tweet.text}
                                                     retweets = {tweet.retweets}
                                                     favorites = {tweet.favorites}
-                                                    donutModalHandler = {()=>{this.showModal(this.state.username, "bootcamptweeter", tweet.id)}}
+                                                    donutModalHandler = {()=>{this.showModal(this.state.username, this.state.tweetHandle, tweet.id)}}
                                                     />
                                                 );
                                             })}
