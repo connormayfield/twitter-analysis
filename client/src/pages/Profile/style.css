@@ -17,7 +17,7 @@
     padding-bottom: 50px;
     width: 100%;
     display: inline-block;
-    border-top: 2px solid #E6ECF0;
+    /* border-top: 2px solid #E6ECF0; */
     border-bottom: 2px solid #E6ECF0;
 }
 
@@ -33,6 +33,7 @@
     margin-top: 50px;
     justify-content: center;
     border-bottom: 2px solid #E6ECF0;
+    background-color:white;
 }
 
 canvas {
@@ -72,3 +73,46 @@ canvas {
     cursor: pointer;
 }
 
+@media screen and (min-width:1024px)  {
+    .imageContainer {
+        position: fixed;
+        z-index:-1;
+        width:100%;
+        height:100%; 
+        left:0px;
+        right:0px;
+        top:0px; 
+        background:url(img/sky-lg.png) no-repeat;
+        background-size:cover;
+        opacity:0.9;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:760px) {
+    .imageContainer {
+        position: fixed;
+        z-index:-1;
+        width:100%;
+        height:100%; 
+        left:0px;
+        right:0px;
+        top:0px; 
+        background:url(img/bird-md.png) no-repeat;
+        background-size:cover;
+        opacity:1.0;
+    }
+} 
+
+@media screen and (max-width:760px)  {
+    .imageContainer {
+        position: absolute;
+        z-index:-1;
+        /* width:100%; */
+        height:100%;
+        left:0px;
+        right:0px;
+        /* top:50px; */
+        background:url(img/human-sm.png) no-repeat;
+        background-size:cover;
+    }
+}
