@@ -28,6 +28,8 @@ const userSchema = new Schema({
 
       token: String,
 
+      tokenSecret: String,
+
       displayName: String,
 
       handle: String,
