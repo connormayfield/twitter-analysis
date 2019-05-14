@@ -7,32 +7,18 @@ import loginAPI from "../utils/loginAPI"
 import Sidebar from "../components/Sidebar";
 import zxcvbn from "zxcvbn";
 
-
-
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
-
-const twitterRegex = RegExp(/^@[A-Za-z0-9_]{1,15}$/);
-
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
-
-
-// validate form errors being empty
-
+  // validate form errors being empty
   Object.values(formErrors).forEach(val => {
     val.length > 0 && (valid = false);
   });
 
-// validate the form was filled out
-
-Object.values(rest).forEach(val => {
-  val === null && (valid = false);
-});
-
+  // validate the form was filled out
+  Object.values(rest).forEach(val => {
+    val === null && (valid = false);
+  });
   return valid;
-
 };
 
 
@@ -47,7 +33,6 @@ class SignUp extends Component{
         score:0,
         scoreMessage: "",
         passwordStatus:"",
-
         validSuccess: {
           username:"",
           password:"",
@@ -73,16 +58,12 @@ class SignUp extends Component{
        ],
        progressState:"",
        progressNumber:""
-
-
     };
 
     componentWillMount = () => {
-
         if(this.props.user.logged) {
           this.setState({isAuthenticated: true})
         }
-
     }
 
     userHasAuthenticated = (username, authenticated) => {
@@ -90,8 +71,6 @@ class SignUp extends Component{
             username: username,
             isAuthenticated: authenticated });
       }
-
-
 
     onChangeHandler = (event) => {
         let {name, value} = event.target
@@ -106,10 +85,7 @@ class SignUp extends Component{
         let progressBarArray=this.state.progressBarArray;
         let progressNumber=""
 
-
-
-          // if score = 0
-
+        // if score = 0
         switch (name) {
           case "username":
             formErrors.username =
@@ -118,7 +94,6 @@ class SignUp extends Component{
               value.length >= 3 ? "username valid" : "";
             break;
           case "password":
-
             scoreMessage = this.state.scoreArray[evaluation.score];
 
             if(scoreMessage==="Great") {
@@ -160,9 +135,7 @@ class SignUp extends Component{
                 confirmPassword.value === password.value ? "Password valid" : "";
               break;
           default:
-
         }
-
 
         this.setState({
           scoreMessage,
@@ -177,15 +150,11 @@ class SignUp extends Component{
           suggestions:evaluation.feedback.suggestions,
           [name]: value},
           () => console.log(this.state));
-
-
     };
-
-
 
     signUpHandler = (event) => {
         event.preventDefault()
-// validation
+        // validation
         if (formValid(this.state)) {
 
           console.log(`
@@ -197,38 +166,33 @@ class SignUp extends Component{
         alert("FORM INVALID");
         console.log("FORM INVALID - display error message");
       }
-// end form validation
-        console.log(this.state);
+      // end form validation
         loginAPI.signup(this.state)
         .then((res)=> {
             console.log(res.data)
             if(res.status === 200){
                 console.log("authenticating")
                 this.props.doLogin(this.state.username);
-                // this.userHasAuthenticated(res.data.username, true);
             }
         })
         .catch((err) => {
             console.log(err)
         })
-
     }
 
     render(){
-      console.log("xxxx")
-    const { username, password,confirmPassword,email,twitter_username } = this.state.validSuccess;
+    const { username, password,confirmPassword,} = this.state.validSuccess;
     const isEnabled =
       username.length > 0 &&
       password.length > 0 &&
       confirmPassword.length > 0 &&
       this.state.password === this.state.confirmPassword;
 
-      const { formErrors, validSuccess, score, suggestions, scoreMessage,passwordStatus } = this.state;
+      const { formErrors, validSuccess, score,passwordStatus } = this.state;
 
         if(this.state.isAuthenticated) {return <Redirect to="/profile"/>}
 
         return(
-
           <Wrapper >
           <Sidebar/>
             <Container >
@@ -237,11 +201,9 @@ class SignUp extends Component{
                 <Link className="createbtn" to="/">or Login</Link>
                 <form>
                     <div className ="form-group">
-                        {/* <label htmlFor="username"> Username</label> */}
                         <Input
                           type="text"
                           className={formErrors.username.length > 0 ? ("error") : validSuccess.username.length>0?("form-control success"): ("form-control")}
-                          // className = "form-control"
                           name = "username"
                           placeholder="username"
                           value = {this.state.username}
@@ -250,10 +212,8 @@ class SignUp extends Component{
                           {formErrors.username.length > 0 && (
                             <span className="errorMessage">{formErrors.username}</span>
                           )}
-
                     </div>
                     <div className ="form-group">
-                        {/* <label htmlFor="password"> Password </label> */}
                         <Input
                         type="password"
                         id = "signuppassword"
@@ -274,12 +234,8 @@ class SignUp extends Component{
 
                         </Input>
                         <div className="progress" id="progress">
-  <div className={`progress-bar ${this.state.progressState}`} id="progress-bar" role="progressbar" style={{"width": this.state.progressNumber}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-{ passwordStatus==="good"? password : formErrors.password}
-
-
-
+                          <div className={`progress-bar ${this.state.progressState}`} id="progress-bar" role="progressbar" style={{"width": this.state.progressNumber}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>{ passwordStatus==="good"? password : formErrors.password}
                     </div>
                     <div className ="form-group">
                         <Input
