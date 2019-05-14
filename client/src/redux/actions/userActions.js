@@ -21,7 +21,7 @@ const twitterConnection = (twitterHandle) => ({
 export const doLogin = username => dispatch => {
   try {
     dispatch(userLogin(username));
-    history.push("/profile");
+    history.push("/home");
   } catch (error){
     throw(error);
   } finally {
