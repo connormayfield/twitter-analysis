@@ -71,7 +71,6 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
 }
 
 function addComments(tweets, tweetID, ind, done){
-  console.log(ind)
   if(ind < tweets.length){
    
     if(tweets[ind].in_reply_to_status_id == tweetID){
@@ -128,10 +127,8 @@ module.exports = {
               if (error) {
                   console.log(error);
               } else {
-                  console.log("mentions.................");                  
                   addComments(tweets, req.params.tweetID, 0, function(){
 
-                    console.log("calculating score")
                     
                     db.Tweet.find({
                       tweet_id: req.params.tweetID
@@ -145,8 +142,7 @@ module.exports = {
                       });
                       calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID, err){
                         if(err){
-                          console.log(err)
-                          return (res.status(200).json(err))
+                          return res.json(err)
                         }
                         db.Tweet.update({
                           tweet_id: req.params.tweetID

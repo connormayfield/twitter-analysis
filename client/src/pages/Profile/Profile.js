@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Container, Row, Col} from "../../components/Grid/index";
-import loginAPI from "../../utils/loginAPI";
 import "../Profile/style.css";
 import "../../components/TweetCard/index"
 import LineGraph from "../../components/Graphs/LineGraph"
@@ -17,6 +16,7 @@ class Profile extends Component{
         this.showModal = (username, twitterHandle, tweetID)=>{
             sentimentAPI.create(username, twitterHandle, tweetID)
             .then(({data})=>{
+                console.log("data")
                 if(!data.errors){
                     this.setState({
                         sentimentData: [data.anger, data.disgust, data.fear, data.joy, data.sadness],
@@ -30,7 +30,10 @@ class Profile extends Component{
         }
 
         this.hideModal =  () => {
-            this.setState({showModal: false})
+            this.setState({
+                sentimentData: [],
+                showModal: false
+            })
     
         }
     
