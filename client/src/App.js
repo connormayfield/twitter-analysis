@@ -39,8 +39,9 @@ const App = ({user, doLogin, doLogout}) => (
             <PrivateRoute2 path="/connections" component={Connections} user={user} />
             {/* <Route exact path ="/signup" component = {SignUp}/>
             <Route exact path="/weekly" component = {Weekly} /> */}
+            <PrivateRoute2 path="/inprogress"component ={Progress} user={user}/>
             <Route component ={Error}/>
-            <Route component ={Progress}/>
+            
             
           </Switch>
         </Wrapper>
