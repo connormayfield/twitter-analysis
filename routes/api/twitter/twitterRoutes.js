@@ -104,10 +104,10 @@ router.get("/:username/:screen_name", (req, res)=>{
         } else {   
             db.Tweet.deleteMany({}).then(data => {
                 let tweetsArr = [];
-                let today = new Date(moment().format('L'))
+                let today = new Date(moment().add(1, "days").format('L'))
                 let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
                 let weeklyTweets = tweets.filter((t)=>{
-                    return (new Date(t.created_at) < today && new Date(t.created_at) > aWeekAgo);
+                    return (new Date(t.created_at) <= today && new Date(t.created_at) > aWeekAgo);
                 })
                 for (let i = 0; i < weeklyTweets.length; i++){
                     let tweetObj = {
