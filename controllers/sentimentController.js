@@ -131,8 +131,8 @@ module.exports = {
           let clientMentions = new Twitter({
             consumer_key: "4D371g3g31jj8KagqUFEiIBQa",
             consumer_secret: "wwXQN7yyUSz16WkHCzLuqUc7r5QlWTkNdQMXHGWNd8ZRfmm2k6",
-            access_token_key: "1124396418360385542-MtfNTLMzkxw95JkLVzRI3K4FHtyu6N",
-            access_token_secret: "qHZi66xUwW2lOJdGsvE3S04GCKKvki2s1w5PMdG7xE5pN"
+            access_token_key: dbUser.twitter.token,
+            access_token_secret: dbUser.twitter.tokenSecret
           });
 
           console.log(clientMentions)
