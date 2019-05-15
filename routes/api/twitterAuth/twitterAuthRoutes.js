@@ -30,7 +30,7 @@ router.route("/reverse")
         request.post({
             url: "https://api.twitter.com/oauth/request_token",
             oauth: {
-                oauth_callback: "http%3A%2F%2Flocalhost%3A3000%2Ft",
+                oauth_callback: process.env.CALLBACK || "http%3A%2F%2Flocalhost%3A3000%2F",
                 consumer_key: "PUKeIFz9XrfpLMaePxdSBCOpo",
                 consumer_secret: "u6YVPzov7A2RKOd37PGIASbQAG09aHUrolU93YXhqL9aBZuyXJ"
             }
@@ -82,7 +82,8 @@ router.route("/")
 
 router.route("/callback")
     .get(function(req, res) {
-        res.redirect("http://localhost:3000/connections?" + req.url.split("?")[1]);
+        const callback = process.env.PROD_CALLBACK || "http://localhost:3000/";
+        res.redirect(callback + "home?" + req.url.split("?")[1]);
     })
 
 module.exports = router;
