@@ -13,11 +13,11 @@ class Sidebar extends Component {
       return (
         <div id="sidebar">
           <ul>
-            <Link to="/home"><li>Home</li></Link>
-            <Link to="/profile"><li>Twitter</li></Link>
-            <Link to="/inprogress"><li>Instagram</li></Link>
-            <Link to="/inprogress"><li>Facebook</li></Link>
-            <Link to="/" onClick = {this.logout}><li>Logout</li></Link>
+            <Link to="/home" className="sb-link"><li>Home</li></Link>
+            <Link to="/profile" className="sb-link"><li>Twitter</li></Link>
+            <Link to="/inprogress" className="sb-link"><li>Instagram</li></Link>
+            <Link to="/inprogress" className="sb-link"><li>Facebook</li></Link>
+            <Link to="/" className="sb-link" onClick = {this.logout}><li>Logout</li></Link>
           </ul>
           <div className="side-image"></div>
         </div>
