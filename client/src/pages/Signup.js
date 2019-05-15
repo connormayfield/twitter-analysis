@@ -149,7 +149,7 @@ class SignUp extends Component{
           score:evaluation.score,
           suggestions:evaluation.feedback.suggestions,
           [name]: value},
-          () => console.log(this.state));
+          () => {/*console.log(this.state)*/});
     };
 
     signUpHandler = (event) => {
@@ -157,11 +157,11 @@ class SignUp extends Component{
         // validation
         if (formValid(this.state)) {
 
-          console.log(`
-            --Submitting--
-          Username: ${this.state.username}
-          Password: ${this.state.password}
-        `);
+        //   console.log(`
+        //     --Submitting--
+        //   Username: ${this.state.username}
+        //   Password: ${this.state.password}
+        // `);
       } else {
         alert("FORM INVALID");
         console.log("FORM INVALID - display error message");
@@ -169,7 +169,7 @@ class SignUp extends Component{
       // end form validation
         loginAPI.signup(this.state)
         .then((res)=> {
-            console.log(res.data)
+            // console.log(res.data)
             if(!res.data.errors){
                 console.log("authenticating")
                 this.props.doLogin(this.state.username);
@@ -235,7 +235,7 @@ class SignUp extends Component{
                         value = {this.state.password}
                         onChange = {this.onChangeHandler}
                         maxLength = "15"
-                        autocomplete = "off">
+                        autoComplete = "off">
 
                         </Input>
                         <div className="progress" id="progress">
@@ -266,7 +266,7 @@ class SignUp extends Component{
                           value = {this.state.confirmPassword}
                           onChange = {this.onChangeHandler}
                           maxLength = "15"
-                          autocomplete = "off">
+                          autoComplete = "off">
                           </Input>
                           {formErrors.confirmPassword.length > 0 && (
                             <span className="errorMessage">

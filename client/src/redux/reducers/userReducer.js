@@ -7,7 +7,6 @@ const initialState={
 }
 
 const userReducer=(state=initialState, action) => {
-  console.log(action.type);
     switch (action.type) {
       
       case "LOG_IN": {
@@ -16,6 +15,10 @@ const userReducer=(state=initialState, action) => {
 
       case "LOG_OUT": {
         return initialState;
+      }
+
+      default: {
+        break;
       }
     }
     return state

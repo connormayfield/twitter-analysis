@@ -1,3 +1,9 @@
 .connections{
     margin-bottom: 50px;
 }
+
+#twitter-login-switch {
+    display: block;
+    width: 56px;
+    height: 28px;
+}
