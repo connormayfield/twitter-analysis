@@ -23,7 +23,6 @@
 }
 
 .profileContainer img {
-    /* border:  1px solid black; */
     border-radius: 50%;
     margin-top: 8px;
     margin-left: 50px;
@@ -33,15 +32,10 @@
     margin-left: 15px;
 }
 
-/* .profileContainer h5, .profileContainer h6, .profileContainer p {
-    margin: 5px;
-} */
-
 .widgetContainer {
     padding-bottom: 50px;
     width: 100%;
     display: inline-block;
-    /* border-top: 2px solid #E6ECF0; */
     border-bottom: 2px solid #E6ECF0;
 }
 
