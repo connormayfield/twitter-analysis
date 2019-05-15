@@ -8,15 +8,10 @@ const toneAnalyzer = new ToneAnalyzerV3({
   url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
 });
 
-// const clientMentions = new Twitter({
-//   consumer_key: "P1W0cgiiR0inKGh9JYlty1FFO",
-//   consumer_secret: "VsQtDnusGJrGDFpRB8WTs1wIKbGYYZzJ200YIkhLHRQj6apUVJ",
-//   access_token_key: "",
-//   access_token_secret: ""
-// });
 
 function calculatingEmotions(dbComments, es, ind = 0, cb){
   //Store score in Sentiment Model after calculating sentiment score
+  console.log("calcuating sentiment score")
   if (ind === dbComments.length){
     let total = 0;
     for (var score in es){
@@ -41,6 +36,7 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
            return cb(es, _id, null)
     })
    .catch(err => {
+     console.log(err)
      console.log("Sentiment score cannot be calculated because there are no comments.")
      return cb(null, null, err)
     
@@ -48,6 +44,7 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
   }
   //Calculate sentiment scores while iterating through comment Array
   else{
+    console.log(dbComments[ind])
     const toneParams = {
       tone_input: { 'text': dbComments[ind] },
       content_type: 'application/json',
@@ -61,6 +58,7 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
         es.joy += emotions[3].score;
         es.sadness += emotions[4].score
         ind++;
+        console.log(es)
         calculatingEmotions(dbComments, es, ind, cb)
         })
         .catch(err => {
@@ -134,19 +132,14 @@ module.exports = {
             access_token_key: dbUser.twitter.token,
             access_token_secret: dbUser.twitter.tokenSecret
           });
-
-          console.log(clientMentions)
           
 
-          const params = {screen_name: req.params.tweetHandle, count: "10"};
           clientMentions.get('statuses/mentions_timeline', function(error, tweets, response) {
               if (error) {
                   console.log(error);
               } else {
-                  console.log(tweets)
+                  console.log(tweets[0])
                   addComments(tweets, req.params.tweetID, 0, function(){
-
-                    
                     db.Tweet.find({
                       tweet_id: req.params.tweetID
                     })
@@ -157,6 +150,8 @@ module.exports = {
                       commentObj.forEach(element => {
                         comments.push(element.comment_body)
                       });
+                      console.log(comments)
+                      console.log("calcuating sentiment score")
                       calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID, err){
                         if(err){
                           return res.json(err)

@@ -6,7 +6,6 @@ const moment = require("moment")
 
 const updateWeeklyGraph = (tweetsArr) => {
     let weeklyData = new Array(7);
-    let today = moment().subtract(6, 'days').format("dddd");
     let labels = [];
     for (let i = 0; i < 7; i++){
         labels.unshift(moment().subtract(i, 'days').format("dddd"));
@@ -96,7 +95,7 @@ const clientTweets = new Twitter({
 router.get("/:username/:screen_name", (req, res)=>{
     
     // <----------This is the user's timeline request alone---------->
-    const params = {screen_name: req.params.screen_name, count: "20", exclude_replies: "false"};
+    const params = {screen_name: req.params.screen_name, count: "50", exclude_replies: "false"};
     clientTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
@@ -106,6 +105,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                 let tweetsArr = [];
                 let today = new Date(moment().add(1, "days").format('L'))
                 let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
+                console.log(today)
                 let weeklyTweets = tweets.filter((t)=>{
                     return (new Date(t.created_at) <= today && new Date(t.created_at) > aWeekAgo);
                 })
