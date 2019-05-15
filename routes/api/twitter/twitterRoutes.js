@@ -6,10 +6,10 @@ const moment = require("moment")
 
 const updateWeeklyGraph = (tweetsArr) => {
     let weeklyData = new Array(7);
-    let today = moment().subtract(6, 'days').format("dddd")
+    let today = moment().subtract(6, 'days').format("dddd");
     let labels = [];
     for (let i = 0; i < 7; i++){
-        labels.unshift(moment().subtract(i, 'days').format("dddd"))
+        labels.unshift(moment().subtract(i, 'days').format("dddd"));
     }
     tweetsArr.forEach(tweet => {
         //Gathering "retweet" data and "favorites" data
@@ -45,7 +45,7 @@ const updateWeeklyGraph = (tweetsArr) => {
 
                 case(labels[3]):
                 if (weeklyData[3] === undefined){
-                    weeklyData[3] = {favorites: tweet.favorites, retweets: tweet.retweets}
+                    weeklyData[3] = {favorites: tweet.favorites, retweets: tweet.retweets};
                 }else {
                     weeklyData[3].favorites += tweet.favorites;
                     weeklyData[3].retweets += tweet.retweets;
@@ -85,7 +85,7 @@ const updateWeeklyGraph = (tweetsArr) => {
     });
 
     return {labels: labels,  weeklyData: weeklyData};
-}
+};
 
 const clientTweets = new Twitter({
   consumer_key: 'P1W0cgiiR0inKGh9JYlty1FFO',
@@ -107,7 +107,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                 let today = new Date(moment().format('L'))
                 let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
                 let weeklyTweets = tweets.filter((t)=>{
-                    return (new Date(t.created_at) < today && new Date(t.created_at) > aWeekAgo)
+                    return (new Date(t.created_at) < today && new Date(t.created_at) > aWeekAgo);
                 })
                 for (let i = 0; i < weeklyTweets.length; i++){
                     let tweetObj = {
@@ -116,8 +116,8 @@ router.get("/:username/:screen_name", (req, res)=>{
                         likes: weeklyTweets[i].favorite_count,
                         retweets: weeklyTweets[i].retweet_count,
                         tweet_id: weeklyTweets[i].id
-                    }
-                    tweetsArr.push(tweetObj)
+                    };
+                    tweetsArr.push(tweetObj);
                 }
                     // console.log(tweetsArr)
                 db.Tweet.create(tweetsArr)  
@@ -125,7 +125,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                           
                         let tweetIDArr = []
                        for(let i = 0; i < dbTweet.length; i++){
-                            tweetIDArr.push(dbTweet[i]._id)
+                            tweetIDArr.push(dbTweet[i]._id);
                        }
                        db.User.update({username : req.params.username},
                                 {
@@ -160,7 +160,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                             });
                             })
                             .catch(err => {
-                                res.json(err)
+                                res.json(err);
                             });
                  });
             })       
