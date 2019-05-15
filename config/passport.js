@@ -29,8 +29,8 @@ passport.use(new LocalStrategy(
 // Use the Twitter Token Strategy to call the Oauth Verifier
 passport.use(new TwitterTokenStrategy({
 
-    consumerKey: "PUKeIFz9XrfpLMaePxdSBCOpo",
-    consumerSecret: "u6YVPzov7A2RKOd37PGIASbQAG09aHUrolU93YXhqL9aBZuyXJ",
+    consumerKey: "4D371g3g31jj8KagqUFEiIBQa",
+    consumerSecret: "wwXQN7yyUSz16WkHCzLuqUc7r5QlWTkNdQMXHGWNd8ZRfmm2k6",
     passReqToCallback: true
 },
     function(req, token, tokenSecret, profile, done) {

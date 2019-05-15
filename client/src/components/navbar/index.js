@@ -14,13 +14,15 @@ class Navbar extends Component {
       return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
           <Container>
-            <button id="toggle-sidebar" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
             { (user !== undefined && user.logged) ?
-              <Link className="navbar-brand" to="/home">TweetTrace</Link>
+              <div>
+                <button id="toggle-sidebar" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <Link className="navbar-brand" to="/home">TweetTrace</Link>
+              </div>
               :
-              <Link className="navbar-brand" to="/">TweetTrace</Link>
+              <Link className="navbar-brand ml-auto" to="/">TweetTrace</Link>
             }
               <div className="collapse navbar-collapse" id="navbarText">
                 { (user !== undefined && user.logged) ?
