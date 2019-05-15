@@ -20,9 +20,9 @@ const TweetCard = props=>{
                 <hr></hr>
                 <p className="card-text">{props.text}</p>
                 <div className="tweet-stats">
-                    <a href={"https://twitter.com/"+props.screen_name+"/with_replies"} target="_blank" className="card-link"><img src={commentImg} alt="comment-icon"/>  </a>
-                    <a href="https://twitter.com/mentions" target="_blank" className="card-link"><img src={retweetImg} alt="retweet-icon"/>  {props.retweets}</a>
-                    <a href="https://twitter.com/i/notifications" target="_blank" className="card-link"><img src={likeImg} alt="like-icon"/>  {props.favorites}</a>
+                    <a href={"https://twitter.com/"+props.screen_name+"/with_replies"} target="_blank" rel="noopener noreferrer" className="card-link"><img src={commentImg} alt="comment-icon"/>  </a>
+                    <a href="https://twitter.com/mentions" target="_blank" rel="noopener noreferrer" className="card-link"><img src={retweetImg} alt="retweet-icon"/>  {props.retweets}</a>
+                    <a href="https://twitter.com/i/notifications" target="_blank" rel="noopener noreferrer" className="card-link"><img src={likeImg} alt="like-icon"/>  {props.favorites}</a>
                     <span className="card-link"><img src={graphImg} alt="graph-icon" onClick = {props.donutModalHandler}/>  Graph</span>
                 </div>
             </div>

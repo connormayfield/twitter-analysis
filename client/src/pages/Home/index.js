@@ -18,7 +18,7 @@ class Home extends Component {
 
     componentDidMount() {
 
-        console.log(this.props.username);
+        // console.log(this.props.username);
 
         loginAPI.checkSession()
             .then(res => {
@@ -37,7 +37,7 @@ class Home extends Component {
 		const token = response.headers.get("x-auth-token");
 		response.json().then(user => {
 			if (token) {
-				console.log(user);
+				// console.log(user);
 				this.setState({
 					auth: true,
 					user: user,
@@ -54,12 +54,8 @@ class Home extends Component {
     disconnectTwitter = (checked) => {
         console.log(checked);
         if (checked) {
-            console.log("Disconnect Twitter");
+            // console.log("Disconnect Twitter");
         }
-    }
-    
-    printState = () => {
-        console.log(this.state);
     }
 
     render() {
