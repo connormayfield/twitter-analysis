@@ -100,17 +100,22 @@ router.get("/:username/:screen_name", (req, res)=>{
     clientTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
-            res.json(error)
+            res.json(error);
         } else {   
             db.Tweet.deleteMany({}).then(data => {
-                let tweetsArr = []
-                for (let i = 0; i < tweets.length; i++){
+                let tweetsArr = [];
+                let today = new Date(moment().format('L'))
+                let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
+                let weeklyTweets = tweets.filter((t)=>{
+                    return (new Date(t.created_at) < today && new Date(t.created_at) > aWeekAgo)
+                })
+                for (let i = 0; i < weeklyTweets.length; i++){
                     let tweetObj = {
-                        handle: tweets[i].user.screen_name,
-                        tweet_body: tweets[i].text,
-                        likes: tweets[i].favorite_count,
-                        retweets: tweets[i].retweet_count,
-                        tweet_id: tweets[i].id
+                        handle: weeklyTweets[i].user.screen_name,
+                        tweet_body: weeklyTweets[i].text,
+                        likes: weeklyTweets[i].favorite_count,
+                        retweets: weeklyTweets[i].retweet_count,
+                        tweet_id: weeklyTweets[i].id
                     }
                     tweetsArr.push(tweetObj)
                 }
@@ -127,20 +132,20 @@ router.get("/:username/:screen_name", (req, res)=>{
                             tweets: tweetIDArr
                             }).then((dbUser) => {
     
-                          let user = tweets[0].user;
+                          let user = weeklyTweets[0].user;
     
                           let newTweets = [];
     
-                          for(let i = 0; i < tweets.length; i++){
+                          for(let i = 0; i < weeklyTweets.length; i++){
                               let oneTweet = {};
-                              oneTweet.id = tweets[i].id;
-                              oneTweet.created_at = moment(tweets[i].created_at).format("MMM DD YYYY");
-                              oneTweet.text = tweets[i].text;
-                              oneTweet.retweets = tweets[i].retweet_count;
-                              oneTweet.favorites = tweets[i].favorite_count;
-                              oneTweet.name = tweets[i].user.name;
-                              oneTweet.screen_name = tweets[i].user.screen_name;
-                              oneTweet.user_id = tweets[i].user.id;
+                              oneTweet.id = weeklyTweets[i].id;
+                              oneTweet.created_at = moment(weeklyTweets[i].created_at).format("MMM DD YYYY");
+                              oneTweet.text = weeklyTweets[i].text;
+                              oneTweet.retweets = weeklyTweets[i].retweet_count;
+                              oneTweet.favorites = weeklyTweets[i].favorite_count;
+                              oneTweet.name = weeklyTweets[i].user.name;
+                              oneTweet.screen_name = weeklyTweets[i].user.screen_name;
+                              oneTweet.user_id = weeklyTweets[i].user.id;
     
                               newTweets.push(oneTweet);
                               }
