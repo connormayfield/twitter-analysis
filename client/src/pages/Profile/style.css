@@ -1,5 +1,5 @@
 
-.fa-twitter {
+.bird {
     margin-left: 50px;
     margin-top: 50px;
     font-size: 50px;
@@ -140,8 +140,3 @@ canvas {
     background:url("img/arrow-right.svg") no-repeat;
 }
 
-@media only screen and (min-width: 600px) {
-    .twitter-heading {
-        margin-top: 50px;
-    }
-  }
