@@ -83,7 +83,7 @@ class Home extends Component {
                                     </Col>
                                     <Col size="12" classes="connections">
                                         <Row>
-                                            <Col size="2" ><i className="fab fa-twitter"></i></Col>
+                                            <Col size="2" ><i className="fab fa-twitter bird2 social-icon"></i></Col>
                                             <Col size="6">
                                                 <h6 className="align-middle connect-text">{this.state.twitterAuth ? "Twitter Connected" : "Connect Twitter"}</h6>
                                             </Col>
@@ -107,7 +107,7 @@ class Home extends Component {
                                     </Col>
                                     <Col size="12" classes="connections">
                                         <Row>
-                                            <Col size="2" ><i className="fab fa-instagram"></i></Col>
+                                            <Col size="2" ><i className="fab fa-instagram  social-icon"></i></Col>
                                             <Col size="6">
                                                 <h6 className="align-middle connect-text">Connect Instagram</h6>
                                             </Col>
@@ -118,7 +118,7 @@ class Home extends Component {
                                     </Col>
                                     <Col size="12" classes="connections">
                                         <Row>
-                                            <Col size="2" ><i className="fab fa-facebook-square"></i></Col>
+                                            <Col size="2" ><i className="fab fa-facebook-square  social-icon"></i></Col>
                                             <Col size="6">
                                                 <h6 className="align-middle connect-text">Connect Facebook</h6>
                                             </Col>

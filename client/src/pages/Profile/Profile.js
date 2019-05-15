@@ -111,7 +111,7 @@ class Profile extends Component{
         return(
             <Container>
                 <Row >
-                    <i className="fab fa-twitter"></i>
+                    <i className="fab fa-twitter bird"></i>
                     <p className="twitter-heading">Twitter</p>
                 </Row>
                 <Row>
