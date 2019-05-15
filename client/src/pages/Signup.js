@@ -211,7 +211,7 @@ class SignUp extends Component{
                           placeholder="username"
                           value = {this.state.username}
                           onChange = {this.onChangeHandler}
-                          autocomplete = "off">
+                          autoComplete = "off">
                           </Input>
                           {formErrors.username.length > 0 && (
                             <span className="errorMessage">{formErrors.username}</span>
