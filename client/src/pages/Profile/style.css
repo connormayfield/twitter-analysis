@@ -3,7 +3,7 @@
 }
 
 .profileContainer img {
-    border:  1px solid black;
+    /* border:  1px solid black; */
     border-radius: 50%;
     margin-top: 8px;
 }
@@ -43,6 +43,7 @@ canvas {
 
 .graph {
     margin-bottom: 50px;
+    padding: 20px;
 }
 
 .twitterFeed{
@@ -61,7 +62,7 @@ canvas {
 .card-container {
     display: flex;
     overflow-x: hidden;
-    padding-bottom: 50px;
+    padding: 50px 20px;
 }
 
 .tweet-stats {
@@ -92,6 +93,7 @@ canvas {
 
 #leftScroll:hover{
     opacity:0.6;
+    cursor: pointer;
 }
 
 #rightScroll{
@@ -104,6 +106,8 @@ canvas {
 
 #rightScroll:hover{
     opacity:0.6;
+    cursor: pointer;
+
 }
 
 #rightScroll{

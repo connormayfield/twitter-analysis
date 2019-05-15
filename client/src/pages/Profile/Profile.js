@@ -110,7 +110,9 @@ class Profile extends Component{
         console.log(this.state.username)
         return(
             <Container>
-                <div className="imageContainer"></div>
+                <div className="twitterContainer">
+                    <i class="fab fa-twitter"></i>
+                </div>
                 <div className = "profileContainer">
                     <Row >
                         <Col size = "xs-4" >
@@ -163,7 +165,7 @@ class Profile extends Component{
                 </div>
                 <div className="graphContainer">
                     <h4 className="feedTitle">Weekly Insight</h4>
-                    <div className="graph">
+                    <div className="graph  border">
                         <LineGraph key="1" id="linegraph"
                         labels={this.state.weekLabels}
                         graphData={this.state.weekData}/>
@@ -178,7 +180,7 @@ class Profile extends Component{
                             ) : (
                                 <div>
                                     <h4 className="feedTitle">Recent Tweets</h4>
-                                    <div className="card-container">
+                                    <div className="card-container border">
                                         <div className="row flex-row flex-nowrap twitterFeed">
                                             {this.state.tweets.map((tweet) => {
                                                 return (

@@ -235,7 +235,7 @@ class SignUp extends Component{
                         value = {this.state.password}
                         onChange = {this.onChangeHandler}
                         maxLength = "15"
-                        autocomplete = "off">
+                        autoComplete = "off">
 
                         </Input>
                         <div className="progress" id="progress">
