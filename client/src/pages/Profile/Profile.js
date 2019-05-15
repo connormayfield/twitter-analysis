@@ -110,13 +110,15 @@ class Profile extends Component{
         console.log(this.state.username)
         return(
             <Container>
-                <Row className="twitterContainer">
-                    <Col size="xs-4 md-2">
-                        <i className="fab fa-twitter"></i>
-                    </Col>
-                    <Col size="xs-8 md-10" className="twitter-column">
-                        <p className="twitter-heading">Twitter</p>
-                    </Col>
+                <Row >
+                    <i className="fab fa-twitter"></i>
+                    <p className="twitter-heading">Twitter</p>
+                </Row>
+                <Row>
+                    <div className="twitterDescription">
+                        <h5 className="twitterDescription1">Track your weekly likes, retweets and followers here.</h5>
+                        <h6 className="twitterDescription1">Get a sentiment analysis of your recent mentions by clicking the graph icon on a particular tweet.</h6>
+                    </div>
                 </Row>
                 <div className = "profileContainer">
                     <h4 className="feedTitle">Account</h4>

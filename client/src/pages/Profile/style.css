@@ -1,18 +1,23 @@
 
 .fa-twitter {
-    margin-left: 35px;
+    margin-left: 50px;
     margin-top: 50px;
-    font-size: 75px;
+    font-size: 50px;
     color: #4AB3F4;
 }
 .twitter-heading {
-    font-size: 50px;
-    margin-top: 50px;
-    margin-left: 35px;
-    margin-bottom: 0;
+    font-size: 40px;
+    margin-top: 45px;
+    margin-left: 10px;
     color: #4AB3F4;
 }
-
+.twitterDescription {
+    margin-left: 50px;
+    
+}
+.twitterDescription1 {
+    color: #4AB3F4;
+}
 .profileContainer {
     padding-bottom: 50px;
 }
@@ -141,3 +146,8 @@ canvas {
     background:url("img/arrow-right.svg") no-repeat;
 }
 
+@media only screen and (min-width: 600px) {
+    .twitter-heading {
+        margin-top: 50px;
+    }
+  }
