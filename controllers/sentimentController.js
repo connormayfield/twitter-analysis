@@ -9,7 +9,7 @@ const toneAnalyzer = new ToneAnalyzerV3({
 });
 
 
-function calculatingEmotions(dbComments, es, ind = 0, cb){
+function calculatingEmotions(dbComments, es,  cb, ind = 0){
   //Store score in Sentiment Model after calculating sentiment score
   console.log("calcuating sentiment score")
   if (ind === dbComments.length){
@@ -44,7 +44,6 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
   }
   //Calculate sentiment scores while iterating through comment Array
   else{
-    console.log(dbComments[ind])
     const toneParams = {
       tone_input: { 'text': dbComments[ind] },
       content_type: 'application/json',
@@ -59,7 +58,7 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
         es.sadness += emotions[4].score
         ind++;
         console.log(es)
-        calculatingEmotions(dbComments, es, ind, cb)
+        calculatingEmotions(dbComments, es, cb, ind)
         })
         .catch(err => {
           console.log('error:', err)
@@ -68,9 +67,10 @@ function calculatingEmotions(dbComments, es, ind = 0, cb){
   }
 }
 
-function addComments(tweets, tweetID, ind, done){
+function addComments(tweets, tweetID, done, ind = 0){
+  console.log(ind)
   if(ind < tweets.length){
-   
+
     if(tweets[ind].in_reply_to_status_id == tweetID){
 
       db.Comment.create({
@@ -85,18 +85,18 @@ function addComments(tweets, tweetID, ind, done){
             $push : {comments : commentID}
           }).then(dbTweet => {
             ind++;
-            addComments(tweets, tweetID, ind, done)
+            addComments(tweets, tweetID, done, ind)
           })
 
         })
       } else{
             ind++;
-              addComments(tweets, tweetID, ind, done)
+              addComments(tweets, tweetID, done, ind)
       }
 
     }
   else{
-     done("done")
+     done()
   }
 }
 
@@ -121,10 +121,6 @@ module.exports = {
         .then((dbUser) => {
 
           console.log(dbUser);
-          // console.log(clientMentions)
-          // clientMentions.access_token_key = dbUser.twitter.token;
-          // clientMentions.access_token_secret = dbUser.twitter.tokenSecret;
-
 
           let clientMentions = new Twitter({
             consumer_key: "4D371g3g31jj8KagqUFEiIBQa",
@@ -138,8 +134,7 @@ module.exports = {
               if (error) {
                   console.log(error);
               } else {
-                  console.log(tweets[0])
-                  addComments(tweets, req.params.tweetID, 0, function(){
+                  addComments(tweets, req.params.tweetID, function(){
                     db.Tweet.find({
                       tweet_id: req.params.tweetID
                     })
@@ -150,9 +145,8 @@ module.exports = {
                       commentObj.forEach(element => {
                         comments.push(element.comment_body)
                       });
-                      console.log(comments)
                       console.log("calcuating sentiment score")
-                      calculatingEmotions(comments, emotionScore, 0, function(emotionScore, sentimentID, err){
+                      calculatingEmotions(comments, emotionScore, function(emotionScore, sentimentID, err){
                         if(err){
                           return res.json(err)
                         }

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const findOrCreate = require("mongoose-findorcreate")
 
 
 // Tweet model
@@ -52,6 +53,7 @@ const tweetSchema = new Schema({
     ]
 });
 
+tweetSchema.plugin(findOrCreate)
 
 const Tweet = mongoose.model("Tweet", tweetSchema);
 

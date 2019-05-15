@@ -3,7 +3,6 @@ const db = require("../models")
 module.exports = {
     create(req, res){
         console.log("creating user")
-        console.log(req.body)
         db.User.create({
             username: req.body.username,
             password: req.body.password,                
