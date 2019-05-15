@@ -107,8 +107,9 @@ router.get("/:username/:screen_name", (req, res)=>{
                 let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
                 console.log(today)
                 let weeklyTweets = tweets.filter((t)=>{
-                    return (new Date(t.created_at) <= today && new Date(t.created_at) > aWeekAgo);
+                    return (new Date(t.created_at) <= today && new Date(t.created_at) > aWeekAgo) &&(t. in_reply_to_status_id === null);
                 })
+                console.log(weeklyTweets[0])
                 for (let i = 0; i < weeklyTweets.length; i++){
                     let tweetObj = {
                         handle: weeklyTweets[i].user.screen_name,
