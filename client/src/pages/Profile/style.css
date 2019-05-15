@@ -1,23 +1,41 @@
+
+.bird {
+    margin-left: 50px;
+    margin-top: 50px;
+    font-size: 50px;
+    color: #4AB3F4;
+}
+.twitter-heading {
+    font-size: 40px;
+    margin-top: 45px;
+    margin-left: 10px;
+    color: #4AB3F4;
+}
+.twitterDescription {
+    margin-left: 50px;
+    
+}
+.twitterDescription1 {
+    color: #4AB3F4;
+}
 .profileContainer {
-    padding: 50px;
+    padding-bottom: 50px;
 }
 
 .profileContainer img {
-    border:  1px solid black;
     border-radius: 50%;
     margin-top: 8px;
+    margin-left: 50px;
 }
 
-
-.profileContainer h5, .profileContainer h6, .profileContainer p {
-    margin: 5px;
+.profile-text {
+    margin-left: 15px;
 }
 
 .widgetContainer {
     padding-bottom: 50px;
     width: 100%;
     display: inline-block;
-    /* border-top: 2px solid #E6ECF0; */
     border-bottom: 2px solid #E6ECF0;
 }
 
@@ -43,6 +61,7 @@ canvas {
 
 .graph {
     margin-bottom: 50px;
+    padding: 20px;
 }
 
 .twitterFeed{
@@ -50,7 +69,13 @@ canvas {
 }
 
 .feedTitle {
-    margin: 50px 0 50px 15px; 
+    margin: 50px 0 0 40px; 
+}
+.feedDescription {
+    margin: 5px 0 50px 40px;
+}
+.feedDescription1 {
+    margin: 5px 0 0 40px;
 }
 
 .card-link {
@@ -61,7 +86,7 @@ canvas {
 .card-container {
     display: flex;
     overflow-x: hidden;
-    padding-bottom: 50px;
+    padding: 50px 20px;
 }
 
 .tweet-stats {
@@ -79,11 +104,11 @@ canvas {
 
 #leftScroll{
     position:absolute;
-    background:url("img/left-arrow.png") no-repeat;
+    background:url("img/arrow-left.svg") no-repeat;
     background-size:contain;
     border:none;
     height:40px;
-    width:25px;
+    width:31px;
     opacity:0.4;
     top:-250px;
     left:20px;
@@ -92,11 +117,10 @@ canvas {
 
 #leftScroll:hover{
     opacity:0.6;
+    cursor: pointer;
 }
 
 #rightScroll{
-    background:url("img/right-arrow.png") no-repeat;
-    border:none; 
     height:40px;
     width:25px;
     opacity:0.4;
@@ -106,52 +130,13 @@ canvas {
 
 #rightScroll:hover{
     opacity:0.6;
+    cursor: pointer;
+
 }
 
 #rightScroll{
     position:absolute;
-    bottom:50px;
-    background:url("img/right-arrow.png")
+    bottom:50px; 
+    background:url("img/arrow-right.svg") no-repeat;
 }
 
-@media screen and (min-width:1024px)  {
-    .imageContainer {
-        position: fixed;
-        z-index:-1;
-        width:100%;
-        height:100%; 
-        left:0px;
-        right:0px;
-        top:0px; 
-        background:url(img/sky-lg.png) no-repeat;
-        background-size:cover;
-        opacity:0.9;
-    }
-}
-
-@media screen and (max-width:1024px) and (min-width:760px) {
-    .imageContainer {
-        position: fixed;
-        z-index:-1;
-        width:100%;
-        height:100%; 
-        left:0px;
-        right:0px;
-        top:0px; 
-        background:url(img/bird-md.png) no-repeat;
-        background-size:cover;
-        opacity:1.0;
-    }
-} 
-
-@media screen and (max-width:760px)  {
-    .imageContainer {
-        position: absolute;
-        z-index:-1;
-        height:100%;
-        left:0px;
-        right:0px;
-        background:url(img/human-sm.png) no-repeat;
-        background-size:cover;
-    }
-}
