@@ -121,12 +121,13 @@ const insertTweets = (tweets, username, done, ind = 0) => {
 router.get("/:username/:screen_name", (req, res)=>{
     
     // <----------This is the user's timeline request alone---------->
-    const params = {screen_name: req.params.screen_name, count: "50", exclude_replies: "false"};
+    const params = {screen_name: req.params.screen_name, count: "10", exclude_replies: "false"};
     clientTweets.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (error) {
             console.log(error);
             res.json(error);
         } else {  
+                let username = req.params.username;
                 let tweetsArr = [];
                 let today = new Date(moment().add(1, "days").format('L'))
                 let aWeekAgo = new Date(moment().subtract(1, "weeks").format('L'))
@@ -135,7 +136,6 @@ router.get("/:username/:screen_name", (req, res)=>{
                     return (new Date(t.created_at) <= today && new Date(t.created_at) > aWeekAgo) &&(t. in_reply_to_status_id === null);
                 })
 
-                console.log(weeklyTweets[0])
 
                 for (let i = 0; i < weeklyTweets.length; i++){
                     let tweetObj = {
@@ -147,7 +147,7 @@ router.get("/:username/:screen_name", (req, res)=>{
                     };
                     tweetsArr.push(tweetObj);
                 }
-                insertTweets(tweetsArr, req.params.username, function(){
+                insertTweets(tweetsArr, username, function(){
                     console.log("xxx")
                     let user = weeklyTweets[0].user;
     
