@@ -1,17 +1,32 @@
+
+.fa-twitter {
+    margin-left: 35px;
+    margin-top: 50px;
+    font-size: 75px;
+    color: #4AB3F4;
+}
+.twitter-heading {
+    font-size: 50px;
+    margin-top: 50px;
+    margin-left: 35px;
+    margin-bottom: 0;
+    color: #4AB3F4;
+}
+
 .profileContainer {
-    padding: 50px;
+    padding-bottom: 50px;
 }
 
 .profileContainer img {
     /* border:  1px solid black; */
     border-radius: 50%;
     margin-top: 8px;
+    margin-left: 50px;
 }
 
-
-.profileContainer h5, .profileContainer h6, .profileContainer p {
+/* .profileContainer h5, .profileContainer h6, .profileContainer p {
     margin: 5px;
-}
+} */
 
 .widgetContainer {
     padding-bottom: 50px;
@@ -51,7 +66,13 @@ canvas {
 }
 
 .feedTitle {
-    margin: 50px 0 50px 15px; 
+    margin: 50px 0 0 40px; 
+}
+.feedDescription {
+    margin: 5px 0 50px 40px;
+}
+.feedDescription1 {
+    margin: 5px 0 0 40px;
 }
 
 .card-link {

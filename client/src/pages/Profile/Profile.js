@@ -110,17 +110,24 @@ class Profile extends Component{
         console.log(this.state.username)
         return(
             <Container>
-                <div className="twitterContainer">
-                    <i class="fab fa-twitter"></i>
-                </div>
+                <Row className="twitterContainer">
+                    <Col size="xs-4 md-2">
+                        <i className="fab fa-twitter"></i>
+                    </Col>
+                    <Col size="xs-8 md-10" className="twitter-column">
+                        <p className="twitter-heading">Twitter</p>
+                    </Col>
+                </Row>
                 <div className = "profileContainer">
-                    <Row >
+                    <h4 className="feedTitle">Account</h4>
+                    <h6 className="feedDescription">Your profile</h6>
+                    <Row className="twitter-profile">
                         <Col size = "xs-4" >
                             <div className="">
                                 <img className="profile-image" src={this.state.user.profile_image_url_https} alt="profile-pic"></img>
                             </div>
                         </Col>
-                        <Col size = "xs-4">
+                        <Col size = "xs-8">
                             <div className="">
                                 <h5>{this.state.user.name}</h5>
                                 <h6>@{this.state.user.screen_name}</h6>
@@ -131,7 +138,6 @@ class Profile extends Component{
                     </Row>
                 </div>
                 <div className="widgetContainer">
-                    <h4 className="feedTitle">Your Account Overall</h4>
                     <Row>
                         <div className="widget statuses border">
                             <Col size="xs-4" >
@@ -165,6 +171,7 @@ class Profile extends Component{
                 </div>
                 <div className="graphContainer">
                     <h4 className="feedTitle">Weekly Insight</h4>
+                    <h6 className="feedDescription">Last week's likes and retweets, tracked by the day</h6>
                     <div className="graph  border">
                         <LineGraph key="1" id="linegraph"
                         labels={this.state.weekLabels}
@@ -180,6 +187,8 @@ class Profile extends Component{
                             ) : (
                                 <div>
                                     <h4 className="feedTitle">Recent Tweets</h4>
+                                    <h6 className="feedDescription1">Your current timeline</h6>
+                                    <h6 className="feedDescription">Click the Graph button to see the sentiment chart</h6>
                                     <div className="card-container border">
                                         <div className="row flex-row flex-nowrap twitterFeed">
                                             {this.state.tweets.map((tweet) => {
