@@ -128,7 +128,7 @@ class Profile extends Component{
                             </div>
                         </Col>
                         <Col size = "xs-8">
-                            <div className="">
+                            <div className="profile-text">
                                 <h5>{this.state.user.name}</h5>
                                 <h6>@{this.state.user.screen_name}</h6>
                                 <h6>{this.state.user.location}</h6>
