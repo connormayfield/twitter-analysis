@@ -79,11 +79,11 @@ canvas {
 
 #leftScroll{
     position:absolute;
-    background:url("img/left-arrow.png") no-repeat;
+    background:url("img/arrow-left.svg") no-repeat;
     background-size:contain;
     border:none;
     height:40px;
-    width:25px;
+    width:31px;
     opacity:0.4;
     top:-250px;
     left:20px;
@@ -95,8 +95,6 @@ canvas {
 }
 
 #rightScroll{
-    background:url("img/right-arrow.png") no-repeat;
-    border:none; 
     height:40px;
     width:25px;
     opacity:0.4;
@@ -110,48 +108,7 @@ canvas {
 
 #rightScroll{
     position:absolute;
-    bottom:50px;
-    background:url("img/right-arrow.png")
+    bottom:50px; 
+    background:url("img/arrow-right.svg") no-repeat;
 }
 
-@media screen and (min-width:1024px)  {
-    .imageContainer {
-        position: fixed;
-        z-index:-1;
-        width:100%;
-        height:100%; 
-        left:0px;
-        right:0px;
-        top:0px; 
-        background:url(img/sky-lg.png) no-repeat;
-        background-size:cover;
-        opacity:0.9;
-    }
-}
-
-@media screen and (max-width:1024px) and (min-width:760px) {
-    .imageContainer {
-        position: fixed;
-        z-index:-1;
-        width:100%;
-        height:100%; 
-        left:0px;
-        right:0px;
-        top:0px; 
-        background:url(img/bird-md.png) no-repeat;
-        background-size:cover;
-        opacity:1.0;
-    }
-} 
-
-@media screen and (max-width:760px)  {
-    .imageContainer {
-        position: absolute;
-        z-index:-1;
-        height:100%;
-        left:0px;
-        right:0px;
-        background:url(img/human-sm.png) no-repeat;
-        background-size:cover;
-    }
-}
