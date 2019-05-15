@@ -85,12 +85,12 @@ class Weekly extends Component {
         // console.log(this.state.weekData)
         return (
             <div className="text-center">
-                <h4>Weekly Likes & Retweets</h4>
+                <h5>Weekly Likes & Retweets</h5>
                 <LineGraph 
                     labels={this.state.weekLabels}
                     graphData={this.state.weekData} 
                 />
-                <h4>Comment Sentiment</h4>
+                <h5>Comment Sentiment</h5>
                 <DoughnutGraph
                     labels={this.state.sentimentLabels}
                     graphData={this.state.sentimentData}

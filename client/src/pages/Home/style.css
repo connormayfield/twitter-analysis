@@ -1,9 +1,35 @@
 .connections{
     margin-bottom: 50px;
 }
-
+.connectionsContainer{
+    margin: 0;
+}
 #twitter-login-switch {
     display: block;
-    width: 56px;
-    height: 28px;
+    width: 50px;
+    height: 25px;
+}
+
+.connectionPage, .connect-text {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+.our-purpose {
+    padding: 20px;
+}
+
+.fab {
+    font-size: 30px;
+}
+
+.fa-twitter{
+    margin: 0;
+}
+
+.whatWeDo {
+    padding-bottom: 40px;
+}
+.graph-text {
+    padding-bottom: 20px;
 }
