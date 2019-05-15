@@ -17,9 +17,10 @@
 
 .our-purpose {
     padding: 20px;
-    background-image: url(img/logo.gif);
+    /* background-image: url(img/logo.gif);
     background-size: contain, cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+
 }
 
 .social-icon {
