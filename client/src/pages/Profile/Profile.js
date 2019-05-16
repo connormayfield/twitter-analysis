@@ -47,6 +47,8 @@ class Profile extends Component{
             tweets:[],
             username: "",
             tweetHandle: "",
+            photo: "",
+            screen_name: "",
             isAuthenicated: false,
             modalShow: false,
             weekLabels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -77,11 +79,19 @@ class Profile extends Component{
                 console.log(data)
                 if(data.twitter){
                     this.setState({
-                        tweetHandle: data.twitter.handle
+                        tweetHandle: data.twitter.handle,
+                        photo: data.twitter.photo,
+                        screen_name: data.twitter.displayName
                     }, function(){
                         twitterAPI.getTweets(this.props.user.username, this.state.tweetHandle).then(({data}) => {
                             //Gathering user information
-            
+                            // console.log(data.user);
+                            if (data.weeklyData === "none") {
+                                return this.setState({
+                                    username: this.props.user.username,
+                                    user: data.user
+                                })
+                            }
                             let weekData = [...this.state.weekData];
             
                             for(let i = 0; i < data.weeklyData.length; i++){
@@ -90,6 +100,7 @@ class Profile extends Component{
                                     weekData[1].data[i] = data.weeklyData[i].retweets
                                 }
                             }
+                            console.log(data.user);
                                 this.setState({username: this.props.user.username,
                                     user: data.user,
                                     tweets: data.newTweets,
@@ -126,7 +137,7 @@ class Profile extends Component{
                     <Row className="twitter-profile">
                         <Col size = "xs-4" >
                             <div className="">
-                                <img className="profile-image" src={this.state.user.profile_image_url_https} alt="profile-pic"></img>
+                                <img className="profile-image" src={this.state.photo} alt="profile-pic"></img>
                             </div>
                         </Col>
                         <Col size = "xs-8">
@@ -182,10 +193,10 @@ class Profile extends Component{
                 </div>
                 <Row>
                     <div className="container-fluid">
-                        <div className="">
+                        <div>
                         {/* <Col size="xs-12"> */}
                             {this.state.tweets.length === 0 ? (
-                                <h4 className="feedTitle text-center">Nothing to display... Better get to work!</h4>
+                                <h4 className="feedTitle feed-empty text-center">Nothing to display... Better get to work!</h4>
                             ) : (
                                 <div>
                                     <h4 className="feedTitle">Recent Tweets</h4>

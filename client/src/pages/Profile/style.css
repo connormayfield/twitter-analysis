@@ -78,6 +78,11 @@ canvas {
     margin: 5px 0 0 40px;
 }
 
+.feed-empty {
+    margin-bottom: 50px;
+    margin-left: 0;
+}
+
 .card-link {
     margin: 5px;
     color: black !important;

@@ -3,7 +3,7 @@ import TwitterLogin from "react-twitter-auth";
 import Switch from "react-switch";
 import { Container, Row, Col } from "../../components/Grid";
 import Weekly from "../../components/Weekly";
-import Jumbotron from "../../components/Jumbotron";
+// import Jumbotron from "../../components/Jumbotron";
 import loginAPI from "../../utils/loginAPI";
 import "./style.css";
 
@@ -63,7 +63,7 @@ class Home extends Component {
         return (
         
             <div className="connectionPage">
-                <div className="our-purpose">
+                <div className="our-purpose container">
                     <h3 className="logo"><br></br>Welcome to TweetTrace</h3>
                     <h6 className="whatWeDo"><br></br><br></br>Our goal is to make growing your social media presence and reach by making your profile's stats easy to read and track on a weekly basis.
                         <br></br><br></br>With TweetTrace, you can consolidate your social media accounts and watch the impact of your posts. 
@@ -142,8 +142,8 @@ class Home extends Component {
                         <Col size="md-6 sm-12">
                             <Weekly />
                         </Col>
-                        <Col size="md-6 sm-12">
-                        </Col>
+                        {/* <Col size="md-6 sm-12">
+                        </Col> */}
                     </Row>
                 </Container>
             </div>
